@@ -1,5 +1,7 @@
 import { Button as ButtonPrimitive } from "@base-ui/react/button"
 import { cva, type VariantProps } from "class-variance-authority"
+import type { ComponentProps } from "react"
+import { Link } from "react-router-dom"
 
 import { cn } from "@/lib/utils"
 
@@ -44,15 +46,36 @@ function Button({
   className,
   variant = "default",
   size = "default",
+  nativeButton,
+  render,
   ...props
 }: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
   return (
     <ButtonPrimitive
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
+      nativeButton={render ? false : nativeButton}
+      render={render}
       {...props}
     />
   )
 }
 
-export { Button, buttonVariants }
+type ButtonLinkProps = ComponentProps<typeof Link> &
+  VariantProps<typeof buttonVariants>
+
+function ButtonLink({
+  className,
+  variant = "default",
+  size = "default",
+  ...props
+}: ButtonLinkProps) {
+  return (
+    <Link
+      className={cn(buttonVariants({ variant, size, className }))}
+      {...props}
+    />
+  )
+}
+
+export { Button, ButtonLink, buttonVariants }

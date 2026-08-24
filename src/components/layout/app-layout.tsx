@@ -1,12 +1,14 @@
 import { Outlet } from "react-router-dom"
 
-import { Footer } from "@/components/layout/footer"
+import { SiteFooter } from "@/components/parish/site-footer"
+import { SiteHeader } from "@/components/parish/site-header"
 
 export function AppLayout() {
   return (
     <div className="min-h-screen">
+      <SiteHeader />
       <Outlet />
-      <Footer />
+      <SiteFooter />
     </div>
   )
 }

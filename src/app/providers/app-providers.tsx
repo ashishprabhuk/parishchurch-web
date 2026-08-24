@@ -9,7 +9,7 @@ export function AppProviders({ children }: PropsWithChildren) {
   return (
     <ThemeProvider>
       <QueryProvider>
-        <TooltipProvider delayDuration={120}>
+        <TooltipProvider delay={120}>
           {children}
           <Toaster richColors position="top-right" />
         </TooltipProvider>

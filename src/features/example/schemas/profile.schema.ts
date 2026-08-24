@@ -7,7 +7,7 @@ export const profileSchema = z.object({
     .string()
     .min(10, "Bio should be at least 10 characters.")
     .max(200, "Bio should be under 200 characters."),
-  receiveEmail: z.boolean().default(true),
+  receiveEmail: z.boolean(),
   workspaceType: z.enum(["saas", "internal", "portfolio"]),
 })
 

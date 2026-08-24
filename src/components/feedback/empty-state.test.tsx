@@ -17,7 +17,7 @@ describe("EmptyState", () => {
       />,
     )
 
-    expect(screen.getByText("No items")).toBeInTheDocument()
-    expect(screen.getByRole("button", { name: "Create" })).toBeInTheDocument()
+    expect(screen.getByText("No items")).toBeTruthy()
+    expect(screen.getByRole("button", { name: "Create" })).toBeTruthy()
   })
 })

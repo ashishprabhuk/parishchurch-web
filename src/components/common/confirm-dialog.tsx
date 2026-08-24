@@ -1,4 +1,4 @@
-import type { ReactNode } from "react"
+import type { ReactElement } from "react"
 
 import {
   AlertDialog,
@@ -18,7 +18,7 @@ export function ConfirmDialog({
   description,
   onConfirm,
 }: {
-  trigger: ReactNode
+  trigger: ReactElement
   title: string
   description: string
   onConfirm: () => void
