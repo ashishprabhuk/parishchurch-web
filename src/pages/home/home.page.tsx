@@ -1,16 +1,23 @@
 import { useState } from "react"
 import { differenceInCalendarDays, format } from "date-fns"
 import {
+  BookOpen,
   CalendarDays,
   ChevronRight,
   Church,
   Clock3,
+  Cross,
   HandHeart,
+  Link2,
+  Mail,
   MapPin,
   PlayCircle,
+  Phone,
+  Users,
 } from "lucide-react"
 import { Link } from "react-router-dom"
 
+import { CountdownRing } from "@/components/parish/countdown-ring"
 import { HeroSection } from "@/components/parish/hero-section"
 import { MapEmbed } from "@/components/parish/map-embed"
 import { PageShell } from "@/components/parish/page-shell"
@@ -73,6 +80,7 @@ const ministries = [
 
 const sermons = [
   {
+    category: "Sunday Homily",
     title: "Finding Strength in God's Promises",
     speaker: "Fr. Anthony D'Souza",
     scripture: "Isaiah 41:10",
@@ -82,6 +90,7 @@ const sermons = [
       "https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=900&q=82",
   },
   {
+    category: "Reflection",
     title: "A Table Prepared in Grace",
     speaker: "Fr. Michael Fernandes",
     scripture: "Psalm 23:5",
@@ -91,6 +100,7 @@ const sermons = [
       "https://images.unsplash.com/photo-1519491050282-cf00c82424b4?auto=format&fit=crop&w=900&q=82",
   },
   {
+    category: "Sunday Homily",
     title: "The Courage to Begin Again",
     speaker: "Fr. Anthony D'Souza",
     scripture: "Lamentations 3:22-23",
@@ -98,6 +108,30 @@ const sermons = [
     duration: "28 min",
     image:
       "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=900&q=82",
+  },
+]
+
+const featureBandItems = [
+  {
+    title: "Community & Support",
+    description: "A parish family ready to walk with you in every season.",
+    icon: Users,
+  },
+  {
+    title: "Strengthening Faith",
+    description:
+      "Worship and formation that deepen a living relationship with Christ.",
+    icon: Cross,
+  },
+  {
+    title: "Education & Guidance",
+    description: "Catechesis and mentorship for every age and stage of life.",
+    icon: BookOpen,
+  },
+  {
+    title: "Opportunities for Service",
+    description: "Practical, hands-on ways to serve our neighbours with love.",
+    icon: HandHeart,
   },
 ]
 
@@ -403,42 +437,40 @@ export default function HomePage() {
             </div>
             <div className="self-center">
               <p className="editorial-label">Latest sermons</p>
-              <div className="divide-soft-stone border-soft-stone mt-4 divide-y border-y">
+              <div className="mt-4 grid gap-4">
                 {sermons.map((sermon) => (
-                  <article
+                  <Link
                     key={sermon.title}
-                    className="grid grid-cols-[6rem_1fr_auto] items-center gap-4 py-5 sm:grid-cols-[8.5rem_1fr_auto] sm:gap-6"
+                    to="/prayer-liturgy/livestream"
+                    className="heritage-card group hover:bg-antique-cream/40 flex items-center gap-5 p-4 transition-colors"
+                    aria-label={`Play sermon: ${sermon.title}`}
                   >
-                    <img
-                      src={sermon.image}
-                      alt=""
-                      className="image-cinematic h-20 w-24 object-cover sm:h-24 sm:w-[8.5rem]"
-                    />
-                    <div>
-                      <p className="text-brass text-[0.65rem] font-semibold tracking-[0.15em] uppercase">
-                        {sermon.scripture}
-                      </p>
-                      <h3 className="font-heading text-walnut mt-1 text-xl leading-tight sm:text-2xl">
+                    <span className="relative block size-20 shrink-0 sm:size-24">
+                      <img
+                        src={sermon.image}
+                        alt=""
+                        className="image-cinematic size-full rounded-full object-cover"
+                      />
+                      <span className="border-parchment bg-primary/95 text-primary-foreground absolute inset-0 m-auto grid size-9 place-items-center rounded-full border-2 shadow-lg transition-transform group-hover:scale-110">
+                        <PlayCircle className="size-5" />
+                      </span>
+                    </span>
+                    <span className="min-w-0">
+                      <span className="border-brass/50 text-brass inline-block rounded-full border px-2.5 py-0.5 text-[0.6rem] font-semibold tracking-[0.12em] uppercase">
+                        {sermon.category}
+                      </span>
+                      <span className="font-heading text-walnut mt-2 block text-xl leading-tight sm:text-2xl">
                         {sermon.title}
-                      </h3>
-                      <p className="text-muted-foreground mt-2 text-xs">
-                        {sermon.speaker}{" "}
+                      </span>
+                      <span className="text-muted-foreground mt-2 block text-xs">
+                        {sermon.speaker}
                         <span className="text-brass px-1">|</span>
-                        {sermon.date} <span className="text-brass px-1">|</span>
-                        {sermon.duration}
-                      </p>
-                    </div>
-                    <ButtonLink
-                      to="/prayer-liturgy/livestream"
-                      variant="outline"
-                      size="icon"
-                      className="border-primary/60 text-primary hover:bg-primary hover:text-primary-foreground rounded-full"
-                      aria-label={`Play ${sermon.title}`}
-                      title={`Play ${sermon.title}`}
-                    >
-                      <PlayCircle className="size-4" />
-                    </ButtonLink>
-                  </article>
+                        {sermon.scripture}
+                        <span className="text-brass px-1">|</span>
+                        {sermon.date} · {sermon.duration}
+                      </span>
+                    </span>
+                  </Link>
                 ))}
               </div>
               <ButtonLink
@@ -466,16 +498,20 @@ export default function HomePage() {
                 you come for worship, a conversation, or the work of serving
                 together.
               </p>
-              <div className="border-brass mt-7 border-l-2 pl-4">
-                <p className="text-brass text-xs font-semibold tracking-[0.16em] uppercase">
-                  Next gathering
-                </p>
-                <p className="font-heading text-walnut mt-1 text-3xl">
-                  <span className="text-primary">
-                    {String(daysUntilNextEvent).padStart(2, "0")}
-                  </span>{" "}
-                  days until we gather
-                </p>
+              <div className="mt-7 flex items-center gap-6">
+                <CountdownRing
+                  value={daysUntilNextEvent}
+                  label={`${daysUntilNextEvent} days until our next parish gathering`}
+                />
+                <div className="border-brass border-l-2 pl-4">
+                  <p className="text-brass text-xs font-semibold tracking-[0.16em] uppercase">
+                    Next gathering
+                  </p>
+                  <p className="font-heading text-walnut mt-1 text-2xl leading-snug">
+                    Join us for{" "}
+                    {nextEvent?.title ?? "our next community gathering"}
+                  </p>
+                </div>
               </div>
             </div>
             <div className="border-soft-stone border-y">
@@ -575,6 +611,32 @@ export default function HomePage() {
               <p className="text-brass mt-1 text-sm font-semibold tracking-[0.12em] uppercase">
                 {pastor?.role ?? "Parish Priest"}
               </p>
+              <div className="mt-4 flex gap-2" aria-label="Contact our pastor">
+                <a
+                  href="mailto:office@stmaryparish.org"
+                  aria-label="Email the parish office"
+                  title="Email the parish office"
+                  className="border-brass/50 text-primary hover:bg-primary hover:text-primary-foreground grid size-9 place-items-center rounded-full border transition-colors"
+                >
+                  <Mail className="size-4" />
+                </a>
+                <a
+                  href="tel:+912240001234"
+                  aria-label="Call the parish office"
+                  title="Call the parish office"
+                  className="border-brass/50 text-primary hover:bg-primary hover:text-primary-foreground grid size-9 place-items-center rounded-full border transition-colors"
+                >
+                  <Phone className="size-4" />
+                </a>
+                <Link
+                  to="/who-we-are/clergy"
+                  aria-label="Meet the rest of our clergy"
+                  title="Meet the rest of our clergy"
+                  className="border-brass/50 text-primary hover:bg-primary hover:text-primary-foreground grid size-9 place-items-center rounded-full border transition-colors"
+                >
+                  <Link2 className="size-4" />
+                </Link>
+              </div>
               <p className="text-muted-foreground mt-5 max-w-2xl text-base leading-relaxed">
                 {pastor?.bio ??
                   "Guiding the parish in liturgy, pastoral care, and outreach ministries."}{" "}
@@ -840,6 +902,32 @@ export default function HomePage() {
           >
             <HandHeart className="size-4" /> Give today
           </ButtonLink>
+        </PageShell>
+      </section>
+
+      <section className="bg-ink text-parchment relative overflow-hidden py-14">
+        <div
+          className="from-forest/0 via-forest/70 to-forest/0 absolute inset-x-0 top-0 h-px bg-gradient-to-r"
+          aria-hidden="true"
+        />
+        <PageShell>
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {featureBandItems.map((item) => (
+              <div key={item.title} className="flex items-start gap-4">
+                <span className="bg-forest/25 border-forest/60 text-antique-cream grid size-12 shrink-0 place-items-center rounded-full border">
+                  <item.icon className="size-5" />
+                </span>
+                <div>
+                  <h3 className="font-heading text-parchment text-lg leading-tight">
+                    {item.title}
+                  </h3>
+                  <p className="text-parchment/68 mt-1.5 text-xs leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         </PageShell>
       </section>
     </>

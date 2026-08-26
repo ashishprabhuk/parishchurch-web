@@ -18,6 +18,7 @@
   --brass: #b08a52;
   --soft-stone: #d8d2c7;
   --ink: #242321;
+  --forest: #2e3b2f;
 
   --background: var(--parchment);
   --foreground: var(--walnut);
@@ -138,6 +139,7 @@
   --color-brass: var(--brass);
   --color-soft-stone: var(--soft-stone);
   --color-ink: var(--ink);
+  --color-forest: var(--forest);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

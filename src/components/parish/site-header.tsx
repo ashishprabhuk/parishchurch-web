@@ -1,5 +1,7 @@
+import { useState } from "react"
 import {
   CalendarDays,
+  ChevronDown,
   Church,
   Clock3,
   HandHeart,
@@ -21,19 +23,68 @@ import {
 } from "@/components/ui/sheet"
 import { useI18n } from "@/hooks/use-i18n"
 
-const links = [
+type NavChildLink = {
+  to: string
+  label: string
+}
+
+type NavLinkItem = {
+  to: string
+  label: string
+  children?: NavChildLink[]
+}
+
+const links: NavLinkItem[] = [
   { to: "/", label: "Home" },
-  { to: "/who-we-are", label: "About" },
-  { to: "/#sermons", label: "Sermons" },
-  { to: "/#ministries", label: "Ministries" },
-  { to: "/events", label: "Events" },
-  { to: "/#stories", label: "Stories" },
-  { to: "/#gallery", label: "Gallery" },
+  {
+    to: "/prayer-liturgy",
+    label: "Prayer & Liturgy",
+    children: [
+      { to: "/prayer-liturgy/livestream", label: "Mass Livestream" },
+      { to: "/prayer-liturgy/mass-schedule", label: "Daily Schedule" },
+      { to: "/prayer-liturgy/sacraments", label: "Sacraments" },
+    ],
+  },
+  {
+    to: "/who-we-are",
+    label: "Who We Are",
+    children: [
+      { to: "/who-we-are/clergy", label: "Clergy" },
+      { to: "/who-we-are/communities", label: "Communities" },
+      {
+        to: "/who-we-are/cells-associations",
+        label: "Cells & Associations",
+      },
+      { to: "/who-we-are/history", label: "Parish History" },
+    ],
+  },
+  {
+    to: "/events",
+    label: "Events",
+    children: [
+      { to: "/events/calendar", label: "Calendar" },
+      { to: "/events/chronicle", label: "The Chronicle" },
+      { to: "/events/reaching-out", label: "Reaching Out" },
+    ],
+  },
+  {
+    to: "/announcements",
+    label: "Announcements",
+    children: [
+      { to: "/announcements/calendar", label: "Calendar" },
+      { to: "/announcements/chronicle", label: "The Chronicle" },
+      { to: "/announcements/reaching-out", label: "Reaching Out" },
+    ],
+  },
   { to: "/contact", label: "Contact" },
-] as const
+]
 
 export function SiteHeader() {
   const { t } = useI18n()
+  const [openMenu, setOpenMenu] = useState<string | null>(null)
+
+  const closeMenu = (to: string) =>
+    setOpenMenu((current) => (current === to ? null : current))
 
   return (
     <header className="sticky top-0 z-50">
@@ -81,21 +132,59 @@ export function SiteHeader() {
           </Link>
 
           <nav
-            className="hidden items-center gap-4 xl:flex"
+            className="hidden items-center gap-6 xl:flex"
             aria-label="Main navigation"
           >
-            {links.map((link) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                className={({ isActive }) =>
-                  `nav-underline hover:text-primary text-[0.72rem] font-semibold tracking-[0.08em] uppercase transition-colors ${isActive ? "text-primary" : "text-foreground/80"}`
-                }
-                data-active={link.to === "/" ? undefined : undefined}
-              >
-                {link.label}
-              </NavLink>
-            ))}
+            {links.map((link) =>
+              link.children ? (
+                <div
+                  key={link.to}
+                  className="relative shrink-0"
+                  onMouseEnter={() => setOpenMenu(link.to)}
+                  onMouseLeave={() => closeMenu(link.to)}
+                  onFocus={() => setOpenMenu(link.to)}
+                  onBlur={() => closeMenu(link.to)}
+                >
+                  <NavLink
+                    to={link.to}
+                    className={({ isActive }) =>
+                      `nav-underline hover:text-primary flex items-center gap-1 text-[0.72rem] font-semibold tracking-[0.08em] whitespace-nowrap uppercase transition-colors ${isActive ? "text-primary" : "text-foreground/80"}`
+                    }
+                  >
+                    {link.label}
+                    <ChevronDown
+                      className={`size-3 shrink-0 transition-transform ${openMenu === link.to ? "rotate-180" : ""}`}
+                    />
+                  </NavLink>
+                  {openMenu === link.to ? (
+                    <div className="fade-up absolute top-full left-0 z-50 w-60 pt-3">
+                      <div className="border-brass/45 bg-parchment divide-soft-stone/70 divide-y overflow-hidden rounded-lg border shadow-xl">
+                        {link.children.map((child) => (
+                          <NavLink
+                            key={child.to}
+                            to={child.to}
+                            onClick={() => setOpenMenu(null)}
+                            className="text-walnut hover:bg-antique-cream/70 hover:text-primary block px-5 py-3.5 text-[0.7rem] font-semibold tracking-[0.1em] whitespace-nowrap uppercase transition-colors"
+                          >
+                            {child.label}
+                          </NavLink>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
+              ) : (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  className={({ isActive }) =>
+                    `nav-underline hover:text-primary shrink-0 text-[0.72rem] font-semibold tracking-[0.08em] whitespace-nowrap uppercase transition-colors ${isActive ? "text-primary" : "text-foreground/80"}`
+                  }
+                >
+                  {link.label}
+                </NavLink>
+              ),
+            )}
           </nav>
 
           <div className="hidden items-center gap-2 xl:flex">
@@ -139,15 +228,44 @@ export function SiteHeader() {
                 <p className="editorial-label mt-2">Faith, heritage, welcome</p>
               </SheetHeader>
               <nav className="grid px-6 py-6" aria-label="Mobile navigation">
-                {links.map((link) => (
-                  <NavLink
-                    key={link.to}
-                    to={link.to}
-                    className="border-soft-stone text-walnut hover:text-primary border-b py-3 text-sm font-medium transition-colors"
-                  >
-                    {link.label}
-                  </NavLink>
-                ))}
+                {links.map((link) =>
+                  link.children ? (
+                    <details
+                      key={link.to}
+                      className="border-soft-stone group border-b py-3"
+                    >
+                      <summary className="text-walnut flex list-none items-center justify-between text-sm font-medium [&::-webkit-details-marker]:hidden">
+                        {link.label}
+                        <ChevronDown className="text-brass size-4 transition-transform group-open:rotate-180" />
+                      </summary>
+                      <div className="mt-2 grid gap-1 pl-3">
+                        <NavLink
+                          to={link.to}
+                          className="text-primary py-1.5 text-xs font-semibold tracking-[0.08em] uppercase"
+                        >
+                          Overview
+                        </NavLink>
+                        {link.children.map((child) => (
+                          <NavLink
+                            key={child.to}
+                            to={child.to}
+                            className="text-muted-foreground hover:text-primary py-1.5 text-sm"
+                          >
+                            {child.label}
+                          </NavLink>
+                        ))}
+                      </div>
+                    </details>
+                  ) : (
+                    <NavLink
+                      key={link.to}
+                      to={link.to}
+                      className="border-soft-stone text-walnut hover:text-primary border-b py-3 text-sm font-medium transition-colors"
+                    >
+                      {link.label}
+                    </NavLink>
+                  ),
+                )}
               </nav>
               <div className="px-6 pb-8">
                 <div className="mb-4 flex items-center justify-between">
