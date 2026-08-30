@@ -1,17 +1,18 @@
 import { z } from "zod"
 
 const envSchema = z.object({
-  VITE_API_URL: z.string().url().default("http://localhost:4000/api"),
-  VITE_APP_NAME: z.string().min(1).default("React Vite Master Starter"),
+  VITE_API_URL: z.string().optional().default("/api"),
+  VITE_APP_NAME: z.string().optional().default("Church Web App"),
   VITE_APP_ENV: z
     .enum(["development", "staging", "production"])
-    .default("development"),
+    .optional()
+    .default("production"),
 })
 
 const parsedEnv = envSchema.safeParse({
-  VITE_API_URL: import.meta.env.VITE_API_URL,
-  VITE_APP_NAME: import.meta.env.VITE_APP_NAME,
-  VITE_APP_ENV: import.meta.env.VITE_APP_ENV,
+  VITE_API_URL: import.meta.env.VITE_API_URL || undefined,
+  VITE_APP_NAME: import.meta.env.VITE_APP_NAME || undefined,
+  VITE_APP_ENV: import.meta.env.VITE_APP_ENV || undefined,
 })
 
 if (!parsedEnv.success) {
@@ -22,3 +23,4 @@ if (!parsedEnv.success) {
 }
 
 export const env = parsedEnv.data
+
