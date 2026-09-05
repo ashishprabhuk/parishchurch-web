@@ -1,11 +1,21 @@
-import { Church, LogOut } from "lucide-react"
+import { Church, LogOut, Menu } from "lucide-react"
+import { useState } from "react"
 import { Link, Outlet } from "react-router-dom"
 
 import { ThemeToggle } from "@/components/common/theme-toggle"
 import { Button } from "@/components/ui/button"
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 import { AdminSidebarNav } from "@/features/admin/admin-sidebar-nav"
 
 export function AdminLayout() {
+  const [mobileNavOpen, setMobileNavOpen] = useState(false)
+
   return (
     <div className="flex min-h-screen">
       <aside className="border-sidebar-border bg-sidebar sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r lg:flex">
@@ -39,7 +49,39 @@ export function AdminLayout() {
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="border-border/60 bg-background/80 sticky top-0 z-20 border-b backdrop-blur-xl">
           <div className="flex h-14 items-center justify-between gap-3 px-4 sm:px-6">
-            <p className="text-sm font-semibold">Admin Console</p>
+            <div className="flex items-center gap-2">
+              <Sheet open={mobileNavOpen} onOpenChange={setMobileNavOpen}>
+                <SheetTrigger
+                  render={
+                    <Button
+                      variant="outline"
+                      size="icon-sm"
+                      className="lg:hidden"
+                      aria-label="Open admin navigation"
+                    />
+                  }
+                >
+                  <Menu className="size-4" />
+                </SheetTrigger>
+                <SheetContent
+                  side="left"
+                  className="bg-sidebar w-[82vw] max-w-[280px] p-0 shadow-xl"
+                >
+                  <SheetHeader className="border-sidebar-border border-b px-4 py-3 text-left">
+                    <SheetTitle className="flex items-center gap-2 text-base">
+                      <Church className="size-4" /> Admin navigation
+                    </SheetTitle>
+                  </SheetHeader>
+                  <div
+                    className="max-h-[calc(100vh-5rem)] overflow-y-auto p-3"
+                    onClick={() => setMobileNavOpen(false)}
+                  >
+                    <AdminSidebarNav />
+                  </div>
+                </SheetContent>
+              </Sheet>
+              <p className="text-sm font-semibold">Admin Console</p>
+            </div>
             <div className="flex items-center gap-2">
               <Button
                 variant="ghost"
@@ -50,10 +92,6 @@ export function AdminLayout() {
               </Button>
               <ThemeToggle />
             </div>
-          </div>
-          {/* Mobile nav (sidebar is hidden on small screens) */}
-          <div className="border-border/60 overflow-x-auto border-t px-3 py-2 lg:hidden">
-            <AdminSidebarNav />
           </div>
         </header>
         <main className="flex-1 p-4 sm:p-6">
