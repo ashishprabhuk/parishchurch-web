@@ -1,9 +1,9 @@
-import { format } from "date-fns"
 import { Link } from "react-router-dom"
 
 import type { ParishAnnouncement } from "@/features/parish"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { formatDate } from "@/lib/format"
 
 export function AnnouncementCard({
   item,
@@ -25,7 +25,7 @@ export function AnnouncementCard({
         <div className="text-muted-foreground flex items-center gap-3 text-xs tracking-[0.14em] uppercase">
           <span>{item.category}</span>
           <span>•</span>
-          <span>{format(item.date, "dd MMM yyyy")}</span>
+          <span>{formatDate(item.date, "dd MMM yyyy")}</span>
         </div>
         <h3
           className={

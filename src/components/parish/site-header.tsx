@@ -4,7 +4,7 @@ import {
   ChevronDown,
   Church,
   Clock3,
-  HandHeart,
+  LogIn,
   Mail,
   MapPin,
   Menu,
@@ -12,7 +12,9 @@ import {
 } from "lucide-react"
 import { Link, NavLink } from "react-router-dom"
 
+import { AuthDialog } from "@/components/parish/auth-dialog"
 import { LanguageSwitcher } from "@/components/parish/language-switcher"
+import { UserMenu } from "@/components/parish/user-menu"
 import { Button, ButtonLink } from "@/components/ui/button"
 import {
   Sheet,
@@ -22,6 +24,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { useI18n } from "@/hooks/use-i18n"
+import { useAuthStore } from "@/stores/auth.store"
 
 type NavChildLink = {
   to: string
@@ -67,21 +70,14 @@ const links: NavLinkItem[] = [
       { to: "/events/reaching-out", label: "Reaching Out" },
     ],
   },
-  {
-    to: "/announcements",
-    label: "Announcements",
-    children: [
-      { to: "/announcements/calendar", label: "Calendar" },
-      { to: "/announcements/chronicle", label: "The Chronicle" },
-      { to: "/announcements/reaching-out", label: "Reaching Out" },
-    ],
-  },
+  { to: "/announcements", label: "Announcements" },
   { to: "/contact", label: "Contact" },
 ]
 
 export function SiteHeader() {
   const { t } = useI18n()
   const [openMenu, setOpenMenu] = useState<string | null>(null)
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
 
   const closeMenu = (to: string) =>
     setOpenMenu((current) => (current === to ? null : current))
@@ -196,12 +192,17 @@ export function SiteHeader() {
             >
               <MapPin className="size-3.5" /> Plan a Visit
             </ButtonLink>
-            <ButtonLink
-              to="/donate"
-              className="bg-primary text-primary-foreground hover:bg-church-red/90 px-3 text-xs tracking-[0.08em] uppercase"
-            >
-              <HandHeart className="size-3.5" /> Donate
-            </ButtonLink>
+            {isAuthenticated ? (
+              <UserMenu />
+            ) : (
+              <AuthDialog
+                trigger={
+                  <Button className="bg-primary text-primary-foreground hover:bg-church-red/90 px-3 text-xs tracking-[0.08em] uppercase">
+                    <LogIn className="size-3.5" /> Login
+                  </Button>
+                }
+              />
+            )}
           </div>
 
           <Sheet>
@@ -218,8 +219,8 @@ export function SiteHeader() {
               <Menu className="size-4" />
             </SheetTrigger>
             <SheetContent
-              side="right"
-              className="border-soft-stone bg-parchment w-[88vw] max-w-sm p-0"
+              side="top"
+              className="border-soft-stone bg-parchment top-0 max-h-[85vh] w-full max-w-none overflow-y-auto rounded-b-2xl p-0"
             >
               <SheetHeader className="border-soft-stone border-b px-6 py-6 text-left">
                 <SheetTitle className="font-heading text-walnut text-2xl">
@@ -281,12 +282,20 @@ export function SiteHeader() {
                 >
                   Plan a Visit
                 </ButtonLink>
-                <ButtonLink
-                  to="/donate"
-                  className="bg-primary text-primary-foreground mt-2 w-full"
-                >
-                  <HandHeart className="size-4" /> Give Today
-                </ButtonLink>
+                {isAuthenticated ? (
+                  <div className="mt-2 flex w-full items-center justify-between rounded-lg border px-3 py-2">
+                    <span className="text-sm font-medium">Signed in</span>
+                    <UserMenu />
+                  </div>
+                ) : (
+                  <AuthDialog
+                    trigger={
+                      <Button className="bg-primary text-primary-foreground mt-2 w-full">
+                        <LogIn className="size-4" /> Login
+                      </Button>
+                    }
+                  />
+                )}
               </div>
             </SheetContent>
           </Sheet>

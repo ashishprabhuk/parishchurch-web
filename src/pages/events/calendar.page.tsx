@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { useEventsCalendar } from "@/features/parish"
 import { useSeo } from "@/hooks/use-seo"
+import { toDateOrNull } from "@/lib/format"
 
 export default function EventsCalendarPage() {
   useSeo({
@@ -23,9 +24,13 @@ export default function EventsCalendarPage() {
 
   const selectedEvents = useMemo(
     () =>
-      data.filter((item) =>
-        selectedDate ? isSameDay(item.date, selectedDate) : true,
-      ),
+      data.filter((item) => {
+        if (!selectedDate) {
+          return true
+        }
+        const eventDate = toDateOrNull(item.date)
+        return eventDate ? isSameDay(eventDate, selectedDate) : false
+      }),
     [data, selectedDate],
   )
 

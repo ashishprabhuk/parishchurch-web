@@ -1,3 +1,5 @@
+import { MessageSquareHeart } from "lucide-react"
+
 import { ContactInfo } from "@/components/parish/contact-info"
 import { FeedbackForm } from "@/components/parish/feedback-form"
 import { MapEmbed } from "@/components/parish/map-embed"
@@ -34,8 +36,20 @@ export default function ContactPage() {
               <MapEmbed />
             </div>
           </div>
-          <Card className="border-border/70 bg-card/85">
-            <CardContent className="p-6">
+          <Card className="border-border/70 bg-card/85" id="feedback">
+            <CardContent className="p-6 sm:p-8">
+              <div className="mb-6">
+                <p className="text-brass flex items-center gap-2 text-xs font-semibold tracking-[0.16em] uppercase">
+                  <MessageSquareHeart className="size-4" /> Feedback
+                </p>
+                <h2 className="font-heading text-walnut mt-2 text-3xl leading-tight">
+                  Share your thoughts
+                </h2>
+                <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
+                  Prayer requests, suggestions, or a word of thanks — every
+                  message is read with care.
+                </p>
+              </div>
               <FeedbackForm />
             </CardContent>
           </Card>

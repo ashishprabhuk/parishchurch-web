@@ -3,15 +3,15 @@ import { Link, useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useAuthStore } from "@/stores/auth.store"
+import { MOCK_ADMIN_USER, useAuthStore } from "@/stores/auth.store"
 
 export default function LoginPage() {
   const navigate = useNavigate()
   const login = useAuthStore((state) => state.login)
 
   const onLogin = () => {
-    login()
-    navigate("/dashboard")
+    login(MOCK_ADMIN_USER)
+    navigate("/admin")
   }
 
   return (

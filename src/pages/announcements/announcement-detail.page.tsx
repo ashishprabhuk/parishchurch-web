@@ -1,4 +1,3 @@
-import { format } from "date-fns"
 import { Link as LinkIcon, MessageCircle, Share2 } from "lucide-react"
 import { Link, useParams } from "react-router-dom"
 
@@ -8,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { useAnnouncement, useAnnouncements } from "@/features/parish"
 import { useSeo } from "@/hooks/use-seo"
+import { formatDate } from "@/lib/format"
 import { notify } from "@/lib/toast"
 
 export default function AnnouncementDetailPage() {
@@ -33,6 +33,7 @@ export default function AnnouncementDetailPage() {
   }
 
   const related = all.filter((entry) => entry.slug !== item.slug).slice(0, 2)
+  const paragraphs = Array.isArray(item.content) ? item.content : []
 
   return (
     <PageShell className="py-12">
@@ -47,7 +48,7 @@ export default function AnnouncementDetailPage() {
           {item.title}
         </h1>
         <p className="text-muted-foreground mt-3 text-sm">
-          {format(item.date, "dd MMMM yyyy")}
+          {formatDate(item.date, "dd MMMM yyyy")}
         </p>
         <img
           src={item.image}
@@ -55,7 +56,7 @@ export default function AnnouncementDetailPage() {
           className="mt-6 h-[420px] w-full rounded-2xl object-cover"
         />
         <div className="prose prose-neutral text-foreground mt-8 max-w-none">
-          {item.content.map((paragraph) => (
+          {paragraphs.map((paragraph) => (
             <p
               key={paragraph}
               className="text-muted-foreground mb-4 leading-relaxed"

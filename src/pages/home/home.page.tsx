@@ -218,10 +218,13 @@ export default function HomePage() {
   const { data: outreach = [] } = useOutreach()
 
   const nextEvent = eventList[0]
-  const daysUntilNextEvent = nextEvent
+  const nextEventDate = nextEvent ? new Date(nextEvent.date) : null
+  const hasValidNextEventDate =
+    nextEventDate !== null && !Number.isNaN(nextEventDate.getTime())
+  const daysUntilNextEvent = hasValidNextEventDate
     ? Math.max(
         0,
-        differenceInCalendarDays(new Date(nextEvent.date), new Date()),
+        differenceInCalendarDays(nextEventDate, new Date()),
       )
     : 3
   const pastor = clergy[0]
@@ -518,10 +521,10 @@ export default function HomePage() {
               <article className="grid gap-6 py-7 sm:grid-cols-[7rem_1fr_auto] sm:items-center">
                 <div className="border-brass/60 bg-parchment grid aspect-square place-items-center border text-center">
                   <p className="text-brass text-xs font-semibold tracking-[0.16em] uppercase">
-                    {nextEvent ? format(nextEvent.date, "MMM") : "May"}
+                    {hasValidNextEventDate ? format(nextEventDate, "MMM") : "May"}
                   </p>
                   <p className="font-heading text-walnut mt-1 text-5xl leading-none">
-                    {nextEvent ? format(nextEvent.date, "dd") : "29"}
+                    {hasValidNextEventDate ? format(nextEventDate, "dd") : "29"}
                   </p>
                 </div>
                 <div>
@@ -567,7 +570,7 @@ export default function HomePage() {
                         {event.title}
                       </span>
                       <span className="text-muted-foreground mt-1 block text-xs">
-                        {format(event.date, "d MMMM")} | {event.time}
+                        {format(new Date(event.date), "d MMMM")} | {event.time}
                       </span>
                     </p>
                   </Link>

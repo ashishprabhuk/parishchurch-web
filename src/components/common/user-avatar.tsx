@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 
-function initialsFromName(name: string) {
+export function initialsFromName(name: string) {
   return name
     .split(" ")
     .map((part) => part[0])

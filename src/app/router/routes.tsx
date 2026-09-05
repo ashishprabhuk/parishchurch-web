@@ -3,8 +3,11 @@ import type { ReactNode } from "react"
 import type { RouteObject } from "react-router-dom"
 
 import { LoadingState } from "@/components/feedback/loading-state"
+import { AdminLayout } from "@/components/layout/admin-layout"
 import { AppLayout } from "@/components/layout/app-layout"
 import { BlankLayout } from "@/components/layout/blank-layout"
+import { ProtectedRoute } from "@/app/router/protected-route"
+import { useAuthStore } from "@/stores/auth.store"
 
 const HomePage = lazy(() => import("@/pages/home/home.page"))
 
@@ -45,6 +48,7 @@ const HistoryPage = lazy(() => import("@/pages/who-we-are/history.page"))
 
 const ContactPage = lazy(() => import("@/pages/contact/contact.page"))
 const DonatePage = lazy(() => import("@/pages/donate/donate.page"))
+const ProfilePage = lazy(() => import("@/pages/profile/profile.page"))
 
 const TermsPage = lazy(() => import("@/pages/legal/terms.page"))
 const PrivacyPage = lazy(() => import("@/pages/legal/privacy.page"))
@@ -53,8 +57,20 @@ const RefundPolicyPage = lazy(() => import("@/pages/legal/refund-policy.page"))
 const NotFoundPage = lazy(() => import("@/pages/not-found/not-found.page"))
 const GlobalErrorPage = lazy(() => import("@/pages/error/global-error.page"))
 
+const AdminDashboardPage = lazy(
+  () => import("@/features/admin/admin-dashboard.page"),
+)
+const AdminEntityPage = lazy(() => import("@/features/admin/admin-entity.page"))
+
 function LazyRoute({ children }: { children: ReactNode }) {
   return <Suspense fallback={<LoadingState />}>{children}</Suspense>
+}
+
+function AdminGate() {
+  const isAdmin = useAuthStore(
+    (state) => state.isAuthenticated && state.user?.role === "admin",
+  )
+  return <ProtectedRoute isAllowed={isAdmin} redirectTo="/" />
 }
 
 export const routes: RouteObject[] = [
@@ -212,6 +228,14 @@ export const routes: RouteObject[] = [
         ),
       },
       {
+        path: "profile",
+        element: (
+          <LazyRoute>
+            <ProfilePage />
+          </LazyRoute>
+        ),
+      },
+      {
         path: "terms",
         element: (
           <LazyRoute>
@@ -234,6 +258,38 @@ export const routes: RouteObject[] = [
             <RefundPolicyPage />
           </LazyRoute>
         ),
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <AdminGate />,
+    errorElement: (
+      <LazyRoute>
+        <GlobalErrorPage />
+      </LazyRoute>
+    ),
+    children: [
+      {
+        element: <AdminLayout />,
+        children: [
+          {
+            index: true,
+            element: (
+              <LazyRoute>
+                <AdminDashboardPage />
+              </LazyRoute>
+            ),
+          },
+          {
+            path: ":entity",
+            element: (
+              <LazyRoute>
+                <AdminEntityPage />
+              </LazyRoute>
+            ),
+          },
+        ],
       },
     ],
   },
