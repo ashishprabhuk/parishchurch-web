@@ -8,7 +8,8 @@ import { Button } from "@/components/ui/button"
 import { XIcon } from "lucide-react"
 
 function Sheet({ ...props }: SheetPrimitive.Root.Props) {
-  return <SheetPrimitive.Root data-slot="sheet" {...props} />
+  const openProp = "open" in props ? { open: Boolean(props.open) } : {}
+  return <SheetPrimitive.Root data-slot="sheet" {...props} {...openProp} />
 }
 
 function SheetTrigger({ ...props }: SheetPrimitive.Trigger.Props) {

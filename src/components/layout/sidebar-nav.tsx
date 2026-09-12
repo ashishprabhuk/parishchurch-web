@@ -17,7 +17,7 @@ const iconMap = {
   settings: Settings,
 }
 
-export function SidebarNav() {
+export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   const collapsed = useAppStore((state) => state.sidebarCollapsed)
 
   return (
@@ -42,11 +42,13 @@ export function SidebarNav() {
                         "h-auto w-full rounded-lg px-0 py-0",
                         collapsed ? "justify-center" : "justify-start",
                       )}
+                      onClick={onNavigate}
                     />
                   }
                 >
                   <NavLink
                     to={item.href}
+                    onClick={onNavigate}
                     className={({ isActive }) =>
                       cn(
                         "flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors",

@@ -50,7 +50,10 @@ export function AdminLayout() {
         <header className="border-border/60 bg-background/80 sticky top-0 z-20 border-b backdrop-blur-xl">
           <div className="flex h-14 items-center justify-between gap-3 px-4 sm:px-6">
             <div className="flex items-center gap-2">
-              <Sheet open={mobileNavOpen} onOpenChange={setMobileNavOpen}>
+              <Sheet
+                open={Boolean(mobileNavOpen)}
+                onOpenChange={(open) => setMobileNavOpen(Boolean(open))}
+              >
                 <SheetTrigger
                   render={
                     <Button
@@ -76,7 +79,7 @@ export function AdminLayout() {
                     className="max-h-[calc(100vh-5rem)] overflow-y-auto p-3"
                     onClick={() => setMobileNavOpen(false)}
                   >
-                    <AdminSidebarNav />
+                    <AdminSidebarNav onNavigate={() => setMobileNavOpen(false)} />
                   </div>
                 </SheetContent>
               </Sheet>

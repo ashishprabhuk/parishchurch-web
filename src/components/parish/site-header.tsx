@@ -77,10 +77,13 @@ const links: NavLinkItem[] = [
 export function SiteHeader() {
   const { t } = useI18n()
   const [openMenu, setOpenMenu] = useState<string | null>(null)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
 
   const closeMenu = (to: string) =>
     setOpenMenu((current) => (current === to ? null : current))
+
+  const closeMobileMenu = () => setMobileMenuOpen(false)
 
   return (
     <header className="sticky top-0 z-50">
@@ -114,7 +117,7 @@ export function SiteHeader() {
             className="flex min-w-0 items-center gap-3"
             aria-label="St. Mary of Grace Parish home"
           >
-            <span className="border-brass/70 bg-antique-cream grid size-11 shrink-0 place-items-center rounded-full border shadow-[inset_0_0_0_3px_rgb(245_240_231)]">
+            <span className="border-brass/70 bg-antique-cream grid size-11 shrink-0 place-items-center rounded-full border shadow-[inset_0_0_0_3px_rgb(250_248_242)]">
               <Church className="text-primary size-5" />
             </span>
             <div className="min-w-0">
@@ -205,7 +208,10 @@ export function SiteHeader() {
             )}
           </div>
 
-          <Sheet>
+          <Sheet
+            open={Boolean(mobileMenuOpen)}
+            onOpenChange={(open) => setMobileMenuOpen(Boolean(open))}
+          >
             <SheetTrigger
               render={
                 <Button
@@ -242,6 +248,7 @@ export function SiteHeader() {
                       <div className="mt-2 grid gap-1 pl-3">
                         <NavLink
                           to={link.to}
+                          onClick={closeMobileMenu}
                           className="text-primary py-1.5 text-xs font-semibold tracking-[0.08em] uppercase"
                         >
                           Overview
@@ -250,6 +257,7 @@ export function SiteHeader() {
                           <NavLink
                             key={child.to}
                             to={child.to}
+                            onClick={closeMobileMenu}
                             className="text-muted-foreground hover:text-primary py-1.5 text-sm"
                           >
                             {child.label}
@@ -261,6 +269,7 @@ export function SiteHeader() {
                     <NavLink
                       key={link.to}
                       to={link.to}
+                      onClick={closeMobileMenu}
                       className="border-soft-stone text-walnut hover:text-primary border-b py-3 text-sm font-medium transition-colors"
                     >
                       {link.label}
@@ -279,6 +288,7 @@ export function SiteHeader() {
                   to="/contact#visit"
                   variant="outline"
                   className="border-primary/60 text-primary w-full"
+                  onClick={closeMobileMenu}
                 >
                   Plan a Visit
                 </ButtonLink>
@@ -290,7 +300,10 @@ export function SiteHeader() {
                 ) : (
                   <AuthDialog
                     trigger={
-                      <Button className="bg-primary text-primary-foreground mt-2 w-full">
+                      <Button 
+                        className="bg-primary text-primary-foreground mt-2 w-full"
+                        onClick={closeMobileMenu}
+                      >
                         <LogIn className="size-4" /> Login
                       </Button>
                     }

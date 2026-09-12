@@ -13,8 +13,8 @@ export function HeroSection() {
         alt="Sunlit historic church interior prepared for worship"
         className="image-cinematic absolute inset-0 h-full w-full scale-105 object-cover motion-safe:animate-[hero-breathe_14s_ease-in-out_infinite_alternate]"
       />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgb(43_33_28/0.91)_0%,rgb(43_33_28/0.72)_42%,rgb(43_33_28/0.25)_100%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(0deg,rgb(43_33_28/0.62)_0%,transparent_42%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgb(11_21_84/0.92)_0%,rgb(16_31_120/0.75)_42%,rgb(16_31_120/0.28)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(0deg,rgb(11_21_84/0.65)_0%,transparent_42%)]" />
       <div className="border-brass/40 absolute top-10 right-[9%] hidden h-[54%] w-48 rounded-t-full border-x border-t xl:block" />
       <div className="border-brass/25 absolute top-16 right-[11%] hidden h-[44%] w-40 rounded-t-full border-x border-t xl:block" />
 

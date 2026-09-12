@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button"
 import { XIcon } from "lucide-react"
 
 function Dialog({ ...props }: DialogPrimitive.Root.Props) {
-  return <DialogPrimitive.Root data-slot="dialog" {...props} />
+  const openProp = "open" in props ? { open: Boolean(props.open) } : {}
+  return <DialogPrimitive.Root data-slot="dialog" {...props} {...openProp} />
 }
 
 function DialogTrigger({ ...props }: DialogPrimitive.Trigger.Props) {

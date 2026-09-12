@@ -46,7 +46,7 @@ const adminNav = [
   { label: "Outreach", href: "/admin/outreach", icon: "hand-heart" },
 ] as const
 
-export function AdminSidebarNav() {
+export function AdminSidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <nav className="grid gap-0.5">
       {adminNav.map((item) => {
@@ -56,6 +56,7 @@ export function AdminSidebarNav() {
             key={item.href}
             to={item.href}
             end={item.href === "/admin"}
+            onClick={onNavigate}
             className={({ isActive }) =>
               cn(
                 "flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors",

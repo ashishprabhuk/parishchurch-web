@@ -7,7 +7,8 @@ import { cn } from "@/lib/utils"
 import { ChevronRightIcon, CheckIcon } from "lucide-react"
 
 function DropdownMenu({ ...props }: MenuPrimitive.Root.Props) {
-  return <MenuPrimitive.Root data-slot="dropdown-menu" {...props} />
+  const openProp = "open" in props ? { open: Boolean(props.open) } : {}
+  return <MenuPrimitive.Root data-slot="dropdown-menu" {...props} {...openProp} />
 }
 
 function DropdownMenuPortal({ ...props }: MenuPrimitive.Portal.Props) {

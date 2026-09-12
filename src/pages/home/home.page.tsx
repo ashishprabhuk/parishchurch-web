@@ -283,7 +283,7 @@ export default function HomePage() {
                   className="image-cinematic cathedral-arch h-[26rem] w-full object-cover sm:h-[32rem]"
                 />
               </div>
-              <div className="border-parchment absolute right-0 bottom-0 w-[46%] border-[7px] shadow-[0_22px_35px_rgb(43_33_28/0.18)] sm:w-[44%]">
+              <div className="border-parchment absolute right-0 bottom-0 w-[46%] border-[7px] shadow-[0_22px_35px_rgb(11_21_84/0.18)] sm:w-[44%]">
                 <img
                   src="https://images.unsplash.com/photo-1473177104440-ffee2f376098?auto=format&fit=crop&w=900&q=84"
                   alt="Parish community gathered together"

@@ -16,7 +16,8 @@ function TooltipProvider({
 }
 
 function Tooltip({ ...props }: TooltipPrimitive.Root.Props) {
-  return <TooltipPrimitive.Root data-slot="tooltip" {...props} />
+  const openProp = "open" in props ? { open: Boolean(props.open) } : {}
+  return <TooltipPrimitive.Root data-slot="tooltip" {...props} {...openProp} />
 }
 
 function TooltipTrigger({ ...props }: TooltipPrimitive.Trigger.Props) {
