@@ -80,11 +80,11 @@ export function AuthDialog({ trigger }: { trigger: ReactElement }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={trigger} />
-      <DialogContent className="gap-6 rounded-2xl p-8 sm:max-w-md">
+      <DialogContent className="gap-5 rounded-2xl p-5 sm:p-8 w-[calc(100vw-2rem)] sm:max-w-md max-h-[calc(100dvh-2rem)] overflow-y-auto">
         {mode === "signin" ? (
           <>
             <DialogHeader className="gap-1 text-center">
-              <DialogTitle className="text-3xl font-semibold tracking-tight">
+              <DialogTitle className="text-2xl sm:text-3xl font-semibold tracking-tight">
                 Welcome back
               </DialogTitle>
               <DialogDescription className="text-sm">

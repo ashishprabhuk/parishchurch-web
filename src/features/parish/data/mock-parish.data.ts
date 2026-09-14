@@ -6,6 +6,8 @@ import type {
   MassTiming,
   OutreachItem,
   ParishAnnouncement,
+  ParishAssociation,
+  ParishCommunity,
   ParishEvent,
   Sacrament,
 } from "@/features/parish/types"
@@ -85,11 +87,130 @@ export const events: ParishEvent[] = [
 ]
 
 export const massTimings: MassTiming[] = [
-  { id: "m1", dayGroup: "today", label: "Morning Mass", time: "7:00 AM" },
-  { id: "m2", dayGroup: "today", label: "Evening Mass", time: "6:30 PM" },
-  { id: "m3", dayGroup: "sunday", label: "Sunday Mass", time: "8:00 AM" },
-  { id: "m4", dayGroup: "sunday", label: "Sunday Mass", time: "10:00 AM" },
-  { id: "m5", dayGroup: "sunday", label: "Sunday Mass", time: "6:00 PM" },
+  // General Weekday Timings
+  { id: "m1", dayGroup: "weekday", label: "Morning Mass", time: "06:00 AM", intention: "GENERAL", language: "Marathi" },
+  { id: "m2", dayGroup: "weekday", label: "Morning Mass", time: "06:45 AM", intention: "GENERAL", language: "Marathi" },
+  { id: "m3", dayGroup: "weekday", label: "Evening Mass", time: "06:30 PM", intention: "GENERAL", language: "Marathi" },
+  { id: "m4", dayGroup: "weekday", label: "Morning Mass", time: "07:00 AM", intention: "GENERAL", language: "English" },
+  { id: "m5", dayGroup: "weekday", label: "Evening Mass", time: "05:30 PM", intention: "GENERAL", language: "English" },
+  { id: "m6", dayGroup: "weekday", label: "Evening Mass", time: "07:00 PM", intention: "GENERAL", language: "English" },
+  { id: "m7", dayGroup: "weekday", label: "Tuesday Special Mass", time: "06:00 PM", intention: "GENERAL", language: "Tamil", description: "Every Tuesday evening" },
+
+  // General Sunday Timings
+  { id: "m8", dayGroup: "sunday", label: "Early Morning Mass", time: "06:00 AM", intention: "GENERAL", language: "Marathi" },
+  { id: "m9", dayGroup: "sunday", label: "Morning High Mass", time: "08:00 AM", intention: "GENERAL", language: "Marathi" },
+  { id: "m10", dayGroup: "sunday", label: "Evening Mass", time: "05:15 PM", intention: "GENERAL", language: "Marathi" },
+  { id: "m11", dayGroup: "sunday", label: "Family Sung Mass", time: "10:30 AM", intention: "GENERAL", language: "English" },
+  { id: "m12", dayGroup: "sunday", label: "Youth & Evening Mass", time: "06:00 PM", intention: "GENERAL", language: "English" },
+  { id: "m13", dayGroup: "sunday", label: "Tamil Mass", time: "09:15 AM", intention: "GENERAL", language: "Tamil" },
+  { id: "m14", dayGroup: "sunday", label: "Afternoon Mass", time: "04:00 PM", intention: "GENERAL", language: "Tamil" },
+
+  // Special Occasions
+  {
+    id: "m15",
+    dayGroup: "today",
+    label: "Parish Feast Thanksgiving Mass",
+    time: "10:00 AM",
+    intention: "CHURCH FEAST",
+    language: "Marathi",
+    image: "https://images.unsplash.com/photo-1548625361-1854483f12ef?auto=format&fit=crop&w=1200&q=80",
+    description: "Solemn Pontifical Eucharistic Celebration with parish choir and procession.",
+    date: "Annual Parish Feast Day",
+  },
+  {
+    id: "m16",
+    dayGroup: "today",
+    label: "Perpetual Succour Novena & Mass",
+    time: "06:00 PM",
+    intention: "NOVEENA",
+    language: "English",
+    image: "https://images.unsplash.com/photo-1519491050282-cf00c82424b4?auto=format&fit=crop&w=1200&q=80",
+    description: "Weekly Perpetual Novena prayers followed by Holy Mass.",
+    date: "Every Wednesday",
+  },
+  {
+    id: "m17",
+    dayGroup: "today",
+    label: "Easter Vigil Mass",
+    time: "11:00 PM",
+    intention: "EASTER",
+    language: "Marathi",
+    image: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1200&q=80",
+    description: "Blessing of the Paschal Candle, Resurrection liturgy, and Eucharistic blessing.",
+    date: "Holy Saturday Night",
+  },
+]
+
+export const communitiesData: ParishCommunity[] = [
+  {
+    id: "com1",
+    name: "St. Joseph SCC Community",
+    zone: "Zone 1 - Hill Road",
+    patron: "St. Joseph",
+    leader: "Francis D'Souza",
+    contact: "+91 98200 11223",
+    meetingTime: "1st & 3rd Tuesday, 7:30 PM",
+    description: "Small Christian Community uniting local families for Gospel sharing, rosary prayer, and neighborly support.",
+  },
+  {
+    id: "com2",
+    name: "Our Lady of Grace Community",
+    zone: "Zone 2 - Chapel Road",
+    patron: "Mother Mary",
+    leader: "Maria Lobo",
+    contact: "+91 98201 44556",
+    meetingTime: "Alternate Wednesdays, 7:00 PM",
+    description: "Active family cluster focusing on scripture study, elderly visitation, and liturgical assistance.",
+  },
+  {
+    id: "com3",
+    name: "St. Jude Fellowship Circle",
+    zone: "Zone 3 - Bazar Road",
+    patron: "St. Jude",
+    leader: "Anthony Rodriques",
+    contact: "+91 98202 77889",
+    meetingTime: "Every Thursday, 8:00 PM",
+    description: "Community focused on intercessory prayer and local parish outreach programs.",
+  },
+]
+
+export const associationsData: ParishAssociation[] = [
+  {
+    id: "assoc1",
+    name: "Legion of Mary",
+    category: "Lay Apostolate",
+    leader: "Sr. Teresa D'Silva",
+    meetingTime: "Every Saturday, 5:00 PM",
+    contact: "legion@stmaryparish.org",
+    description: "Marian apostolate dedicated to spiritual works of mercy, home visits, and prayer ministry.",
+  },
+  {
+    id: "assoc2",
+    name: "Parish Choir Association",
+    category: "Liturgical Music",
+    leader: "Mark Alvares",
+    meetingTime: "Every Friday, 7:00 PM",
+    contact: "choir@stmaryparish.org",
+    description: "Polyphonic and choir ministry leading Sunday Masses, feast days, and liturgical celebrations.",
+  },
+  {
+    id: "assoc3",
+    name: "Society of St. Vincent de Paul",
+    category: "Outreach & Charity",
+    leader: "Philip Fernandes",
+    meetingTime: "1st & 3rd Sunday, 11:30 AM",
+    contact: "svp@stmaryparish.org",
+    description: "Charitable organization providing financial, medical, and educational relief to underprivileged families.",
+  },
+  {
+    id: "assoc4",
+    name: "Youth Movement",
+    category: "Youth Ministry",
+    leader: "Aaron Pereira",
+    meetingTime: "Every Sunday, 5:00 PM",
+    contact: "youth@stmaryparish.org",
+    description: "Empowering young parishioners through faith formation, retreats, sports, and community service.",
+  },
 ]
 
 export const sacraments: Sacrament[] = [

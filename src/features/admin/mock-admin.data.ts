@@ -1,7 +1,9 @@
 import {
   announcements,
+  associationsData,
   chronicleIssues,
   clergy,
+  communitiesData,
   events,
   historyTimeline,
   massTimings,
@@ -11,10 +13,6 @@ import {
 
 import type { AdminEntityType, AdminRecord } from "./types"
 
-function named(values: string[], prefix: string): AdminRecord[] {
-  return values.map((name, i) => ({ id: `${prefix}${i + 1}`, name }))
-}
-
 /** Normalizes every entity into AdminRecord[] (objects with an id). */
 export const adminMockData: Record<AdminEntityType, AdminRecord[]> = {
   announcements: announcements as unknown as AdminRecord[],
@@ -22,14 +20,8 @@ export const adminMockData: Record<AdminEntityType, AdminRecord[]> = {
   "mass-timings": massTimings as unknown as AdminRecord[],
   sacraments: sacraments as unknown as AdminRecord[],
   clergy: clergy as unknown as AdminRecord[],
-  communities: named(
-    ["SCC Communities", "Youth Fellowship", "Family Cell Groups"],
-    "com",
-  ),
-  associations: named(
-    ["Legion of Mary", "Choir Association", "St. Vincent de Paul"],
-    "assoc",
-  ),
+  communities: communitiesData as unknown as AdminRecord[],
+  associations: associationsData as unknown as AdminRecord[],
   history: historyTimeline.map((h, i) => ({ id: `h${i + 1}`, ...h })),
   chronicle: chronicleIssues as unknown as AdminRecord[],
   outreach: outreach as unknown as AdminRecord[],

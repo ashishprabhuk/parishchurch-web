@@ -1,8 +1,10 @@
 import { api } from "@/lib/api"
 import {
   announcements,
+  associationsData,
   chronicleIssues,
   clergy,
+  communitiesData,
   events,
   historyTimeline,
   massTimings,
@@ -14,6 +16,8 @@ import type {
   ClergyMember,
   MassTiming,
   ParishAnnouncement,
+  ParishAssociation,
+  ParishCommunity,
   ParishEvent,
   Sacrament,
 } from "@/features/parish/types"
@@ -92,27 +96,19 @@ export async function getClergy(): Promise<ClergyMember[]> {
   }
 }
 
-export async function getCommunities() {
+export async function getCommunities(): Promise<ParishCommunity[]> {
   try {
-    return asArray(await api.get<string[]>("/api/v1/communities"), [
-      "SCC Communities",
-      "Youth Fellowship",
-      "Family Cell Groups",
-    ])
+    return asArray(await api.get<ParishCommunity[]>("/api/v1/communities"), communitiesData)
   } catch {
-    return ["SCC Communities", "Youth Fellowship", "Family Cell Groups"]
+    return communitiesData
   }
 }
 
-export async function getCellsAssociations() {
+export async function getCellsAssociations(): Promise<ParishAssociation[]> {
   try {
-    return asArray(await api.get<string[]>("/api/v1/cells-associations"), [
-      "Legion of Mary",
-      "Choir Association",
-      "St. Vincent de Paul",
-    ])
+    return asArray(await api.get<ParishAssociation[]>("/api/v1/cells-associations"), associationsData)
   } catch {
-    return ["Legion of Mary", "Choir Association", "St. Vincent de Paul"]
+    return associationsData
   }
 }
 

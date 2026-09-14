@@ -1,14 +1,17 @@
 import {
-  Camera,
   Church,
   Mail,
   MapPin,
   Phone,
-  PlayCircle,
-  Users,
 } from "lucide-react"
 import { Link } from "react-router-dom"
 
+import {
+  FacebookIcon,
+  InstagramIcon,
+  WhatsAppIcon,
+  YoutubeIcon,
+} from "@/components/common/social-icons"
 import { useI18n } from "@/hooks/use-i18n"
 
 export function SiteFooter() {
@@ -36,30 +39,46 @@ export function SiteFooter() {
             A home for worship, a table for fellowship, and a community that
             carries Christ's hope into the world.
           </p>
-          <div className="mt-6 flex gap-2">
+          <div className="mt-6 flex flex-wrap gap-2">
             <a
-              href="#community"
-              aria-label="Parish community"
-              title="Parish community"
-              className="border-footer-foreground/25 hover:border-brass hover:text-brass grid size-9 place-items-center border transition-colors"
+              href="https://chat.whatsapp.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp Community"
+              title="WhatsApp Community"
+              className="border-footer-foreground/25 hover:border-brass hover:text-brass text-footer-foreground/80 grid size-9 place-items-center border transition-colors"
             >
-              <Users className="size-4" />
+              <WhatsAppIcon className="size-4" />
             </a>
             <a
-              href="#gallery"
-              aria-label="Parish photo gallery"
-              title="Parish photo gallery"
-              className="border-footer-foreground/25 hover:border-brass hover:text-brass grid size-9 place-items-center border transition-colors"
+              href="https://instagram.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram Page"
+              title="Instagram Page"
+              className="border-footer-foreground/25 hover:border-brass hover:text-brass text-footer-foreground/80 grid size-9 place-items-center border transition-colors"
             >
-              <Camera className="size-4" />
+              <InstagramIcon className="size-4" />
             </a>
             <a
-              href="/prayer-liturgy/livestream"
-              aria-label="Watch parish videos"
-              title="Watch parish videos"
-              className="border-footer-foreground/25 hover:border-brass hover:text-brass grid size-9 place-items-center border transition-colors"
+              href="https://facebook.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook Page"
+              title="Facebook Page"
+              className="border-footer-foreground/25 hover:border-brass hover:text-brass text-footer-foreground/80 grid size-9 place-items-center border transition-colors"
             >
-              <PlayCircle className="size-4" />
+              <FacebookIcon className="size-4" />
+            </a>
+            <a
+              href="https://youtube.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="YouTube Channel"
+              title="YouTube Channel"
+              className="border-footer-foreground/25 hover:border-brass hover:text-brass text-footer-foreground/80 grid size-9 place-items-center border transition-colors"
+            >
+              <YoutubeIcon className="size-4" />
             </a>
           </div>
         </div>

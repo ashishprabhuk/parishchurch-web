@@ -41,13 +41,13 @@ export function Combobox({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger
         render={
-          <Button variant="outline" className="w-[220px] justify-between" />
+          <Button variant="outline" className="w-full sm:w-[220px] justify-between" />
         }
       >
         {selectedLabel}
         <ChevronsUpDown className="ml-2 size-4 opacity-50" />
       </PopoverTrigger>
-      <PopoverContent className="w-[220px] p-0">
+      <PopoverContent className="w-[calc(100vw-2rem)] sm:w-[220px] p-0">
         <Command>
           <CommandInput placeholder="Search..." />
           <CommandList>

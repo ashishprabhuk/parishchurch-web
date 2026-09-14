@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import type { ReactElement } from "react"
 
 import { Button } from "@/components/ui/button"
@@ -98,24 +98,33 @@ export function AdminRecordDialog({
   const updateMutation = useUpdateAdminRecord(config.type)
   const isPending = createMutation.isPending || updateMutation.isPending
 
-  // Seed the form from the record when opening in edit mode.
-  useEffect(() => {
-    if (!open) {
-      return
-    }
+  const getSeedValues = () => {
     const seed: Record<string, string> = {}
     for (const field of config.fields) {
       const raw = record?.[field.key]
       seed[field.key] = raw === undefined || raw === null ? "" : String(raw)
     }
-    setValues(seed)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open])
+    return seed
+  }
+
+  const handleOpenChange = (nextOpen: boolean) => {
+    if (nextOpen) {
+      setValues(getSeedValues())
+    }
+    setOpen(nextOpen)
+  }
 
   const setField = (key: string, value: string) =>
     setValues((current) => ({ ...current, [key]: value }))
 
   const onSubmit = async () => {
+    const primaryLabel = config.columns[0]?.label || "Title"
+    const titleValue = values[config.titleKey]?.trim()
+    if (!titleValue) {
+      notify.error(`${primaryLabel} is required.`)
+      return
+    }
+
     const payload: Record<string, unknown> = { ...values }
     try {
       if (isEdit && record) {
@@ -132,9 +141,9 @@ export function AdminRecordDialog({
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger render={trigger} />
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent className="w-[calc(100vw-2rem)] sm:max-w-lg max-h-[calc(100dvh-2rem)] overflow-y-auto p-4 sm:p-6 gap-4">
         <DialogHeader>
           <DialogTitle>
             {isEdit ? `Edit ${config.singular}` : `New ${config.singular}`}

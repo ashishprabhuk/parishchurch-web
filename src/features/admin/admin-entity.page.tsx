@@ -1,4 +1,5 @@
-import { Pencil, Plus, Trash2 } from "lucide-react"
+import { Pencil, Plus, Search, Trash2 } from "lucide-react"
+import { useState } from "react"
 import { Navigate, useParams } from "react-router-dom"
 
 import { EmptyState } from "@/components/feedback/empty-state"
@@ -6,6 +7,7 @@ import { LoadingState } from "@/components/feedback/loading-state"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
 import {
   Table,
   TableBody,
@@ -38,6 +40,7 @@ function cellValue(
 export default function AdminEntityPage() {
   const { entity = "" } = useParams()
   const config = getAdminEntity(entity)
+  const [searchTerm, setSearchTerm] = useState("")
 
   useSeo({
     title: `${config?.label ?? "Admin"} | Parish Admin`,
@@ -52,6 +55,17 @@ export default function AdminEntityPage() {
   if (!config) {
     return <Navigate to="/admin" replace />
   }
+
+  const filteredData = data.filter((record) => {
+    if (!searchTerm.trim()) return true
+    const query = searchTerm.toLowerCase()
+    return Object.values(record).some(
+      (val) =>
+        val !== null &&
+        val !== undefined &&
+        String(val).toLowerCase().includes(query),
+    )
+  })
 
   return (
     <div className="space-y-6">
@@ -72,12 +86,27 @@ export default function AdminEntityPage() {
         />
       </div>
 
+      <div className="relative max-w-sm">
+        <Search className="text-muted-foreground absolute left-3 top-1/2 size-4 -translate-y-1/2" />
+        <Input
+          type="search"
+          placeholder={`Search ${config.label.toLowerCase()}...`}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="pl-9 h-9 text-xs"
+        />
+      </div>
+
       {isLoading ? (
         <LoadingState />
-      ) : data.length === 0 ? (
+      ) : filteredData.length === 0 ? (
         <EmptyState
-          title={`No ${config.label.toLowerCase()} yet`}
-          description={`Create your first ${config.singular.toLowerCase()} to see it here.`}
+          title={`No ${config.label.toLowerCase()} found`}
+          description={
+            searchTerm
+              ? "No records matched your search query."
+              : `Create your first ${config.singular.toLowerCase()} to see it here.`
+          }
         />
       ) : (
         <Card>
@@ -94,7 +123,7 @@ export default function AdminEntityPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {data.map((record) => (
+                {filteredData.map((record) => (
                   <TableRow key={record.id}>
                     {config.columns.map((column, columnIndex) => (
                       <TableCell

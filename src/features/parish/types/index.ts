@@ -26,6 +26,32 @@ export type MassTiming = {
   label: string
   dayGroup: "today" | "sunday" | "weekday"
   time: string
+  intention?: "GENERAL" | "NOVEENA" | "GOOD FRIDAY" | "EASTER" | "CHURCH FEAST" | "CHRISTMAS" | string
+  language?: string
+  image?: string
+  description?: string
+  date?: string
+}
+
+export type ParishCommunity = {
+  id: string
+  name: string
+  zone?: string
+  patron?: string
+  leader?: string
+  contact?: string
+  meetingTime?: string
+  description?: string
+}
+
+export type ParishAssociation = {
+  id: string
+  name: string
+  category?: string
+  leader?: string
+  meetingTime?: string
+  contact?: string
+  description?: string
 }
 
 export type Sacrament = {

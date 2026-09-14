@@ -7,6 +7,7 @@ import {
   Church,
   Clock3,
   Cross,
+  ExternalLink,
   HandHeart,
   Link2,
   Mail,
@@ -17,6 +18,12 @@ import {
 } from "lucide-react"
 import { Link } from "react-router-dom"
 
+import {
+  FacebookIcon,
+  InstagramIcon,
+  WhatsAppIcon,
+  YoutubeIcon,
+} from "@/components/common/social-icons"
 import { CountdownRing } from "@/components/parish/countdown-ring"
 import { HeroSection } from "@/components/parish/hero-section"
 import { MapEmbed } from "@/components/parish/map-embed"
@@ -202,6 +209,61 @@ const galleryItems = [
 ]
 
 type GalleryItem = (typeof galleryItems)[number]
+
+const socialChannels = [
+  {
+    name: "WhatsApp",
+    handle: "Parish Broadcast Channel",
+    description:
+      "Receive instant updates on Mass timings, daily scripture reflections, urgent notices, and parish announcements directly on WhatsApp.",
+    action: "Join Channel",
+    href: "https://chat.whatsapp.com/",
+    icon: WhatsAppIcon,
+    colorClass:
+      "text-[#25D366] bg-[#25D366]/10 border-[#25D366]/30 group-hover:border-[#25D366]",
+    buttonClass:
+      "border-[#25D366]/50 text-[#25D366] hover:bg-[#25D366] hover:text-white dark:border-[#25D366]/70",
+  },
+  {
+    name: "Instagram",
+    handle: "@stmaryparish",
+    description:
+      "Explore photo highlights of feast day celebrations, youth retreats, choir recitals, and vibrant moments of parish community life.",
+    action: "Follow Instagram",
+    href: "https://instagram.com/",
+    icon: InstagramIcon,
+    colorClass:
+      "text-[#E4405F] bg-[#E4405F]/10 border-[#E4405F]/30 group-hover:border-[#E4405F]",
+    buttonClass:
+      "border-[#E4405F]/50 text-[#E4405F] hover:bg-[#E4405F] hover:text-white dark:border-[#E4405F]/70",
+  },
+  {
+    name: "Facebook",
+    handle: "@stmaryparishbandra",
+    description:
+      "Connect with our wider parish family, post prayer requests, view event photo albums, and join live community discussions.",
+    action: "Visit Facebook Page",
+    href: "https://facebook.com/",
+    icon: FacebookIcon,
+    colorClass:
+      "text-[#1877F2] bg-[#1877F2]/10 border-[#1877F2]/30 group-hover:border-[#1877F2]",
+    buttonClass:
+      "border-[#1877F2]/50 text-[#1877F2] hover:bg-[#1877F2] hover:text-white dark:border-[#1877F2]/70",
+  },
+  {
+    name: "YouTube",
+    handle: "St. Mary of Grace",
+    description:
+      "Subscribe to watch Holy Mass livestreams, festival liturgies, special homilies, and choir performances from anywhere in the world.",
+    action: "Subscribe Channel",
+    href: "https://youtube.com/",
+    icon: YoutubeIcon,
+    colorClass:
+      "text-[#FF0000] bg-[#FF0000]/10 border-[#FF0000]/30 group-hover:border-[#FF0000]",
+    buttonClass:
+      "border-[#FF0000]/50 text-[#FF0000] hover:bg-[#FF0000] hover:text-white dark:border-[#FF0000]/70",
+  },
+]
 
 export default function HomePage() {
   useSeo({
@@ -803,7 +865,7 @@ export default function HomePage() {
           }}
         >
           <DialogContent
-            className="border-brass/55 bg-walnut text-parchment max-w-5xl gap-0 overflow-hidden rounded-none border p-0"
+            className="border-brass/55 bg-walnut text-parchment w-[calc(100vw-2rem)] max-w-5xl max-h-[calc(100dvh-2rem)] overflow-y-auto gap-0 rounded-lg sm:rounded-none border p-0"
             showCloseButton
           >
             {selectedGalleryItem ? (
@@ -814,15 +876,80 @@ export default function HomePage() {
                 <img
                   src={selectedGalleryItem.image}
                   alt={selectedGalleryItem.title}
-                  className="image-cinematic max-h-[78vh] w-full object-contain"
+                  className="image-cinematic max-h-[60vh] sm:max-h-[78vh] w-full object-contain bg-black/20"
                 />
-                <p className="border-brass/35 text-parchment/82 border-t px-5 py-4 text-sm">
+                <p className="border-brass/35 text-parchment/82 border-t px-4 py-3 sm:px-5 sm:py-4 text-xs sm:text-sm">
                   {selectedGalleryItem.title}
                 </p>
               </>
             ) : null}
           </DialogContent>
         </Dialog>
+      </section>
+
+      <section
+        id="social-connect"
+        className="bg-antique-cream/35 border-soft-stone scroll-mt-32 border-y py-20 md:py-28"
+      >
+        <PageShell>
+          <div className="mx-auto max-w-2xl text-center space-y-3">
+            <p className="editorial-label">Stay Connected</p>
+            <h2 className="font-heading text-walnut text-3xl sm:text-4xl md:text-5xl dark:text-parchment">
+              Join Our Social Community
+            </h2>
+            <div
+              className="ornament-divider text-brass mx-auto w-24"
+              aria-hidden="true"
+            />
+            <p className="text-muted-foreground text-sm leading-relaxed sm:text-base">
+              Stay inspired throughout the week. Follow our official channels for
+              daily scripture reflections, live Mass broadcasts, photo highlights,
+              and instant parish announcements.
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {socialChannels.map((channel) => (
+              <div
+                key={channel.name}
+                className="heritage-card group relative flex flex-col justify-between p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-3">
+                    <span
+                      className={`grid size-12 place-items-center rounded-xl border transition-transform duration-300 group-hover:scale-110 ${channel.colorClass}`}
+                    >
+                      <channel.icon className="size-6" />
+                    </span>
+                    <ExternalLink className="text-muted-foreground/40 group-hover:text-brass size-4 transition-colors" />
+                  </div>
+
+                  <h3 className="font-heading text-walnut mt-5 text-xl font-bold dark:text-parchment">
+                    {channel.name}
+                  </h3>
+                  <p className="text-brass mt-0.5 text-xs font-semibold tracking-wider uppercase">
+                    {channel.handle}
+                  </p>
+                  <p className="text-muted-foreground mt-3 text-xs leading-relaxed">
+                    {channel.description}
+                  </p>
+                </div>
+
+                <div className="border-border/60 mt-6 border-t pt-4">
+                  <a
+                    href={channel.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-flex w-full items-center justify-center gap-2 rounded-sm border px-4 py-2.5 text-xs font-semibold tracking-wider uppercase transition-all ${channel.buttonClass}`}
+                  >
+                    <span>{channel.action}</span>
+                    <ExternalLink className="size-3.5" />
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </PageShell>
       </section>
 
       <section id="visit" className="scroll-mt-32 py-20 md:py-28">
