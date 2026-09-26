@@ -8,6 +8,7 @@ import {
   History,
   LayoutDashboard,
   Megaphone,
+  Radio,
   Users,
 } from "lucide-react"
 import { NavLink } from "react-router-dom"
@@ -26,10 +27,12 @@ const iconMap = {
   history: History,
   "file-text": FileText,
   "hand-heart": HandHeart,
+  radio: Radio,
 }
 
 const adminNav = [
   { label: "Dashboard", href: "/admin", icon: "layout-dashboard" },
+  { label: "Live Mass", href: "/admin/live", icon: "radio" },
   { label: "Announcements", href: "/admin/announcements", icon: "megaphone" },
   { label: "Events", href: "/admin/events", icon: "calendar" },
   { label: "Mass Timings", href: "/admin/mass-timings", icon: "clock" },

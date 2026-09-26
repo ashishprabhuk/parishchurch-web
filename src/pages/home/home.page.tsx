@@ -1,20 +1,14 @@
 import { useState } from "react"
 import { differenceInCalendarDays, format } from "date-fns"
 import {
-  BookOpen,
   CalendarDays,
   ChevronRight,
   Church,
   Clock3,
-  Cross,
   ExternalLink,
-  HandHeart,
-  Link2,
-  Mail,
+  Megaphone,
   MapPin,
-  PlayCircle,
-  Phone,
-  Users,
+  Star,
 } from "lucide-react"
 import { Link } from "react-router-dom"
 
@@ -26,11 +20,12 @@ import {
 } from "@/components/common/social-icons"
 import { CountdownRing } from "@/components/parish/countdown-ring"
 import { HeroSection } from "@/components/parish/hero-section"
+import { LiveMassSection } from "@/components/parish/live-mass-section"
 import { MapEmbed } from "@/components/parish/map-embed"
 import { PageShell } from "@/components/parish/page-shell"
 import { ButtonLink } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
-import { useClergy, useEventsCalendar, useOutreach } from "@/features/parish"
+import { useEventsCalendar } from "@/features/parish"
 import { useSeo } from "@/hooks/use-seo"
 
 const ministries = [
@@ -85,90 +80,6 @@ const ministries = [
   },
 ]
 
-const sermons = [
-  {
-    category: "Sunday Homily",
-    title: "Finding Strength in God's Promises",
-    speaker: "Fr. Anthony D'Souza",
-    scripture: "Isaiah 41:10",
-    date: "18 August 2026",
-    duration: "36 min",
-    image:
-      "https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=900&q=82",
-  },
-  {
-    category: "Reflection",
-    title: "A Table Prepared in Grace",
-    speaker: "Fr. Michael Fernandes",
-    scripture: "Psalm 23:5",
-    date: "11 August 2026",
-    duration: "31 min",
-    image:
-      "https://images.unsplash.com/photo-1519491050282-cf00c82424b4?auto=format&fit=crop&w=900&q=82",
-  },
-  {
-    category: "Sunday Homily",
-    title: "The Courage to Begin Again",
-    speaker: "Fr. Anthony D'Souza",
-    scripture: "Lamentations 3:22-23",
-    date: "04 August 2026",
-    duration: "28 min",
-    image:
-      "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=900&q=82",
-  },
-]
-
-const featureBandItems = [
-  {
-    title: "Community & Support",
-    description: "A parish family ready to walk with you in every season.",
-    icon: Users,
-  },
-  {
-    title: "Strengthening Faith",
-    description:
-      "Worship and formation that deepen a living relationship with Christ.",
-    icon: Cross,
-  },
-  {
-    title: "Education & Guidance",
-    description: "Catechesis and mentorship for every age and stage of life.",
-    icon: BookOpen,
-  },
-  {
-    title: "Opportunities for Service",
-    description: "Practical, hands-on ways to serve our neighbours with love.",
-    icon: HandHeart,
-  },
-]
-
-const faithStories = [
-  {
-    name: "Maria Fernandes",
-    role: "Parishioner since 2003",
-    quote:
-      "I came looking for a church. I found a family that prayed with me, celebrated with me, and made room for my whole life.",
-    image:
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=82",
-  },
-  {
-    name: "Thomas D'Mello",
-    role: "Outreach volunteer",
-    quote:
-      "Serving a meal together reminds me that worship does not end at the sanctuary doors. It becomes the way we meet our neighbours.",
-    image:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&q=82",
-  },
-  {
-    name: "Asha and Neil Pereira",
-    role: "Young family group",
-    quote:
-      "Our children see that faith can be joyful, thoughtful, and generous. That is a gift we carry home every Sunday.",
-    image:
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=82",
-  },
-]
-
 const galleryItems = [
   {
     title: "The sanctuary in morning light",
@@ -214,8 +125,6 @@ const socialChannels = [
   {
     name: "WhatsApp",
     handle: "Parish Broadcast Channel",
-    description:
-      "Receive instant updates on Mass timings, daily scripture reflections, urgent notices, and parish announcements directly on WhatsApp.",
     action: "Join Channel",
     href: "https://chat.whatsapp.com/",
     icon: WhatsAppIcon,
@@ -227,8 +136,6 @@ const socialChannels = [
   {
     name: "Instagram",
     handle: "@stmaryparish",
-    description:
-      "Explore photo highlights of feast day celebrations, youth retreats, choir recitals, and vibrant moments of parish community life.",
     action: "Follow Instagram",
     href: "https://instagram.com/",
     icon: InstagramIcon,
@@ -240,8 +147,6 @@ const socialChannels = [
   {
     name: "Facebook",
     handle: "@stmaryparishbandra",
-    description:
-      "Connect with our wider parish family, post prayer requests, view event photo albums, and join live community discussions.",
     action: "Visit Facebook Page",
     href: "https://facebook.com/",
     icon: FacebookIcon,
@@ -253,8 +158,6 @@ const socialChannels = [
   {
     name: "YouTube",
     handle: "St. Mary of Grace",
-    description:
-      "Subscribe to watch Holy Mass livestreams, festival liturgies, special homilies, and choir performances from anywhere in the world.",
     action: "Subscribe Channel",
     href: "https://youtube.com/",
     icon: YoutubeIcon,
@@ -276,8 +179,6 @@ export default function HomePage() {
   const [selectedGalleryItem, setSelectedGalleryItem] =
     useState<GalleryItem | null>(null)
   const { data: eventList = [] } = useEventsCalendar()
-  const { data: clergy = [] } = useClergy()
-  const { data: outreach = [] } = useOutreach()
 
   const nextEvent = eventList[0]
   const nextEventDate = nextEvent ? new Date(nextEvent.date) : null
@@ -289,12 +190,32 @@ export default function HomePage() {
         differenceInCalendarDays(nextEventDate, new Date()),
       )
     : 3
-  const pastor = clergy[0]
-  const mission = outreach[0]
-
   return (
     <>
       <HeroSection />
+
+      <section>
+        <div className="mt-4 flex flex-wrap items-center gap-3">
+          <ButtonLink
+            to="/announcements"
+            variant="outline"
+            className="border-brass/70 text-brass hover:bg-brass hover:text-walnut h-11 rounded-sm bg-transparent px-5 text-xs tracking-[0.12em] uppercase"
+          >
+            <Megaphone className="size-4" /> Announcements & Meetings
+          </ButtonLink>
+          <Star
+            className="text-brass size-4 shrink-0"
+            aria-hidden="true"
+            fill="currentColor"
+          />
+          <ButtonLink
+            to="/prayer-liturgy/mass-schedule"
+            className="bg-brass text-walnut hover:bg-antique-cream h-11 rounded-sm px-5 text-xs tracking-[0.12em] uppercase"
+          >
+            <CalendarDays className="size-4" /> Mass Timings
+          </ButtonLink>
+        </div>
+      </section>
 
       <section className="border-soft-stone bg-antique-cream/55 border-b">
         <PageShell className="divide-soft-stone grid divide-y py-0 md:grid-cols-3 md:divide-x md:divide-y-0">
@@ -334,7 +255,9 @@ export default function HomePage() {
         </PageShell>
       </section>
 
-      <section id="our-story" className="scroll-mt-32 py-20 md:py-28">
+      <LiveMassSection />
+
+      {/* <section id="our-story" className="scroll-mt-32 py-20 md:py-28">
         <PageShell>
           <div className="grid gap-12 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:gap-20">
             <div className="relative mx-auto w-full max-w-2xl pb-12 lg:pb-0">
@@ -391,9 +314,9 @@ export default function HomePage() {
             </div>
           </div>
         </PageShell>
-      </section>
+      </section> */}
 
-      <section className="bg-primary paper-texture text-parchment relative isolate overflow-hidden py-20 md:py-28">
+      {/* <section className="bg-primary paper-texture text-parchment relative isolate overflow-hidden py-20 md:py-28">
         <div
           className="border-brass/35 absolute inset-5 border sm:inset-8"
           aria-hidden="true"
@@ -415,7 +338,7 @@ export default function HomePage() {
             2 Corinthians 5:7
           </cite>
         </PageShell>
-      </section>
+      </section> */}
 
       <section id="ministries" className="scroll-mt-32 py-20 md:py-28">
         <PageShell>
@@ -467,7 +390,7 @@ export default function HomePage() {
         </PageShell>
       </section>
 
-      <section
+      {/* <section
         id="sermons"
         className="bg-antique-cream/65 scroll-mt-32 py-20 md:py-28"
       >
@@ -548,7 +471,7 @@ export default function HomePage() {
             </div>
           </div>
         </PageShell>
-      </section>
+      </section> */}
 
       <section className="py-20 md:py-28">
         <PageShell>
@@ -643,7 +566,7 @@ export default function HomePage() {
         </PageShell>
       </section>
 
-      <section
+      {/* <section
         id="leadership"
         className="bg-antique-cream/55 scroll-mt-32 py-20 md:py-28"
       >
@@ -723,9 +646,9 @@ export default function HomePage() {
             </div>
           </div>
         </PageShell>
-      </section>
+      </section> */}
 
-      <section
+      {/* <section
         id="community"
         className="bg-primary text-parchment relative isolate scroll-mt-32 overflow-hidden py-20 md:py-28"
       >
@@ -768,9 +691,9 @@ export default function HomePage() {
             </div>
           </div>
         </PageShell>
-      </section>
+      </section> */}
 
-      <section id="stories" className="scroll-mt-32 py-20 md:py-28">
+      {/* <section id="stories" className="scroll-mt-32 py-20 md:py-28">
         <PageShell>
           <div className="max-w-2xl">
             <p className="editorial-label">Stories of faith</p>
@@ -817,7 +740,7 @@ export default function HomePage() {
             ))}
           </div>
         </PageShell>
-      </section>
+      </section> */}
 
       <section
         id="gallery"
@@ -930,12 +853,9 @@ export default function HomePage() {
                   <p className="text-brass mt-0.5 text-xs font-semibold tracking-wider uppercase">
                     {channel.handle}
                   </p>
-                  <p className="text-muted-foreground mt-3 text-xs leading-relaxed">
-                    {channel.description}
-                  </p>
                 </div>
 
-                <div className="border-border/60 mt-6 border-t pt-4">
+                {/* <div className="border-border/60 mt-6 border-t pt-4"> */}
                   <a
                     href={channel.href}
                     target="_blank"
@@ -945,7 +865,7 @@ export default function HomePage() {
                     <span>{channel.action}</span>
                     <ExternalLink className="size-3.5" />
                   </a>
-                </div>
+                {/* </div> */}
               </div>
             ))}
           </div>
@@ -1005,7 +925,7 @@ export default function HomePage() {
         </PageShell>
       </section>
 
-      <section className="bg-walnut text-parchment relative isolate overflow-hidden py-20 md:py-28">
+      {/* <section className="bg-walnut text-parchment relative isolate overflow-hidden py-20 md:py-28">
         <img
           src="https://images.unsplash.com/photo-1484980972926-edee96e0960d?auto=format&fit=crop&w=1800&q=84"
           alt="Parish gathering in a warm community setting"
@@ -1033,9 +953,9 @@ export default function HomePage() {
             <HandHeart className="size-4" /> Give today
           </ButtonLink>
         </PageShell>
-      </section>
+      </section> */}
 
-      <section className="bg-ink text-parchment relative overflow-hidden py-14">
+      {/* <section className="bg-ink text-parchment relative overflow-hidden py-14">
         <div
           className="from-forest/0 via-forest/70 to-forest/0 absolute inset-x-0 top-0 h-px bg-gradient-to-r"
           aria-hidden="true"
@@ -1059,7 +979,7 @@ export default function HomePage() {
             ))}
           </div>
         </PageShell>
-      </section>
+      </section> */}
     </>
   )
 }

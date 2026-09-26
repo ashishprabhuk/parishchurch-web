@@ -1,4 +1,9 @@
-import { CalendarDays, ChevronRight, MapPin, PlayCircle } from "lucide-react"
+import {
+  CalendarDays,
+  ChevronRight,
+  MapPin,
+  PlayCircle,
+} from "lucide-react"
 
 import { ButtonLink } from "@/components/ui/button"
 import { useI18n } from "@/hooks/use-i18n"
@@ -9,17 +14,17 @@ export function HeroSection() {
   return (
     <section className="bg-walnut text-parchment relative isolate min-h-[calc(100svh-7.25rem)] overflow-hidden">
       <img
-        src="https://images.unsplash.com/photo-1519491050282-cf00c82424b4?auto=format&fit=crop&w=2400&q=88"
+        src={"/assets/fatima_mata.JPG"}
         alt="Sunlit historic church interior prepared for worship"
         className="image-cinematic absolute inset-0 h-full w-full scale-105 object-cover motion-safe:animate-[hero-breathe_14s_ease-in-out_infinite_alternate]"
       />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgb(11_21_84/0.92)_0%,rgb(16_31_120/0.75)_42%,rgb(16_31_120/0.28)_100%)]" />
+      <div className="absolute inset-0 " />
       <div className="absolute inset-0 bg-[linear-gradient(0deg,rgb(11_21_84/0.65)_0%,transparent_42%)]" />
       <div className="border-brass/40 absolute top-10 right-[9%] hidden h-[54%] w-48 rounded-t-full border-x border-t xl:block" />
       <div className="border-brass/25 absolute top-16 right-[11%] hidden h-[44%] w-40 rounded-t-full border-x border-t xl:block" />
 
       <div className="relative mx-auto grid min-h-[calc(100svh-7.25rem)] max-w-7xl items-end gap-12 px-4 py-16 sm:px-6 md:items-center lg:grid-cols-[1fr_18rem] lg:px-8 lg:py-20">
-        <div className="fade-up max-w-3xl">
+        {/* <div className="fade-up max-w-3xl">
           <p className="text-brass text-xs font-semibold tracking-[0.22em] uppercase">
             Welcome to {t("brand.name")}
           </p>
@@ -50,7 +55,7 @@ export function HeroSection() {
               Explore our church <ChevronRight className="size-4" />
             </ButtonLink>
           </div>
-        </div>
+        </div> */}
 
         <aside className="border-brass/60 bg-walnut/72 text-parchment relative w-full border p-5 shadow-2xl backdrop-blur-sm lg:justify-self-end">
           <p className="text-brass text-[0.65rem] font-semibold tracking-[0.2em] uppercase">

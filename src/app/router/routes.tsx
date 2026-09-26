@@ -17,6 +17,7 @@ const PrayerLiturgyPage = lazy(
 const LivestreamPage = lazy(
   () => import("@/pages/prayer-liturgy/livestream.page"),
 )
+const LivePage = lazy(() => import("@/pages/live/live.page"))
 const MassSchedulePage = lazy(
   () => import("@/pages/prayer-liturgy/mass-schedule.page"),
 )
@@ -59,6 +60,9 @@ const GlobalErrorPage = lazy(() => import("@/pages/error/global-error.page"))
 
 const AdminDashboardPage = lazy(
   () => import("@/features/admin/admin-dashboard.page"),
+)
+const LiveStreamAdminPage = lazy(
+  () => import("@/features/admin/live-stream.page"),
 )
 const AdminEntityPage = lazy(() => import("@/features/admin/admin-entity.page"))
 
@@ -104,6 +108,14 @@ export const routes: RouteObject[] = [
         element: (
           <LazyRoute>
             <LivestreamPage />
+          </LazyRoute>
+        ),
+      },
+      {
+        path: "live",
+        element: (
+          <LazyRoute>
+            <LivePage />
           </LazyRoute>
         ),
       },
@@ -278,6 +290,14 @@ export const routes: RouteObject[] = [
             element: (
               <LazyRoute>
                 <AdminDashboardPage />
+              </LazyRoute>
+            ),
+          },
+          {
+            path: "live",
+            element: (
+              <LazyRoute>
+                <LiveStreamAdminPage />
               </LazyRoute>
             ),
           },

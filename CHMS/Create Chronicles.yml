@@ -1,0 +1,31 @@
+info:
+  name: Create Chronicles
+  type: http
+  seq: 16
+
+http:
+  method: POST
+  url: http://localhost:9090/api/v1/admin/chronicles
+  headers:
+    - name: X-XSRF-TOKEN
+      value: 81cd980d-2fc9-4612-9bf2-acc3f508d069
+  body:
+    type: json
+    data: |-
+      {
+        "title": "Tuesday Service",
+        "slug": "Poshak-services-3",
+        "body": "Tuesday service details",
+        "coverImageId": null,
+        "publishDate": "2026-10-21",
+        "expiryDate": null,
+        "link": "https://www.google.com",
+        "status": "PUBLISHED"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

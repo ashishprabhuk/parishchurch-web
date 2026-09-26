@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 
 import {
   getAnnouncementBySlug,
@@ -14,6 +14,11 @@ import {
   getSacraments,
   postFeedback,
 } from "@/features/parish/services/parish.service"
+import {
+  endLiveStream,
+  getLiveStream,
+  publishLiveStream,
+} from "@/features/parish/services/live-stream.service"
 
 const keys = {
   announcements: ["parish", "announcements"] as const,
@@ -27,6 +32,7 @@ const keys = {
   history: ["parish", "history"] as const,
   chronicle: ["parish", "chronicle"] as const,
   outreach: ["parish", "outreach"] as const,
+  liveStream: ["parish", "live-stream"] as const,
 }
 
 export function useAnnouncements() {
@@ -77,6 +83,30 @@ export function useChronicle() {
 
 export function useOutreach() {
   return useQuery({ queryKey: keys.outreach, queryFn: getOutreach })
+}
+
+export function useLiveStream() {
+  return useQuery({ queryKey: keys.liveStream, queryFn: getLiveStream })
+}
+
+export function usePublishLiveStream() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: publishLiveStream,
+    onSuccess: (stream) => {
+      queryClient.setQueryData(keys.liveStream, stream)
+    },
+  })
+}
+
+export function useEndLiveStream() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: endLiveStream,
+    onSuccess: (stream) => {
+      queryClient.setQueryData(keys.liveStream, stream)
+    },
+  })
 }
 
 export function useSubmitFeedback() {

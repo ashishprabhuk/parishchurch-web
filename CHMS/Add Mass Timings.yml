@@ -1,0 +1,28 @@
+info:
+  name: Add Mass Timings
+  type: http
+  seq: 11
+
+http:
+  method: POST
+  url: http://localhost:9090/api/v1/admin/mass-timings
+  headers:
+    - name: X-XSRF-TOKEN
+      value: 2c06587-0978-4545-8ec8-ff4c297f52bc
+  body:
+    type: json
+    data: |-
+      {
+        "dayOfWeek": "Sunday",
+        "timeSlot": "10:30:00",
+        "language": "English",
+        "venue": "Main Church",
+        "intention": "For parish families"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -82,3 +82,16 @@ export type OutreachItem = {
   description: string
   image: string
 }
+
+export type LiveStream = {
+  id: string
+  youtubeVideoId: string
+  title: string
+  isLive: true
+  startedAt: string
+  endedAt?: string
+  createdAt?: string
+  updatedAt?: string
+}
+
+export type LiveStreamStatus = LiveStream | { isLive: false }

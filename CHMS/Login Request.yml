@@ -1,0 +1,22 @@
+info:
+  name: Login Request
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: https://churchofourladyoffatima.com/api/v1/login
+  body:
+    type: json
+    data: |
+      {
+          "email" : "ashishprabhu2143@gmail.com",
+          "password" : "ashishprabhuk"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

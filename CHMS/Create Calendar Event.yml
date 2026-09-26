@@ -1,0 +1,31 @@
+info:
+  name: Create Calendar Event
+  type: http
+  seq: 14
+
+http:
+  method: POST
+  url: http://localhost:9090/api/v1/admin/calendar-events
+  headers:
+    - name: X-XSRF-TOKEN
+      value: f1a41b6c-26ce-45a2-96c2-2a1b101f367a
+  body:
+    type: json
+    data: |-
+      {
+        "eventDate": "2026-09-27",
+        "eventTime": "10:30",
+        "occasion": "Poshak Worship Service",
+        "preacherOrPriest": "Pastor John",
+        "coordinator": "Mary Thomas",
+        "day": "Sunday",
+        "month": "September",
+        "year": 2026
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

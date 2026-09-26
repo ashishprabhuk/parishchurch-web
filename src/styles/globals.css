@@ -20,7 +20,7 @@
   --ink: #070E38;
   --forest: #1D3AA8;
 
-  --background: var(--parchment);
+  --background: #ffffff;
   --foreground: var(--walnut);
   --card: #FFFFFF;
   --card-foreground: var(--walnut);
@@ -177,20 +177,21 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-body);
+    background-color: #ffffff;
     background-image:
       linear-gradient(
         to bottom,
-        rgb(250 248 242 / 92%),
-        rgb(250 248 242 / 97%)
+        rgb(255 255 255 / 100%),
+        rgb(248 250 252 / 100%)
       ),
       repeating-linear-gradient(
         90deg,
-        rgb(11 21 84 / 0.015) 0 1px,
+        rgb(15 23 42 / 0.02) 0 1px,
         transparent 1px 8px
       ),
       repeating-linear-gradient(
         0deg,
-        rgb(11 21 84 / 0.01) 0 1px,
+        rgb(15 23 42 / 0.015) 0 1px,
         transparent 1px 11px
       );
   }

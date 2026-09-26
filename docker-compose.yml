@@ -2,15 +2,15 @@ services:
   webui:
     build: .
     restart: unless-stopped
-    networks:
-      - traefik-proxy
+
+    ports:
+      - 8080:80
+
     labels:
       - traefik.enable=true
-      - traefik.http.routers.webui.rule=Host(`churchofourladyoffatima.com`,`www.churchofourladyoffatima.com`)
+      - traefik.http.routers.webui.rule=Host(churchofourladyoffatima.com) || Host(www.churchofourladyoffatima.com)
       - traefik.http.routers.webui.entrypoints=websecure
       - traefik.http.routers.webui.tls.certresolver=letsencrypt
-      - traefik.http.services.webui.loadbalancer.server.port=80
 
-networks:
-  traefik-proxy:
-    external: true
+      # Tell Traefik where webui is available
+      - traefik.http.services.webui.loadbalancer.server.url=http://127.0.0.1:8080

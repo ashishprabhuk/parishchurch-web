@@ -70,6 +70,7 @@ const links: NavLinkItem[] = [
       { to: "/events/reaching-out", label: "Reaching Out" },
     ],
   },
+  { to: "/live", label: "Live Mass" },
   { to: "/announcements", label: "Announcements" },
   { to: "/contact", label: "Contact" },
 ]
