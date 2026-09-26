@@ -2,11 +2,9 @@ import { useState } from "react"
 import {
   CalendarDays,
   ChevronDown,
-  Church,
   Clock3,
   LogIn,
   Mail,
-  MapPin,
   Menu,
   Phone,
 } from "lucide-react"
@@ -118,8 +116,12 @@ export function SiteHeader() {
             className="flex min-w-0 items-center gap-3"
             aria-label="St. Mary of Grace Parish home"
           >
-            <span className="border-brass/70 bg-antique-cream grid size-11 shrink-0 place-items-center rounded-full border shadow-[inset_0_0_0_3px_rgb(250_248_242)]">
-              <Church className="text-primary size-5" />
+            <span className="grid size-11 shrink-0 place-items-center overflow-hidden">
+              <img
+                src="/assets/fatima_church_logo.png"
+                alt=""
+                className="size-11 object-contain"
+              />
             </span>
             <div className="min-w-0">
               <p className="font-heading text-walnut truncate text-xl leading-none sm:text-2xl xl:overflow-visible xl:text-clip xl:whitespace-nowrap">
@@ -189,13 +191,13 @@ export function SiteHeader() {
 
           <div className="hidden items-center gap-2 xl:flex">
             <LanguageSwitcher />
-            <ButtonLink
+            {/* <ButtonLink
               to="/contact#visit"
               variant="outline"
               className="border-primary/60 text-primary hover:bg-primary hover:text-primary-foreground bg-transparent px-3 text-xs tracking-[0.08em] uppercase"
             >
               <MapPin className="size-3.5" /> Plan a Visit
-            </ButtonLink>
+            </ButtonLink> */}
             {isAuthenticated ? (
               <UserMenu />
             ) : (

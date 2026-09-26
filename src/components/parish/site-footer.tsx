@@ -1,5 +1,4 @@
 import {
-  Church,
   Mail,
   MapPin,
   Phone,
@@ -23,8 +22,12 @@ export function SiteFooter() {
       <div className="mx-auto grid max-w-7xl gap-x-10 gap-y-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.4fr_.8fr_.9fr_1.1fr] lg:px-8">
         <div>
           <Link to="/" className="flex items-center gap-3">
-            <span className="border-brass/70 grid size-11 place-items-center rounded-full border">
-              <Church className="text-brass size-5" />
+            <span className="border-brass/70 grid size-11 place-items-center overflow-hidden rounded-full border">
+              <img
+                src="/assets/fatima_church_logo.png"
+                alt=""
+                className="size-9 object-contain"
+              />
             </span>
             <div>
               <p className="font-heading text-2xl leading-none">

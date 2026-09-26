@@ -7,6 +7,7 @@ export type SeoMeta = {
 
 export function applySeoMeta(meta: SeoMeta) {
   document.title = meta.title
+  const shareImage = meta.ogImage ?? "/assets/fatima_church_logo.png"
 
   const ensureMeta = (name: string, content: string, property = false) => {
     const selector = property
@@ -31,9 +32,11 @@ export function applySeoMeta(meta: SeoMeta) {
   ensureMeta("og:title", meta.title, true)
   ensureMeta("og:description", meta.description, true)
   ensureMeta("og:type", "website", true)
-  if (meta.ogImage) {
-    ensureMeta("og:image", meta.ogImage, true)
-  }
+  ensureMeta("og:image", shareImage, true)
+  ensureMeta("twitter:card", "summary")
+  ensureMeta("twitter:title", meta.title)
+  ensureMeta("twitter:description", meta.description)
+  ensureMeta("twitter:image", shareImage)
 
   const canonical = `${window.location.origin}${meta.canonicalPath}`
   let link = document.head.querySelector("link[rel='canonical']")
