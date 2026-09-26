@@ -5,6 +5,7 @@ import {
   Clock3,
   LogIn,
   Mail,
+  MapPin,
   Menu,
   Phone,
 } from "lucide-react"
