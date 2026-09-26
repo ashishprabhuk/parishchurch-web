@@ -1,16 +1,11 @@
 import {
   CalendarDays,
-  ChevronRight,
-  MapPin,
   PlayCircle,
 } from "lucide-react"
 
 import { ButtonLink } from "@/components/ui/button"
-import { useI18n } from "@/hooks/use-i18n"
 
 export function HeroSection() {
-  const { t } = useI18n()
-
   return (
     <section className="bg-walnut text-parchment relative isolate min-h-[calc(100svh-7.25rem)] overflow-hidden">
       <img
