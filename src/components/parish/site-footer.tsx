@@ -181,9 +181,9 @@ export function SiteFooter() {
               <Mail className="text-brass size-4 shrink-0" />
               <a
                 className="hover:text-brass"
-                href="mailto:office@stmaryparish.org"
+                href="mailto:office@churchoffatima.org"
               >
-                office@stmaryparish.org
+                office@churchoffatima.org
               </a>
             </li>
           </ul>

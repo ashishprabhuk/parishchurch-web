@@ -12,16 +12,29 @@ export default function LoginPage() {
   const location = useLocation()
   const login = useAuthStore((state) => state.login)
   const [error, setError] = useState<string | null>(null)
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const onLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setError(null)
+    setFieldErrors({})
     setIsSubmitting(true)
 
     const data = new FormData(event.currentTarget)
     const email = String(data.get("email") ?? "").trim().toLowerCase()
     const password = String(data.get("password") ?? "")
+    const nextErrors: Record<string, string> = {}
+    if (!email) nextErrors.email = "Email address is required."
+    else if (!/^\S+@\S+\.\S+$/.test(email)) {
+      nextErrors.email = "Enter a valid email address."
+    }
+    if (!password) nextErrors.password = "Password is required."
+    if (Object.keys(nextErrors).length > 0) {
+      setFieldErrors(nextErrors)
+      setIsSubmitting(false)
+      return
+    }
 
     try {
       const response = await loginWithCredentials(email, password)
@@ -88,11 +101,13 @@ export default function LoginPage() {
             <form className="space-y-5" onSubmit={onLogin}>
               <div className="space-y-2">
                 <Label htmlFor="email">Email address</Label>
-                <Input id="email" name="email" type="email" placeholder="you@example.com" autoComplete="email" required className="h-11" />
+                <Input id="email" name="email" type="email" placeholder="you@example.com" autoComplete="email" required className="h-11" aria-invalid={Boolean(fieldErrors.email)} />
+                {fieldErrors.email ? <p className="text-destructive text-xs">{fieldErrors.email}</p> : null}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
-                <Input id="password" name="password" type="password" placeholder="Enter your password" autoComplete="current-password" required className="h-11" />
+                <Input id="password" name="password" type="password" placeholder="Enter your password" autoComplete="current-password" required className="h-11" aria-invalid={Boolean(fieldErrors.password)} />
+                {fieldErrors.password ? <p className="text-destructive text-xs">{fieldErrors.password}</p> : null}
               </div>
               {error ? <p className="bg-destructive/10 text-destructive rounded-lg px-3 py-2 text-sm" role="alert">{error}</p> : null}
               <Button className="h-11 w-full text-sm" type="submit" disabled={isSubmitting}>

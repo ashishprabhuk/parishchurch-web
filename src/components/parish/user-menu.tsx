@@ -62,12 +62,14 @@ export function UserMenu() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuGroup>
-          <DropdownMenuLabel className="flex flex-col gap-1">
-            <span className="flex items-center gap-2">
-              <span className="text-sm font-medium">{user.name}</span>
+          <DropdownMenuLabel className="flex min-w-0 flex-col gap-1">
+            <span className="flex min-w-0 flex-wrap items-center gap-2">
+              <span className="min-w-0 truncate text-sm font-medium">
+                {user.name}
+              </span>
               <Badge
                 variant={isAdmin ? "default" : "secondary"}
-                className="text-[0.6rem] tracking-[0.08em] uppercase"
+                className="shrink-0 text-[0.6rem] tracking-[0.08em] uppercase"
               >
                 {isAdmin ? "Admin" : "Member"}
               </Badge>

@@ -13,7 +13,7 @@ export default function ClergyPage() {
         image="https://images.unsplash.com/photo-1442503126439-9bf9a0d4d50d?auto=format&fit=crop&w=1700&q=80"
       />
       <PageShell className="py-14">
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="mx-auto grid max-w-5xl gap-5 md:grid-cols-2">
           {data.map((item) => (
             <ClergyCard key={item.id} item={item} />
           ))}

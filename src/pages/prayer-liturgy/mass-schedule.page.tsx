@@ -260,9 +260,9 @@ export default function MassSchedulePage() {
                       <div className="space-y-6">
                         {groupByLanguage(dailyMass).map(([lang, items]) => (
                           <div key={lang} className="space-y-3">
-                            <h4 className="text-walnut border-brass border-l-2 pl-2.5 text-xs font-bold uppercase tracking-wider dark:text-parchment">
+                            {/* <h4 className="text-walnut border-brass border-l-2 pl-2.5 text-xs font-bold uppercase tracking-wider dark:text-parchment">
                               {lang}
-                            </h4>
+                            </h4> */}
                             <ul className="space-y-2">
                               {groupByDay(removeDuplicateRows(items)).map(([day, dayItems]) => (
                                 <li
@@ -303,9 +303,9 @@ export default function MassSchedulePage() {
                       <div className="space-y-6">
                         {groupByLanguage(sundayMass).map(([lang, items]) => (
                           <div key={lang} className="space-y-3">
-                            <h4 className="text-walnut border-brass border-l-2 pl-2.5 text-xs font-bold uppercase tracking-wider dark:text-parchment">
+                            {/* <h4 className="text-walnut border-brass border-l-2 pl-2.5 text-xs font-bold uppercase tracking-wider dark:text-parchment">
                               {lang}
-                            </h4>
+                            </h4> */}
                             <ul className="space-y-2">
                               {items.map((item) => (
                                 <li

@@ -15,7 +15,7 @@ export type AuthUser = {
 
 /** Demo credentials for the admin portal. */
 export const MOCK_ADMIN_CREDENTIALS = {
-  email: "admin@stmaryparish.org",
+  email: "admin@churchoffatima.org",
   password: "admin123",
 }
 

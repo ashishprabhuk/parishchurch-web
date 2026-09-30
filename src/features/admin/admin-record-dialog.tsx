@@ -41,10 +41,12 @@ function FieldInput({
   field,
   value,
   onChange,
+  invalid,
 }: {
   field: AdminField
   value: string
   onChange: (value: string) => void
+  invalid?: boolean
 }) {
   const id = `admin-field-${field.key}`
 
@@ -69,6 +71,7 @@ function FieldInput({
         id={id}
         value={value}
         rows={4}
+        aria-invalid={invalid}
         onChange={(event) => onChange(event.target.value)}
       />
     )
@@ -77,7 +80,7 @@ function FieldInput({
   if (field.type === "select" && field.options) {
     return (
       <Select value={value} onValueChange={(next) => onChange(String(next))}>
-        <SelectTrigger className="w-full">
+        <SelectTrigger className="w-full" aria-invalid={invalid}>
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
@@ -97,6 +100,7 @@ function FieldInput({
         id={id}
         type="time"
         value={value}
+        aria-invalid={invalid}
         onChange={(event) => onChange(event.target.value)}
       />
     )
@@ -110,6 +114,7 @@ function FieldInput({
         min="0"
         step="1"
         value={value}
+        aria-invalid={invalid}
         onChange={(event) => onChange(event.target.value)}
       />
     )
@@ -120,6 +125,7 @@ function FieldInput({
       id={id}
       type={field.type === "date" ? "date" : "text"}
       value={value}
+      aria-invalid={invalid}
       onChange={(event) => onChange(event.target.value)}
     />
   )
@@ -307,6 +313,7 @@ export function AdminRecordDialog({
   const isEdit = Boolean(record)
   const [open, setOpen] = useState(false)
   const [values, setValues] = useState<Record<string, string>>({})
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({})
 
   const createMutation = useCreateAdminRecord(config.type)
   const updateMutation = useUpdateAdminRecord(config.type)
@@ -331,18 +338,45 @@ export function AdminRecordDialog({
   const handleOpenChange = (nextOpen: boolean) => {
     if (nextOpen) {
       setValues(getSeedValues())
+      setFieldErrors({})
     }
     setOpen(nextOpen)
   }
 
-  const setField = (key: string, value: string) =>
+  const setField = (key: string, value: string) => {
     setValues((current) => ({ ...current, [key]: value }))
+    setFieldErrors((current) => {
+      if (!current[key]) return current
+      const next = { ...current }
+      delete next[key]
+      return next
+    })
+  }
 
   const onSubmit = async () => {
-    const primaryLabel = config.columns[0]?.label || "Title"
+    const primaryField = config.fields.find(
+      (field) => field.key === config.titleKey,
+    )
+    const primaryLabel = primaryField?.label || config.columns[0]?.label || "Title"
+    const nextErrors: Record<string, string> = {}
     const titleValue = values[config.titleKey]?.trim()
     if (!titleValue) {
-      notify.error(`${primaryLabel} is required.`)
+      nextErrors[config.titleKey] = `${primaryLabel} is required.`
+    }
+    for (const field of config.fields) {
+      const value = values[field.key]?.trim() ?? ""
+      if (field.type === "date" && value && !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+        nextErrors[field.key] = `${field.label} must be a valid date.`
+      }
+      if (field.type === "time" && value && !/^\d{2}:\d{2}$/.test(value)) {
+        nextErrors[field.key] = `${field.label} must use HH:MM format.`
+      }
+      if (field.type === "number" && value && !/^\d+$/.test(value)) {
+        nextErrors[field.key] = `${field.label} must be a whole number.`
+      }
+    }
+    if (Object.keys(nextErrors).length > 0) {
+      setFieldErrors(nextErrors)
       return
     }
 
@@ -383,8 +417,14 @@ export function AdminRecordDialog({
               <FieldInput
                 field={field}
                 value={values[field.key] ?? ""}
+                invalid={Boolean(fieldErrors[field.key])}
                 onChange={(value) => setField(field.key, value)}
               />
+              {fieldErrors[field.key] ? (
+                <p className="text-destructive text-xs" role="alert">
+                  {fieldErrors[field.key]}
+                </p>
+              ) : null}
             </div>
           ))}
         </div>

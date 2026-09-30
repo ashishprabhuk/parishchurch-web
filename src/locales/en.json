@@ -16,5 +16,25 @@
   "live.next": "Next Mass",
   "footer.rights": "All rights reserved.",
   "contact.title": "We'd love to hear from you.",
-  "feedback.title": "We're here to listen"
+  "feedback.title": "We're here to listen",
+  "nav.massLivestream": "Mass Livestream",
+  "nav.dailySchedule": "Daily Schedule",
+  "nav.sacraments": "Sacraments",
+  "nav.clergy": "Clergy",
+  "nav.communities": "Communities",
+  "nav.cellsAssociations": "Cells & Associations",
+  "nav.history": "Parish History",
+  "nav.calendar": "Calendar",
+  "nav.chronicle": "The Chronicle",
+  "nav.reachingOut": "Reaching Out",
+  "nav.liveMass": "Live Mass",
+  "header.worshipTimes": "Sunday worship at 8:00 AM, 10:00 AM & 6:00 PM",
+  "auth.login": "Login",
+  "accessibility.home": "Church of Our Lady of Fatima home"
+  ,"live.massTitle": "Holy Mass"
+  ,"live.nextTitle": "Sunday · 8:00 AM"
+  ,"live.watchDescription": "Watch today's celebration with our parish community."
+  ,"live.nextDescription": "Join us in person or online for the next Eucharistic celebration."
+  ,"live.watchAction": "Watch Live"
+  ,"live.scheduleAction": "View Mass Schedule"
 }

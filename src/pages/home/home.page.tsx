@@ -8,7 +8,6 @@ import {
   ExternalLink,
   Megaphone,
   MapPin,
-  Star,
 } from "lucide-react"
 import { Link } from "react-router-dom"
 
@@ -25,7 +24,7 @@ import { MapEmbed } from "@/components/parish/map-embed"
 import { PageShell } from "@/components/parish/page-shell"
 import { ButtonLink } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
-import { useEventsCalendar } from "@/features/parish"
+import { useUpcomingEvents } from "@/features/parish"
 import { useSeo } from "@/hooks/use-seo"
 
 const ministries = [
@@ -126,6 +125,8 @@ const socialChannels = [
     name: "WhatsApp",
     handle: "Parish Broadcast Channel",
     action: "Join Channel",
+    description: "Get parish updates and announcements directly on WhatsApp.",
+    accentClass: "bg-[#25D366]",
     href: "https://chat.whatsapp.com/",
     icon: WhatsAppIcon,
     colorClass:
@@ -135,8 +136,10 @@ const socialChannels = [
   },
   {
     name: "Instagram",
-    handle: "@stmaryparish",
+    handle: "Church of Our Lady of Fatima",
     action: "Follow Instagram",
+    description: "Follow us for parish moments, events, and daily inspiration.",
+    accentClass: "bg-[#E4405F]",
     href: "https://instagram.com/",
     icon: InstagramIcon,
     colorClass:
@@ -146,8 +149,10 @@ const socialChannels = [
   },
   {
     name: "Facebook",
-    handle: "@stmaryparishbandra",
+    handle: "Church of Our Lady of Fatima",
     action: "Visit Facebook Page",
+    description: "Stay connected with parish news, events, and community updates.",
+    accentClass: "bg-[#1877F2]",
     href: "https://facebook.com/",
     icon: FacebookIcon,
     colorClass:
@@ -159,6 +164,8 @@ const socialChannels = [
     name: "YouTube",
     handle: "Church of Our Lady of Fatima",
     action: "Subscribe Channel",
+    description: "Watch Masses, reflections, and parish moments online.",
+    accentClass: "bg-[#FF0000]",
     href: "https://youtube.com/",
     icon: YoutubeIcon,
     colorClass:
@@ -178,7 +185,7 @@ export default function HomePage() {
 
   const [selectedGalleryItem, setSelectedGalleryItem] =
     useState<GalleryItem | null>(null)
-  const { data: eventList = [] } = useEventsCalendar()
+  const { data: eventList = [] } = useUpcomingEvents()
 
   const nextEvent = eventList[0]
   const nextEventDate = nextEvent ? new Date(nextEvent.date) : null
@@ -193,30 +200,6 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-
-      <section>
-        <div className="mt-4 flex flex-wrap items-center gap-3">
-          <ButtonLink
-            to="/announcements"
-            variant="outline"
-            className="border-brass/70 text-brass hover:bg-brass hover:text-walnut h-11 rounded-sm bg-transparent px-5 text-xs tracking-[0.12em] uppercase"
-          >
-            <Megaphone className="size-4" /> Announcements & Meetings
-          </ButtonLink>
-          <Star
-            className="text-brass size-4 shrink-0"
-            aria-hidden="true"
-            fill="currentColor"
-          />
-          <ButtonLink
-            to="/prayer-liturgy/mass-schedule"
-            className="bg-brass text-walnut hover:bg-antique-cream h-11 rounded-sm px-5 text-xs tracking-[0.12em] uppercase"
-          >
-            <CalendarDays className="size-4" /> Mass Timings
-          </ButtonLink>
-        </div>
-      </section>
-
       <section className="border-soft-stone bg-antique-cream/55 border-b">
         <PageShell className="divide-soft-stone grid divide-y py-0 md:grid-cols-3 md:divide-x md:divide-y-0">
           <Link
@@ -473,6 +456,62 @@ export default function HomePage() {
         </PageShell>
       </section> */}
 
+      <section className="bg-antique-cream/55 border-soft-stone border-y py-10 md:py-12">
+        <PageShell>
+          <div className="grid gap-4 md:grid-cols-2 md:gap-6">
+            <ButtonLink
+              to="/announcements"
+              variant="outline"
+              className="border-brass/70 bg-parchment/55 text-walnut hover:bg-brass hover:text-walnut group h-auto min-h-32 justify-between rounded-sm px-6 py-6 text-left sm:px-8"
+            >
+              <span className="flex items-center gap-5">
+                <span className="border-brass/60 bg-antique-cream text-brass grid size-14 shrink-0 place-items-center border transition-colors group-hover:border-walnut/40 group-hover:bg-antique-cream/70">
+                  <Megaphone
+                    className="text-primary size-7"
+                    strokeWidth={2.25}
+                    aria-hidden="true"
+                  />
+                </span>
+                <span>
+                  <span className="text-brass block text-xs font-semibold tracking-[0.15em] uppercase group-hover:text-walnut/75">
+                    Stay informed
+                  </span>
+                  <span className="font-heading mt-1 block text-2xl leading-tight sm:text-3xl">
+                    Announcements & Meetings
+                  </span>
+                  <span className="text-muted-foreground mt-2 block text-sm font-normal group-hover:text-walnut/75">
+                    Keep up with parish news and gatherings.
+                  </span>
+                </span>
+              </span>
+              <ChevronRight className="text-brass ml-4 size-5 shrink-0 transition-transform group-hover:translate-x-1 group-hover:text-walnut" />
+            </ButtonLink>
+            <ButtonLink
+              to="/prayer-liturgy/mass-schedule"
+              className="bg-primary text-primary-foreground hover:bg-church-red/85 group h-auto min-h-32 justify-between rounded-sm px-6 py-6 text-left sm:px-8"
+            >
+              <span className="flex items-center gap-5">
+                <span className="border-brass/70 bg-brass text-walnut grid size-14 shrink-0 place-items-center border">
+                  <CalendarDays className="size-6" />
+                </span>
+                <span>
+                  <span className="text-brass block text-xs font-semibold tracking-[0.15em] uppercase">
+                    Worship with us
+                  </span>
+                  <span className="font-heading mt-1 block text-2xl leading-tight sm:text-3xl">
+                    Mass Timings
+                  </span>
+                  <span className="text-primary-foreground/75 mt-2 block text-sm font-normal">
+                    Find a service time that works for you.
+                  </span>
+                </span>
+              </span>
+              <ChevronRight className="text-brass ml-4 size-5 shrink-0 transition-transform group-hover:translate-x-1" />
+            </ButtonLink>
+          </div>
+        </PageShell>
+      </section>
+
       <section className="py-20 md:py-28">
         <PageShell>
           <div className="grid gap-10 lg:grid-cols-[.75fr_1.25fr] lg:items-center">
@@ -601,7 +640,7 @@ export default function HomePage() {
               </p>
               <div className="mt-4 flex gap-2" aria-label="Contact our pastor">
                 <a
-                  href="mailto:office@stmaryparish.org"
+                  href="mailto:office@churchoffatima.org"
                   aria-label="Email the parish office"
                   title="Email the parish office"
                   className="border-brass/50 text-primary hover:bg-primary hover:text-primary-foreground grid size-9 place-items-center rounded-full border transition-colors"
@@ -812,60 +851,66 @@ export default function HomePage() {
 
       <section
         id="social-connect"
-        className="bg-antique-cream/35 border-soft-stone scroll-mt-32 border-y py-20 md:py-28"
+        className="bg-antique-cream/55 border-soft-stone relative isolate scroll-mt-32 overflow-hidden border-y py-20 md:py-28"
       >
+        <div
+          className="bg-brass/10 pointer-events-none absolute -top-24 left-1/2 size-72 -translate-x-1/2 rounded-full blur-3xl"
+          aria-hidden="true"
+        />
         <PageShell>
-          <div className="mx-auto max-w-2xl text-center space-y-3">
+          <div className="relative mx-auto max-w-2xl space-y-4 text-center">
             <p className="editorial-label">Stay Connected</p>
-            <h2 className="font-heading text-walnut text-3xl sm:text-4xl md:text-5xl dark:text-parchment">
+            <h2 className="font-heading text-walnut text-3xl leading-tight sm:text-4xl md:text-5xl dark:text-parchment">
               Join Our Social Community
             </h2>
             <div
-              className="ornament-divider text-brass mx-auto w-24"
+              className="bg-brass mx-auto h-px w-12"
               aria-hidden="true"
             />
-            <p className="text-muted-foreground text-sm leading-relaxed sm:text-base">
+            <p className="text-muted-foreground mx-auto max-w-xl text-sm leading-relaxed sm:text-base">
               Stay inspired throughout the week. Follow our official channels for
               daily scripture reflections, live Mass broadcasts, photo highlights,
               and instant parish announcements.
             </p>
           </div>
 
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="relative mt-12 grid items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {socialChannels.map((channel) => (
               <div
                 key={channel.name}
-                className="heritage-card group relative flex flex-col justify-between p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl"
+                className="heritage-card group relative flex h-full min-h-72 flex-col justify-between overflow-hidden border border-border/70 bg-parchment/90 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brass/60 hover:shadow-[0_12px_30px_rgb(11_21_84/0.1)]"
               >
+                <span
+                  className={`absolute inset-x-0 top-0 h-1 opacity-70 ${channel.accentClass}`}
+                  aria-hidden="true"
+                />
                 <div>
-                  <div className="flex items-center justify-between gap-3">
-                    <span
-                      className={`grid size-12 place-items-center rounded-xl border transition-transform duration-300 group-hover:scale-110 ${channel.colorClass}`}
-                    >
-                      <channel.icon className="size-6" />
-                    </span>
-                    <ExternalLink className="text-muted-foreground/40 group-hover:text-brass size-4 transition-colors" />
-                  </div>
+                  <span
+                    className={`grid size-14 place-items-center rounded-[0.9rem] border transition-colors duration-300 group-hover:brightness-95 ${channel.colorClass}`}
+                  >
+                    <channel.icon className="size-7" />
+                  </span>
 
-                  <h3 className="font-heading text-walnut mt-5 text-xl font-bold dark:text-parchment">
+                  <h3 className="font-heading text-walnut mt-6 text-xl font-semibold dark:text-parchment">
                     {channel.name}
                   </h3>
-                  <p className="text-brass mt-0.5 text-xs font-semibold tracking-wider uppercase">
+                  <p className="text-brass mt-1 text-[0.65rem] font-semibold tracking-[0.13em] uppercase">
                     {channel.handle}
+                  </p>
+                  <p className="text-muted-foreground mt-4 text-sm leading-relaxed">
+                    {channel.description}
                   </p>
                 </div>
 
-                {/* <div className="border-border/60 mt-6 border-t pt-4"> */}
-                  <a
-                    href={channel.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`inline-flex w-full items-center justify-center gap-2 rounded-sm border px-4 py-2.5 text-xs font-semibold tracking-wider uppercase transition-all ${channel.buttonClass}`}
-                  >
-                    <span>{channel.action}</span>
-                    <ExternalLink className="size-3.5" />
-                  </a>
-                {/* </div> */}
+                <a
+                  href={channel.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`mt-7 inline-flex items-center justify-between border-t border-border/70 pt-4 text-xs font-semibold tracking-[0.12em] uppercase transition-colors ${channel.buttonClass}`}
+                >
+                  <span>{channel.action}</span>
+                  <ExternalLink className="size-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+                </a>
               </div>
             ))}
           </div>

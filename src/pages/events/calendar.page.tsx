@@ -19,7 +19,7 @@ export default function EventsCalendarPage() {
   })
 
   const [month, setMonth] = useState(startOfMonth(new Date()))
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date())
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>()
   const { data = [] } = useEventsCalendar(
     format(month, "yyyy-MM-dd"),
     format(addMonths(month, 1), "yyyy-MM-dd"),
@@ -35,6 +35,15 @@ export default function EventsCalendarPage() {
         return eventDate ? isSameDay(eventDate, selectedDate) : false
       }),
     [data, selectedDate],
+  )
+
+  const eventDates = useMemo(
+    () =>
+      data.flatMap((item) => {
+        const eventDate = toDateOrNull(item.date)
+        return eventDate ? [eventDate] : []
+      }),
+    [data],
   )
 
   return (
@@ -65,20 +74,31 @@ export default function EventsCalendarPage() {
           </div>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-[380px_1fr]">
+        <div className="grid gap-6 lg:grid-cols-[minmax(24rem,0.85fr)_1.15fr]">
           <Card className="border-border/70 bg-card/85">
-            <CardContent className="p-4">
+            <CardContent className="p-4 sm:p-6">
               <Calendar
+                className="w-full"
                 month={month}
-                onMonthChange={setMonth}
+                onMonthChange={(nextMonth) => {
+                  setMonth(nextMonth)
+                  setSelectedDate(undefined)
+                }}
                 mode="single"
                 selected={selectedDate}
                 onSelect={setSelectedDate}
+                modifiers={{ hasEvent: eventDates }}
+                modifiersClassNames={{
+                  hasEvent:
+                    "bg-brass/20 text-primary font-semibold ring-1 ring-brass/60",
+                }}
               />
             </CardContent>
           </Card>
           <div className="space-y-4">
-            <h3 className="font-heading text-2xl">Upcoming events</h3>
+            <h3 className="font-heading text-2xl">
+              {selectedDate ? `Events on ${format(selectedDate, "d MMMM")}` : "Upcoming events"}
+            </h3>
             {selectedEvents.length === 0 ? (
               <Card className="border-border/80 bg-card/80 border-dashed">
                 <CardContent className="text-muted-foreground p-6 text-sm">

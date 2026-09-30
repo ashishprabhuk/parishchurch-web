@@ -16,5 +16,25 @@
   "live.next": "पुढील मिस्सा",
   "footer.rights": "सर्व हक्क राखीव.",
   "contact.title": "आम्हाला तुमच्याशी बोलायला आवडेल.",
-  "feedback.title": "आम्ही ऐकण्यासाठी येथे आहोत"
+  "feedback.title": "आम्ही ऐकण्यासाठी येथे आहोत",
+  "nav.massLivestream": "पवित्र मिस्साचे थेट प्रक्षेपण",
+  "nav.dailySchedule": "दैनंदिन वेळापत्रक",
+  "nav.sacraments": "संस्कार",
+  "nav.clergy": "धर्मगुरू",
+  "nav.communities": "समुदाय",
+  "nav.cellsAssociations": "लघु ख्रिस्ती समुदाय व संघटना",
+  "nav.history": "पॅरिशचा इतिहास",
+  "nav.calendar": "दिनदर्शिका",
+  "nav.chronicle": "पॅरिश वार्तापत्र",
+  "nav.reachingOut": "सेवाकार्य",
+  "nav.liveMass": "थेट पवित्र मिस्सा",
+  "header.worshipTimes": "रविवारची उपासना सकाळी ८:००, १०:०० आणि संध्याकाळी ६:०० वाजता",
+  "auth.login": "प्रवेश करा",
+  "accessibility.home": "Church of Our Lady of Fatima मुख्यपृष्ठ"
+  ,"live.massTitle": "पवित्र मिस्सा"
+  ,"live.nextTitle": "रविवार · सकाळी ८:००"
+  ,"live.watchDescription": "आमच्या पॅरिश समुदायासोबत आजचा पवित्र मिस्सा थेट पहा."
+  ,"live.nextDescription": "पुढील पवित्र मिस्सासाठी प्रत्यक्ष किंवा ऑनलाइन आमच्यासोबत सहभागी व्हा."
+  ,"live.watchAction": "थेट प्रक्षेपण पहा"
+  ,"live.scheduleAction": "मिस्साचे वेळापत्रक पहा"
 }

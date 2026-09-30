@@ -22,55 +22,56 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { useI18n } from "@/hooks/use-i18n"
+import type { TranslationKey } from "@/lib/i18n"
 import { useAuthStore } from "@/stores/auth.store"
 
 type NavChildLink = {
   to: string
-  label: string
+  labelKey: TranslationKey
 }
 
 type NavLinkItem = {
   to: string
-  label: string
+  labelKey: TranslationKey
   children?: NavChildLink[]
 }
 
 const links: NavLinkItem[] = [
-  { to: "/", label: "Home" },
+  { to: "/", labelKey: "nav.home" },
   {
     to: "/prayer-liturgy",
-    label: "Prayer & Liturgy",
+    labelKey: "nav.prayer",
     children: [
-      { to: "/prayer-liturgy/livestream", label: "Mass Livestream" },
-      { to: "/prayer-liturgy/mass-schedule", label: "Daily Schedule" },
-      { to: "/prayer-liturgy/sacraments", label: "Sacraments" },
+      { to: "/prayer-liturgy/livestream", labelKey: "nav.massLivestream" },
+      { to: "/prayer-liturgy/mass-schedule", labelKey: "nav.dailySchedule" },
+      { to: "/prayer-liturgy/sacraments", labelKey: "nav.sacraments" },
     ],
   },
   {
     to: "/who-we-are",
-    label: "Who We Are",
+    labelKey: "nav.who",
     children: [
-      { to: "/who-we-are/clergy", label: "Clergy" },
-      { to: "/who-we-are/communities", label: "Communities" },
+      { to: "/who-we-are/clergy", labelKey: "nav.clergy" },
+      { to: "/who-we-are/communities", labelKey: "nav.communities" },
       {
         to: "/who-we-are/cells-associations",
-        label: "Cells & Associations",
+        labelKey: "nav.cellsAssociations",
       },
-      { to: "/who-we-are/history", label: "Parish History" },
+      { to: "/who-we-are/history", labelKey: "nav.history" },
     ],
   },
   {
     to: "/events",
-    label: "Events",
+    labelKey: "nav.events",
     children: [
-      { to: "/events/calendar", label: "Calendar" },
-      { to: "/events/chronicle", label: "The Chronicle" },
-      { to: "/events/reaching-out", label: "Reaching Out" },
+      { to: "/events/calendar", labelKey: "nav.calendar" },
+      { to: "/events/chronicle", labelKey: "nav.chronicle" },
+      { to: "/events/reaching-out", labelKey: "nav.reachingOut" },
     ],
   },
-  { to: "/live", label: "Live Mass" },
-  { to: "/announcements", label: "Announcements" },
-  { to: "/contact", label: "Contact" },
+  { to: "/live", labelKey: "nav.liveMass" },
+  { to: "/announcements", labelKey: "nav.announcements" },
+  { to: "/contact", labelKey: "nav.contact" },
 ]
 
 export function SiteHeader() {
@@ -90,7 +91,7 @@ export function SiteHeader() {
         <div className="mx-auto flex min-h-9 max-w-[90rem] items-center justify-between gap-3 px-4 py-2 text-[0.66rem] tracking-[0.08em] sm:px-6 lg:px-8">
           <p className="flex items-center gap-2 font-medium uppercase">
             <Clock3 className="size-3.5" />
-            Sunday worship at 8:00 AM, 10:00 AM & 6:00 PM
+            {t("header.worshipTimes")}
           </p>
           <div className="text-primary-foreground/85 hidden items-center gap-4 md:flex">
             <a
@@ -100,10 +101,10 @@ export function SiteHeader() {
               <Phone className="size-3" /> +91 22 4000 1234
             </a>
             <a
-              href="mailto:office@stmaryparish.org"
+              href="mailto:office@churchoffatima.org"
               className="flex items-center gap-1.5 hover:text-white"
             >
-              <Mail className="size-3" /> office@stmaryparish.org
+              <Mail className="size-3" /> office@churchoffatima.org
             </a>
           </div>
         </div>
@@ -114,7 +115,7 @@ export function SiteHeader() {
           <Link
             to="/"
             className="flex min-w-0 items-center gap-3"
-            aria-label="Church of Our Lady of Fatima home"
+            aria-label={t("accessibility.home")}
           >
             <span className="grid size-14 shrink-0 place-items-center overflow-hidden">
               <img
@@ -153,7 +154,7 @@ export function SiteHeader() {
                       `nav-underline hover:text-primary flex items-center gap-1 text-[0.72rem] font-semibold tracking-[0.08em] whitespace-nowrap uppercase transition-colors ${isActive ? "text-primary" : "text-foreground/80"}`
                     }
                   >
-                    {link.label}
+                    {t(link.labelKey)}
                     <ChevronDown
                       className={`size-3 shrink-0 transition-transform ${openMenu === link.to ? "rotate-180" : ""}`}
                     />
@@ -168,7 +169,7 @@ export function SiteHeader() {
                             onClick={() => setOpenMenu(null)}
                             className="text-walnut hover:bg-antique-cream/70 hover:text-primary block px-5 py-3.5 text-[0.7rem] font-semibold tracking-[0.1em] whitespace-nowrap uppercase transition-colors"
                           >
-                            {child.label}
+                            {t(child.labelKey)}
                           </NavLink>
                         ))}
                       </div>
@@ -183,7 +184,7 @@ export function SiteHeader() {
                     `nav-underline hover:text-primary shrink-0 text-[0.72rem] font-semibold tracking-[0.08em] whitespace-nowrap uppercase transition-colors ${isActive ? "text-primary" : "text-foreground/80"}`
                   }
                 >
-                  {link.label}
+                  {t(link.labelKey)}
                 </NavLink>
               ),
             )}
@@ -204,7 +205,7 @@ export function SiteHeader() {
               <AuthDialog
                 trigger={
                   <Button className="bg-primary text-primary-foreground hover:bg-church-red/90 px-3 text-xs tracking-[0.08em] uppercase">
-                    <LogIn className="size-3.5" /> Login
+                    <LogIn className="size-3.5" /> {t("auth.login")}
                   </Button>
                 }
               />
@@ -245,7 +246,7 @@ export function SiteHeader() {
                       className="border-soft-stone group border-b py-3"
                     >
                       <summary className="text-walnut flex list-none items-center justify-between text-sm font-medium [&::-webkit-details-marker]:hidden">
-                        {link.label}
+                        {t(link.labelKey)}
                         <ChevronDown className="text-brass size-4 transition-transform group-open:rotate-180" />
                       </summary>
                       <div className="mt-2 grid gap-1 pl-3">
@@ -263,7 +264,7 @@ export function SiteHeader() {
                             onClick={closeMobileMenu}
                             className="text-muted-foreground hover:text-primary py-1.5 text-sm"
                           >
-                            {child.label}
+                            {t(child.labelKey)}
                           </NavLink>
                         ))}
                       </div>
@@ -275,7 +276,7 @@ export function SiteHeader() {
                       onClick={closeMobileMenu}
                       className="border-soft-stone text-walnut hover:text-primary border-b py-3 text-sm font-medium transition-colors"
                     >
-                      {link.label}
+                      {t(link.labelKey)}
                     </NavLink>
                   ),
                 )}

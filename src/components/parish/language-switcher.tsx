@@ -16,11 +16,11 @@ export function LanguageSwitcher() {
     <DropdownMenu>
       <DropdownMenuTrigger render={<Button variant="ghost" size="sm" />}>
         <Languages className="mr-2 size-4" />
-        {lang.toUpperCase()}
+        {lang === "en" ? "English" : "मराठी"}
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setLang("en")}>EN</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setLang("mr")}>MR</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setLang("en")}>English</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setLang("mr")}>मराठी</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

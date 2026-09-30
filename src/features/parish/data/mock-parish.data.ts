@@ -181,7 +181,7 @@ export const associationsData: ParishAssociation[] = [
     category: "Lay Apostolate",
     leader: "Sr. Teresa D'Silva",
     meetingTime: "Every Saturday, 5:00 PM",
-    contact: "legion@stmaryparish.org",
+    contact: "legion@churchoffatima.org",
     description: "Marian apostolate dedicated to spiritual works of mercy, home visits, and prayer ministry.",
   },
   {
@@ -190,7 +190,7 @@ export const associationsData: ParishAssociation[] = [
     category: "Liturgical Music",
     leader: "Mark Alvares",
     meetingTime: "Every Friday, 7:00 PM",
-    contact: "choir@stmaryparish.org",
+    contact: "choir@churchoffatima.org",
     description: "Polyphonic and choir ministry leading Sunday Masses, feast days, and liturgical celebrations.",
   },
   {
@@ -199,7 +199,7 @@ export const associationsData: ParishAssociation[] = [
     category: "Outreach & Charity",
     leader: "Philip Fernandes",
     meetingTime: "1st & 3rd Sunday, 11:30 AM",
-    contact: "svp@stmaryparish.org",
+    contact: "svp@churchoffatima.org",
     description: "Charitable organization providing financial, medical, and educational relief to underprivileged families.",
   },
   {
@@ -208,7 +208,7 @@ export const associationsData: ParishAssociation[] = [
     category: "Youth Ministry",
     leader: "Aaron Pereira",
     meetingTime: "Every Sunday, 5:00 PM",
-    contact: "youth@stmaryparish.org",
+    contact: "youth@churchoffatima.org",
     description: "Empowering young parishioners through faith formation, retreats, sports, and community service.",
   },
 ]
@@ -337,16 +337,16 @@ export const sacraments: Sacrament[] = [
 export const clergy: ClergyMember[] = [
   {
     id: "c1",
-    name: "Fr. Anthony D'Souza",
+    name: "Fr. Robert",
     role: "Parish Priest",
-    image: `${placeholder}/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=700&q=80`,
+    image: "/assets/Fr_Robert.jpeg",
     bio: "Guiding the parish in liturgy, pastoral care, and outreach ministries.",
   },
   {
     id: "c2",
-    name: "Fr. Michael Fernandes",
+    name: "Fr. Baptist",
     role: "Associate Priest",
-    image: `${placeholder}/photo-1542382257-80dedb725088?auto=format&fit=crop&w=700&q=80`,
+    image: "/assets/Fr_Baptist.jpeg",
     bio: "Serving youth and family ministries with a focus on catechesis.",
   },
 ]

@@ -15,12 +15,12 @@ export function LiveBanner({ isLive = true }: { isLive?: boolean }) {
             {isLive ? t("live.now") : t("live.next")}
           </p>
           <h2 className="font-heading mt-2 text-2xl">
-            {isLive ? "Holy Mass" : "Sunday · 8:00 AM"}
+            {isLive ? t("live.massTitle") : t("live.nextTitle")}
           </h2>
           <p className="text-muted-foreground mt-1 text-sm">
             {isLive
-              ? "Watch today's celebration with our parish community."
-              : "Join us in person or online for the next Eucharistic celebration."}
+              ? t("live.watchDescription")
+              : t("live.nextDescription")}
           </p>
         </div>
         <Button
@@ -36,7 +36,7 @@ export function LiveBanner({ isLive = true }: { isLive?: boolean }) {
           className="md:justify-self-end"
         >
           <PlayCircle className="mr-2 size-4" />
-          {isLive ? "Watch Live" : "View Mass Schedule"}
+          {isLive ? t("live.watchAction") : t("live.scheduleAction")}
         </Button>
       </div>
     </section>

@@ -66,26 +66,32 @@ export function FeedbackForm() {
     <form className="grid gap-4" onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <Label htmlFor="name">Name</Label>
+          <Label htmlFor="name">Name (optional)</Label>
           <Input id="name" {...register("name")} />
+          {errors.name ? (
+            <p className="text-destructive mt-1 text-xs">{errors.name.message}</p>
+          ) : null}
         </div>
         <div>
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" {...register("email")} />
+          <Label htmlFor="email">Email <span aria-hidden="true">*</span></Label>
+          <Input id="email" type="email" required {...register("email")} />
           {errors.email ? (
             <p className="text-destructive mt-1 text-xs">
-              Valid email required.
+              {errors.email.message ?? "Enter a valid email address."}
             </p>
           ) : null}
         </div>
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <Label htmlFor="phone">Phone</Label>
-          <Input id="phone" {...register("phone")} />
+          <Label htmlFor="phone">Phone (optional)</Label>
+          <Input id="phone" type="tel" inputMode="tel" {...register("phone")} />
+          {errors.phone ? (
+            <p className="text-destructive mt-1 text-xs">{errors.phone.message}</p>
+          ) : null}
         </div>
         <div>
-          <Label>Category</Label>
+          <Label>Category <span aria-hidden="true">*</span></Label>
           <Select
             value={category}
             onValueChange={(value) =>
@@ -107,11 +113,11 @@ export function FeedbackForm() {
         </div>
       </div>
       <div>
-        <Label htmlFor="message">Message</Label>
-        <Textarea id="message" rows={5} {...register("message")} />
+        <Label htmlFor="message">Message <span aria-hidden="true">*</span></Label>
+        <Textarea id="message" rows={5} required {...register("message")} />
         {errors.message ? (
           <p className="text-destructive mt-1 text-xs">
-            Message should be meaningful.
+            {errors.message.message ?? "Please enter at least 12 characters."}
           </p>
         ) : null}
       </div>

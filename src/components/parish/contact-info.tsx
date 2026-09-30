@@ -17,7 +17,7 @@ export function ContactInfo() {
       </div>
       <div className="flex items-start gap-3">
         <Mail className="text-accent mt-0.5 size-4" />
-        <p>office@stmaryparish.org</p>
+        <p>office@.org</p>
       </div>
     </div>
   )

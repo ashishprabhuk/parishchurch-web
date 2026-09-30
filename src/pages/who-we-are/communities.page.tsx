@@ -84,68 +84,85 @@ export default function CommunitiesPage() {
             {filteredItems.map((item) => (
               <Card
                 key={item.id}
-                className="border-brass/40 bg-card transition-all hover:border-brass hover:shadow-md flex flex-col justify-between"
+                className="group border-border/70 bg-card/85 flex h-full flex-col overflow-hidden rounded-lg transition-all duration-200 hover:-translate-y-0.5 hover:border-brass/60 hover:shadow-md"
               >
-                <CardContent className="p-6 space-y-4">
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="border-brass/60 bg-antique-cream/40 grid size-10 shrink-0 place-items-center rounded-full border">
-                        <Church className="text-primary size-5" />
-                      </span>
-                      {item.zone && (
-                        <Badge variant="outline" className="border-brass/60 text-brass text-[0.65rem] uppercase">
-                          {item.zone}
-                        </Badge>
-                      )}
-                    </div>
-                    <h3 className="font-heading text-walnut text-xl dark:text-parchment">
-                      {item.name}
-                    </h3>
+                <CardContent className="flex flex-1 flex-col p-5 sm:p-6">
+                  <div className="flex items-start justify-between gap-4">
+                    <span className="border-brass/60 bg-antique-cream/45 text-primary grid size-12 shrink-0 place-items-center rounded-full border transition-colors group-hover:bg-antique-cream">
+                      <Church className="size-5" />
+                    </span>
+                    {item.zone && (
+                      <Badge
+                        variant="outline"
+                        className="border-brass/60 text-brass max-w-[12rem] text-right text-[0.65rem] tracking-[0.08em] uppercase"
+                      >
+                        {item.zone}
+                      </Badge>
+                    )}
                   </div>
 
+                  <h3 className="font-heading text-walnut mt-5 text-2xl leading-tight dark:text-parchment">
+                    {item.name}
+                  </h3>
+
                   {item.description && (
-                    <p className="text-muted-foreground text-sm leading-relaxed">
+                    <p className="text-muted-foreground mt-3 line-clamp-3 text-sm leading-relaxed">
                       {item.description}
                     </p>
                   )}
 
-                  <div className="border-border text-muted-foreground space-y-2 border-t pt-4 text-xs">
+                  <div className="border-border mt-5 space-y-3 border-t pt-5 text-sm">
                     {(item.patronSaint ?? item.patron) && (
-                      <div className="flex items-center gap-2">
-                        <MapPin className="text-brass size-3.5 shrink-0" />
-                        <span>Patron Saint: <strong className="text-foreground font-medium">{item.patronSaint ?? item.patron}</strong></span>
+                      <div className="flex items-start gap-3">
+                        <MapPin className="text-brass mt-0.5 size-4 shrink-0" />
+                        <p className="text-muted-foreground leading-snug">
+                          Patron Saint: <strong className="text-foreground font-medium">{item.patronSaint ?? item.patron}</strong>
+                        </p>
                       </div>
                     )}
                     {(item.ppcPerson ?? item.leader) && (
-                      <div className="flex items-center gap-2">
-                        <User className="text-brass size-3.5 shrink-0" />
-                        <span>PPC Person: <strong className="text-foreground font-medium">{item.ppcPerson ?? item.leader}</strong></span>
+                      <div className="flex items-start gap-3">
+                        <User className="text-brass mt-0.5 size-4 shrink-0" />
+                        <p className="text-muted-foreground leading-snug">
+                          PPC Person: <strong className="text-foreground font-medium">{item.ppcPerson ?? item.leader}</strong>
+                        </p>
                       </div>
                     )}
                     {item.minister && (
-                      <div className="flex items-center gap-2">
-                        <User className="text-brass size-3.5 shrink-0" />
-                        <span>Minister: <strong className="text-foreground font-medium">{item.minister}</strong></span>
-                      </div>
-                    )}
-                    {item.meetingTime && (
-                      <div className="text-muted-foreground mt-1 text-[0.7rem]">
-                        Schedule: {item.meetingTime}
-                      </div>
-                    )}
-                    {item.communityMembers && Object.keys(item.communityMembers).length > 0 && (
-                      <div className="pt-2">
-                        <p className="text-foreground font-medium">Community members</p>
-                        <p>{Object.entries(item.communityMembers).map(([role, member]) => `${role}: ${member}`).join(" · ")}</p>
-                      </div>
-                    )}
-                    {item.zoneDetails && Object.keys(item.zoneDetails).length > 0 && (
-                      <div className="pt-2">
-                        <p className="text-foreground font-medium">Zone details</p>
-                        <p>{Object.entries(item.zoneDetails).map(([label, detail]) => `${label}: ${detail}`).join(" · ")}</p>
+                      <div className="flex items-start gap-3">
+                        <User className="text-brass mt-0.5 size-4 shrink-0" />
+                        <p className="text-muted-foreground leading-snug">
+                          Minister: <strong className="text-foreground font-medium">{item.minister}</strong>
+                        </p>
                       </div>
                     )}
                   </div>
+
+                  {(item.meetingTime || item.communityMembers || item.zoneDetails) && (
+                    <div className="bg-muted/35 mt-5 space-y-4 rounded-md p-4 text-xs leading-relaxed">
+                      {item.meetingTime && (
+                        <p className="text-muted-foreground">
+                          <span className="text-foreground font-semibold">Schedule:</span> {item.meetingTime}
+                        </p>
+                      )}
+                      {item.communityMembers && Object.keys(item.communityMembers).length > 0 && (
+                        <div>
+                          <p className="text-foreground mb-1 font-semibold">Community members</p>
+                          <p className="text-muted-foreground break-words">
+                            {Object.entries(item.communityMembers).map(([role, member]) => `${role}: ${member}`).join(" · ")}
+                          </p>
+                        </div>
+                      )}
+                      {item.zoneDetails && Object.keys(item.zoneDetails).length > 0 && (
+                        <div>
+                          <p className="text-foreground mb-1 font-semibold">Zone details</p>
+                          <p className="text-muted-foreground break-words">
+                            {Object.entries(item.zoneDetails).map(([label, detail]) => `${label}: ${detail}`).join(" · ")}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             ))}

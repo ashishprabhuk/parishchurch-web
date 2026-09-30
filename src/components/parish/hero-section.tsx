@@ -1,11 +1,63 @@
+import { useEffect, useState } from "react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+
+const heroSlides = [
+  {
+    image: "/assets/fatima_mata.JPG",
+    alt: "Sunlit historic church interior prepared for worship",
+  },
+  {
+    image: "/assets/church_altar_new.JPG",
+    alt: "Decorated church altar prepared for celebration",
+  },
+]
+
 export function HeroSection() {
+  const [activeSlide, setActiveSlide] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
+
+  useEffect(() => {
+    if (isPaused) return
+
+    const interval = window.setInterval(() => {
+      setActiveSlide((currentSlide) => (currentSlide + 1) % heroSlides.length)
+    }, 7000)
+
+    return () => window.clearInterval(interval)
+  }, [isPaused])
+
+  const showPreviousSlide = () => {
+    setActiveSlide(
+      (currentSlide) =>
+        (currentSlide - 1 + heroSlides.length) % heroSlides.length,
+    )
+  }
+
+  const showNextSlide = () => {
+    setActiveSlide((currentSlide) => (currentSlide + 1) % heroSlides.length)
+  }
+
   return (
-    <section className="bg-walnut text-parchment relative isolate min-h-[calc(100svh-7.25rem)] overflow-hidden">
-      <img
-        src={"/assets/fatima_mata.JPG"}
-        alt="Sunlit historic church interior prepared for worship"
-        className="image-cinematic absolute inset-0 h-full w-full scale-105 object-cover motion-safe:animate-[hero-breathe_14s_ease-in-out_infinite_alternate]"
-      />
+    <section
+      className="bg-walnut text-parchment relative isolate min-h-[calc(100svh-7.25rem)] overflow-hidden"
+      aria-roledescription="carousel"
+      aria-label="Church highlights"
+      onFocus={() => setIsPaused(true)}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          setIsPaused(false)
+        }
+      }}
+    >
+      {heroSlides.map((slide, index) => (
+        <img
+          key={slide.image}
+          src={slide.image}
+          alt={slide.alt}
+          aria-hidden={index !== activeSlide}
+          className={`image-cinematic absolute inset-0 h-full w-full scale-105 object-cover transition-opacity duration-1000 motion-safe:animate-[hero-breathe_14s_ease-in-out_infinite_alternate] ${index === activeSlide ? "opacity-100" : "opacity-0"}`}
+        />
+      ))}
       {/* <div className="absolute inset-0 " />
       <div className="absolute inset-0 bg-[linear-gradient(0deg,rgb(11_21_84/0.65)_0%,transparent_42%)]" />
       <div className="border-brass/40 absolute top-10 right-[9%] hidden h-[54%] w-48 rounded-t-full border-x border-t xl:block" />
@@ -66,6 +118,38 @@ export function HeroSection() {
             <PlayCircle className="size-4" /> Watch live
           </ButtonLink>
         </aside> */}
+      </div>
+
+      <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2">
+        <button
+          type="button"
+          onClick={showPreviousSlide}
+          className="border-parchment/60 bg-walnut/45 text-parchment hover:bg-walnut/75 grid size-9 place-items-center rounded-full border backdrop-blur-sm"
+          aria-label="Previous hero image"
+        >
+          <ChevronLeft className="size-4" />
+        </button>
+        <div className="flex items-center gap-2 px-2" role="tablist" aria-label="Hero images">
+          {heroSlides.map((slide, index) => (
+            <button
+              key={slide.image}
+              type="button"
+              role="tab"
+              aria-selected={index === activeSlide}
+              aria-label={`Show hero image ${index + 1}`}
+              onClick={() => setActiveSlide(index)}
+              className={`h-1.5 rounded-full transition-all ${index === activeSlide ? "bg-brass w-8" : "bg-parchment/60 w-1.5"}`}
+            />
+          ))}
+        </div>
+        <button
+          type="button"
+          onClick={showNextSlide}
+          className="border-parchment/60 bg-walnut/45 text-parchment hover:bg-walnut/75 grid size-9 place-items-center rounded-full border backdrop-blur-sm"
+          aria-label="Next hero image"
+        >
+          <ChevronRight className="size-4" />
+        </button>
       </div>
     </section>
   )

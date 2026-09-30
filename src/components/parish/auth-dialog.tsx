@@ -17,8 +17,6 @@ import { Label } from "@/components/ui/label"
 import { notify } from "@/lib/toast"
 import { loginWithCredentials } from "@/features/auth/services/auth.service"
 import {
-  MOCK_ADMIN_CREDENTIALS,
-  MOCK_MEMBER_CREDENTIALS,
   useAuthStore,
 } from "@/stores/auth.store"
 
@@ -28,11 +26,13 @@ export function AuthDialog({ trigger }: { trigger: ReactElement }) {
   const [open, setOpen] = useState(false)
   const [mode, setMode] = useState<"signin" | "signup">("signin")
   const [error, setError] = useState<string | null>(null)
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({})
   const [showPassword, setShowPassword] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const switchMode = (next: "signin" | "signup") => {
     setError(null)
+    setFieldErrors({})
     setShowPassword(false)
     setMode(next)
   }
@@ -44,6 +44,17 @@ export function AuthDialog({ trigger }: { trigger: ReactElement }) {
     const data = new FormData(event.currentTarget)
     const email = String(data.get("email") ?? "").trim().toLowerCase()
     const password = String(data.get("password") ?? "")
+
+    const nextErrors: Record<string, string> = {}
+    if (!email) nextErrors.email = "Email address is required."
+    else if (!/^\S+@\S+\.\S+$/.test(email)) {
+      nextErrors.email = "Enter a valid email address."
+    }
+    if (!password) nextErrors.password = "Password is required."
+    if (Object.keys(nextErrors).length > 0) {
+      setFieldErrors(nextErrors)
+      return
+    }
 
     try {
       const response = await loginWithCredentials(email, password)
@@ -66,12 +77,27 @@ export function AuthDialog({ trigger }: { trigger: ReactElement }) {
   const onSignUp = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
-    const name = String(data.get("name") ?? "").trim() || "Parish Member"
-    const email = String(data.get("email") ?? "").trim()
+    const name = String(data.get("name") ?? "").trim()
+    const email = String(data.get("email") ?? "").trim().toLowerCase()
+    const password = String(data.get("password") ?? "")
+    const nextErrors: Record<string, string> = {}
+    if (name.length < 2) nextErrors.name = "Enter your full name."
+    if (!email) nextErrors.email = "Email address is required."
+    else if (!/^\S+@\S+\.\S+$/.test(email)) {
+      nextErrors.email = "Enter a valid email address."
+    }
+    if (password.length < 8) {
+      nextErrors.password = "Password must be at least 8 characters."
+    }
+    if (Object.keys(nextErrors).length > 0) {
+      setFieldErrors(nextErrors)
+      return
+    }
     login({ name, email, role: "member" })
     notify.success("Account created. Welcome!")
     setOpen(false)
     setError(null)
+    setFieldErrors({})
   }
 
   return (
@@ -96,11 +122,14 @@ export function AuthDialog({ trigger }: { trigger: ReactElement }) {
                   id="auth-signin-email"
                   name="email"
                   type="email"
-                  placeholder="admin@stmaryparish.org"
+                    placeholder="admin@churchoffatima.org"
                   autoComplete="email"
                   className="h-11"
                   required
                 />
+                {fieldErrors.email ? (
+                  <p className="text-destructive text-xs">{fieldErrors.email}</p>
+                ) : null}
               </div>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
@@ -135,6 +164,9 @@ export function AuthDialog({ trigger }: { trigger: ReactElement }) {
                     )}
                   </button>
                 </div>
+                {fieldErrors.password ? (
+                  <p className="text-destructive text-xs">{fieldErrors.password}</p>
+                ) : null}
               </div>
 
               {error ? (
@@ -150,7 +182,7 @@ export function AuthDialog({ trigger }: { trigger: ReactElement }) {
                 {isSubmitting ? "Signing in..." : "Sign in"}
               </Button>
 
-              <div className="text-muted-foreground rounded-lg border border-dashed px-3 py-2 text-center text-xs">
+              {/* <div className="text-muted-foreground rounded-lg border border-dashed px-3 py-2 text-center text-xs">
                 <p>
                   Admin demo: {""}
                   <span className="font-medium">
@@ -171,7 +203,7 @@ export function AuthDialog({ trigger }: { trigger: ReactElement }) {
                     {MOCK_MEMBER_CREDENTIALS.password}
                   </span>
                 </p>
-              </div>
+              </div> */}
             </form>
 
             <p className="text-muted-foreground text-center text-sm">
@@ -206,6 +238,9 @@ export function AuthDialog({ trigger }: { trigger: ReactElement }) {
                   autoComplete="name"
                   className="h-11"
                 />
+                {fieldErrors.name ? (
+                  <p className="text-destructive text-xs">{fieldErrors.name}</p>
+                ) : null}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="auth-signup-email">Email address</Label>
@@ -218,6 +253,9 @@ export function AuthDialog({ trigger }: { trigger: ReactElement }) {
                   className="h-11"
                   required
                 />
+                {fieldErrors.email ? (
+                  <p className="text-destructive text-xs">{fieldErrors.email}</p>
+                ) : null}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="auth-signup-password">Password</Label>
@@ -244,6 +282,9 @@ export function AuthDialog({ trigger }: { trigger: ReactElement }) {
                     )}
                   </button>
                 </div>
+                {fieldErrors.password ? (
+                  <p className="text-destructive text-xs">{fieldErrors.password}</p>
+                ) : null}
               </div>
 
               <Button type="submit" className="h-11 w-full text-base">
