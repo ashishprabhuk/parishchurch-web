@@ -27,58 +27,6 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import { useUpcomingEvents } from "@/features/parish"
 import { useSeo } from "@/hooks/use-seo"
 
-const ministries = [
-  {
-    title: "Children's Ministry",
-    description: "Wonder, friendship, and a first language for faith.",
-    image:
-      "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=900&q=82",
-  },
-  {
-    title: "Youth Ministry",
-    description: "A place for courageous questions and lasting friendships.",
-    image:
-      "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=900&q=82",
-  },
-  {
-    title: "Women's Ministry",
-    description: "Prayerful companionship through every season of life.",
-    image:
-      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=900&q=82",
-  },
-  {
-    title: "Men's Ministry",
-    description: "Growing in character, service, and shared purpose.",
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=82",
-  },
-  {
-    title: "Education Ministry",
-    description: "Scripture, tradition, and formation for all ages.",
-    image:
-      "https://images.unsplash.com/photo-1519491050282-cf00c82424b4?auto=format&fit=crop&w=900&q=82",
-  },
-  {
-    title: "Worship Ministry",
-    description: "Making room for reverence, music, and joyful praise.",
-    image:
-      "https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&w=900&q=82",
-  },
-  {
-    title: "Outreach Ministry",
-    description: "Faith made visible through practical care and presence.",
-    image:
-      "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=900&q=82",
-  },
-  {
-    title: "Community Ministry",
-    description:
-      "Shared tables, open doors, and a parish that knows your name.",
-    image:
-      "https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=900&q=82",
-  },
-]
-
 const galleryItems = [
   {
     title: "The sanctuary in morning light",
