@@ -4,7 +4,7 @@ import { useSeo } from "@/hooks/use-seo"
 
 export default function PrivacyPage() {
   useSeo({
-    title: "Privacy Policy | St. Mary of Grace Parish",
+    title: "Privacy Policy | Church of Our Lady of Fatima",
     description: "How parish website data is used and protected.",
     canonicalPath: "/privacy",
   })

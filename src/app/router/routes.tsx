@@ -24,10 +24,16 @@ const MassSchedulePage = lazy(
 const SacramentsPage = lazy(
   () => import("@/pages/prayer-liturgy/sacraments.page"),
 )
+const SacramentDetailPage = lazy(
+  () => import("@/pages/prayer-liturgy/sacrament-detail.page"),
+)
 
 const EventsPage = lazy(() => import("@/pages/events/events.page"))
 const EventsCalendarPage = lazy(() => import("@/pages/events/calendar.page"))
 const ChroniclePage = lazy(() => import("@/pages/events/chronicle.page"))
+const ChronicleDetailPage = lazy(
+  () => import("@/pages/events/chronicle-detail.page"),
+)
 const ReachingOutPage = lazy(() => import("@/pages/events/reaching-out.page"))
 
 const AnnouncementsPage = lazy(
@@ -50,6 +56,7 @@ const HistoryPage = lazy(() => import("@/pages/who-we-are/history.page"))
 const ContactPage = lazy(() => import("@/pages/contact/contact.page"))
 const DonatePage = lazy(() => import("@/pages/donate/donate.page"))
 const ProfilePage = lazy(() => import("@/pages/profile/profile.page"))
+const LoginPage = lazy(() => import("@/pages/auth/login.page"))
 
 const TermsPage = lazy(() => import("@/pages/legal/terms.page"))
 const PrivacyPage = lazy(() => import("@/pages/legal/privacy.page"))
@@ -74,7 +81,12 @@ function AdminGate() {
   const isAdmin = useAuthStore(
     (state) => state.isAuthenticated && state.user?.role === "admin",
   )
-  return <ProtectedRoute isAllowed={isAdmin} redirectTo="/" />
+  return <ProtectedRoute isAllowed={isAdmin} redirectTo="/login" />
+}
+
+function AuthGate() {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
+  return <ProtectedRoute isAllowed={isAuthenticated} />
 }
 
 export const routes: RouteObject[] = [
@@ -136,6 +148,14 @@ export const routes: RouteObject[] = [
         ),
       },
       {
+        path: "prayer-liturgy/sacraments/:slug",
+        element: (
+          <LazyRoute>
+            <SacramentDetailPage />
+          </LazyRoute>
+        ),
+      },
+      {
         path: "events",
         element: (
           <LazyRoute>
@@ -156,6 +176,14 @@ export const routes: RouteObject[] = [
         element: (
           <LazyRoute>
             <ChroniclePage />
+          </LazyRoute>
+        ),
+      },
+      {
+        path: "events/chronicle/:slug",
+        element: (
+          <LazyRoute>
+            <ChronicleDetailPage />
           </LazyRoute>
         ),
       },
@@ -241,11 +269,17 @@ export const routes: RouteObject[] = [
       },
       {
         path: "profile",
-        element: (
-          <LazyRoute>
-            <ProfilePage />
-          </LazyRoute>
-        ),
+        element: <AuthGate />,
+        children: [
+          {
+            index: true,
+            element: (
+              <LazyRoute>
+                <ProfilePage />
+              </LazyRoute>
+            ),
+          },
+        ],
       },
       {
         path: "terms",
@@ -316,6 +350,14 @@ export const routes: RouteObject[] = [
   {
     element: <BlankLayout />,
     children: [
+      {
+        path: "login",
+        element: (
+          <LazyRoute>
+            <LoginPage />
+          </LazyRoute>
+        ),
+      },
       {
         path: "*",
         element: (

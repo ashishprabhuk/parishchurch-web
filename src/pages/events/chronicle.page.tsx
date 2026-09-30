@@ -6,7 +6,7 @@ import { useSeo } from "@/hooks/use-seo"
 
 export default function ChroniclePage() {
   useSeo({
-    title: "Parish Chronicle | St. Mary of Grace Parish",
+    title: "Parish Chronicle | Church of Our Lady of Fatima",
     description: "Stories and reflections from parish life.",
     canonicalPath: "/events/chronicle",
   })

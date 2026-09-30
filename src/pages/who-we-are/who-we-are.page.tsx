@@ -11,7 +11,7 @@ import { useSeo } from "@/hooks/use-seo"
 
 export default function WhoWeArePage() {
   useSeo({
-    title: "Who We Are | St. Mary of Grace Parish",
+    title: "Who We Are | Church of Our Lady of Fatima",
     description: "Meet our clergy, communities, and parish journey.",
     canonicalPath: "/who-we-are",
   })

@@ -11,7 +11,7 @@ import { useSeo } from "@/hooks/use-seo"
 
 export default function CommunitiesPage() {
   useSeo({
-    title: "Communities | St. Mary of Grace Parish",
+    title: "Communities | Church of Our Lady of Fatima",
     description: "Small Christian Communities (SCCs) and parish family clusters growing in faith together.",
     canonicalPath: "/who-we-are/communities",
   })
@@ -31,9 +31,11 @@ export default function CommunitiesPage() {
     const query = searchTerm.toLowerCase()
     return (
       item.name.toLowerCase().includes(query) ||
-      item.zone?.toLowerCase().includes(query) ||
-      item.patron?.toLowerCase().includes(query) ||
-      item.leader?.toLowerCase().includes(query)
+      String(item.zone ?? "").toLowerCase().includes(query) ||
+      (item.patronSaint ?? item.patron ?? "").toLowerCase().includes(query) ||
+      (item.ppcPerson ?? item.leader ?? "").toLowerCase().includes(query) ||
+      (item.minister ?? "").toLowerCase().includes(query) ||
+      (item.description ?? "").toLowerCase().includes(query)
     )
   })
 
@@ -108,21 +110,39 @@ export default function CommunitiesPage() {
                   )}
 
                   <div className="border-border text-muted-foreground space-y-2 border-t pt-4 text-xs">
-                    {item.patron && (
+                    {(item.patronSaint ?? item.patron) && (
                       <div className="flex items-center gap-2">
                         <MapPin className="text-brass size-3.5 shrink-0" />
-                        <span>Patron Saint: <strong className="text-foreground font-medium">{item.patron}</strong></span>
+                        <span>Patron Saint: <strong className="text-foreground font-medium">{item.patronSaint ?? item.patron}</strong></span>
                       </div>
                     )}
-                    {item.leader && (
+                    {(item.ppcPerson ?? item.leader) && (
                       <div className="flex items-center gap-2">
                         <User className="text-brass size-3.5 shrink-0" />
-                        <span>Coordinator: <strong className="text-foreground font-medium">{item.leader}</strong></span>
+                        <span>PPC Person: <strong className="text-foreground font-medium">{item.ppcPerson ?? item.leader}</strong></span>
+                      </div>
+                    )}
+                    {item.minister && (
+                      <div className="flex items-center gap-2">
+                        <User className="text-brass size-3.5 shrink-0" />
+                        <span>Minister: <strong className="text-foreground font-medium">{item.minister}</strong></span>
                       </div>
                     )}
                     {item.meetingTime && (
                       <div className="text-muted-foreground mt-1 text-[0.7rem]">
                         Schedule: {item.meetingTime}
+                      </div>
+                    )}
+                    {item.communityMembers && Object.keys(item.communityMembers).length > 0 && (
+                      <div className="pt-2">
+                        <p className="text-foreground font-medium">Community members</p>
+                        <p>{Object.entries(item.communityMembers).map(([role, member]) => `${role}: ${member}`).join(" · ")}</p>
+                      </div>
+                    )}
+                    {item.zoneDetails && Object.keys(item.zoneDetails).length > 0 && (
+                      <div className="pt-2">
+                        <p className="text-foreground font-medium">Zone details</p>
+                        <p>{Object.entries(item.zoneDetails).map(([label, detail]) => `${label}: ${detail}`).join(" · ")}</p>
                       </div>
                     )}
                   </div>

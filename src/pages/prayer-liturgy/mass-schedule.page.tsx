@@ -11,27 +11,28 @@ import { useSeo } from "@/hooks/use-seo"
 
 export default function MassSchedulePage() {
   useSeo({
-    title: "Mass Schedule | St. Mary of Grace Parish",
+    title: "Mass Schedule | Church of Our Lady of Fatima",
     description: "Daily, weekday, Sunday, and special occasion Mass timings.",
     canonicalPath: "/prayer-liturgy/mass-schedule",
   })
 
   const { data = [], isLoading } = useMassTimings()
   const [selectedLanguage, setSelectedLanguage] = useState<string>("all")
+  const displayedData = data
 
   // Filter general vs special occasion timings
-  const generalTimings = data.filter(
+  const generalTimings = displayedData.filter(
     (item) => !item.intention || item.intention === "GENERAL",
   )
 
-  const specialTimings = data.filter(
+  const specialTimings = displayedData.filter(
     (item) => item.intention && item.intention !== "GENERAL",
   )
 
   // Extract unique languages for filter pill
   const availableLanguages = Array.from(
     new Set(
-      data
+      displayedData
         .map((item) => item.language)
         .filter((lang): lang is string => Boolean(lang)),
     ),
@@ -54,6 +55,16 @@ export default function MassSchedulePage() {
     generalTimings.filter((item) => item.dayGroup === "sunday"),
   )
 
+  const removeDuplicateRows = (items: MassTiming[]) => {
+    const seen = new Set<string>()
+    return items.filter((item) => {
+      const key = `${item.language?.trim().toLowerCase()}|${item.dayOfWeek?.trim().toLowerCase()}|${item.label.trim().toLowerCase()}|${item.time.trim().toLowerCase()}`
+      if (seen.has(key)) return false
+      seen.add(key)
+      return true
+    })
+  }
+
   // Group timings by language
   const groupByLanguage = (items: MassTiming[]) => {
     const map = new Map<string, MassTiming[]>()
@@ -65,6 +76,29 @@ export default function MassSchedulePage() {
       map.get(lang)!.push(item)
     }
     return Array.from(map.entries())
+  }
+
+  const groupByDay = (items: MassTiming[]) => {
+    const dayOrder = [
+      "monday",
+      "tuesday",
+      "wednesday",
+      "thursday",
+      "friday",
+      "saturday",
+      "sunday",
+    ]
+    const map = new Map<string, MassTiming[]>()
+    for (const item of items) {
+      const day = item.dayOfWeek || "Weekly"
+      if (!map.has(day)) map.set(day, [])
+      map.get(day)!.push(item)
+    }
+    return Array.from(map.entries()).sort(
+      ([firstDay], [secondDay]) =>
+        (dayOrder.indexOf(firstDay.toLowerCase()) + 1 || Infinity) -
+        (dayOrder.indexOf(secondDay.toLowerCase()) + 1 || Infinity),
+    )
   }
 
   return (
@@ -195,7 +229,7 @@ export default function MassSchedulePage() {
               aria-hidden="true"
             />
             <p className="text-muted-foreground text-sm">
-              General weekly liturgical timetable at St. Mary of Grace Parish
+              General weekly liturgical timetable at Church of Our Lady of Fatima
             </p>
           </div>
 
@@ -230,16 +264,16 @@ export default function MassSchedulePage() {
                               {lang}
                             </h4>
                             <ul className="space-y-2">
-                              {items.map((item) => (
+                              {groupByDay(removeDuplicateRows(items)).map(([day, dayItems]) => (
                                 <li
-                                  key={item.id}
+                                  key={day}
                                   className="bg-muted/40 hover:bg-muted/70 flex items-center justify-between rounded-md px-3.5 py-2 text-sm transition-colors"
                                 >
                                   <span className="text-foreground font-medium">
-                                    {item.label}
+                                    {day}
                                   </span>
                                   <span className="text-primary font-mono font-bold">
-                                    {item.time}
+                                    {dayItems.map((item) => item.time).join(" / ")}
                                   </span>
                                 </li>
                               ))}

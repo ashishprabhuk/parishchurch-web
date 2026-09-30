@@ -15,11 +15,10 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { notify } from "@/lib/toast"
+import { loginWithCredentials } from "@/features/auth/services/auth.service"
 import {
   MOCK_ADMIN_CREDENTIALS,
-  MOCK_ADMIN_USER,
   MOCK_MEMBER_CREDENTIALS,
-  MOCK_MEMBER_USER,
   useAuthStore,
 } from "@/stores/auth.store"
 
@@ -30,6 +29,7 @@ export function AuthDialog({ trigger }: { trigger: ReactElement }) {
   const [mode, setMode] = useState<"signin" | "signup">("signin")
   const [error, setError] = useState<string | null>(null)
   const [showPassword, setShowPassword] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const switchMode = (next: "signin" | "signup") => {
     setError(null)
@@ -37,33 +37,30 @@ export function AuthDialog({ trigger }: { trigger: ReactElement }) {
     setMode(next)
   }
 
-  const onSignIn = (event: React.FormEvent<HTMLFormElement>) => {
+  const onSignIn = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    setError(null)
+    setIsSubmitting(true)
     const data = new FormData(event.currentTarget)
     const email = String(data.get("email") ?? "").trim().toLowerCase()
     const password = String(data.get("password") ?? "")
 
-    if (
-      email === MOCK_ADMIN_CREDENTIALS.email &&
-      password === MOCK_ADMIN_CREDENTIALS.password
-    ) {
-      login(MOCK_ADMIN_USER)
-      notify.success(`Welcome back, ${MOCK_ADMIN_USER.name}.`)
+    try {
+      const response = await loginWithCredentials(email, password)
+      login({
+        name: response.user.email,
+        email: response.user.email,
+        roles: response.user.roles,
+        isAdmin: response.user.isAdmin,
+        role: response.user.isAdmin ? "admin" : "member",
+      })
+      notify.success(response.message || `Welcome back, ${response.user.email}.`)
       setOpen(false)
-      setError(null)
-      return
+    } catch (loginError) {
+      setError(getLoginErrorMessage(loginError))
+    } finally {
+      setIsSubmitting(false)
     }
-    if (
-      email === MOCK_MEMBER_CREDENTIALS.email &&
-      password === MOCK_MEMBER_CREDENTIALS.password
-    ) {
-      login(MOCK_MEMBER_USER)
-      notify.success(`Welcome back, ${MOCK_MEMBER_USER.name}.`)
-      setOpen(false)
-      setError(null)
-      return
-    }
-    setError("Invalid email or password. Try the demo credentials below.")
   }
 
   const onSignUp = (event: React.FormEvent<HTMLFormElement>) => {
@@ -149,8 +146,8 @@ export function AuthDialog({ trigger }: { trigger: ReactElement }) {
                 Keep me signed in
               </label>
 
-              <Button type="submit" className="h-11 w-full text-base">
-                Sign in
+              <Button type="submit" className="h-11 w-full text-base" disabled={isSubmitting}>
+                {isSubmitting ? "Signing in..." : "Sign in"}
               </Button>
 
               <div className="text-muted-foreground rounded-lg border border-dashed px-3 py-2 text-center text-xs">
@@ -269,4 +266,12 @@ export function AuthDialog({ trigger }: { trigger: ReactElement }) {
       </DialogContent>
     </Dialog>
   )
+}
+
+function getLoginErrorMessage(error: unknown): string {
+  if (error instanceof Error) return error.message
+  if (error && typeof error === "object" && "message" in error) {
+    return String((error as { message: unknown }).message)
+  }
+  return "Unable to sign in. Please check your credentials."
 }

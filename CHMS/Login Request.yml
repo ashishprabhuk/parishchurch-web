@@ -5,13 +5,13 @@ info:
 
 http:
   method: GET
-  url: https://churchofourladyoffatima.com/api/v1/mass-timings
+  url: ""
   body:
     type: json
     data: |
       {
-          "email" : "ashishprabhu2143@gmail.com",
-          "password" : "ashishprabhuk"
+          "email" : "poshakkumar306@gmail.com",
+          "password" : "poshak12"
       }
   auth: inherit
 

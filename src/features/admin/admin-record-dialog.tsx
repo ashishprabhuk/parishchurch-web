@@ -1,3 +1,4 @@
+import { Plus, Trash2 } from "lucide-react"
 import { useState } from "react"
 import type { ReactElement } from "react"
 
@@ -47,6 +48,21 @@ function FieldInput({
 }) {
   const id = `admin-field-${field.key}`
 
+  if (field.type === "key-value") {
+    return (
+      <KeyValueEditor
+        id={id}
+        value={value}
+        numericValues={field.key === "zoneDetails"}
+        onChange={onChange}
+      />
+    )
+  }
+
+  if (field.type === "member-list") {
+    return <MemberListEditor id={id} value={value} onChange={onChange} />
+  }
+
   if (field.type === "textarea") {
     return (
       <Textarea
@@ -75,6 +91,30 @@ function FieldInput({
     )
   }
 
+  if (field.type === "time") {
+    return (
+      <Input
+        id={id}
+        type="time"
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+      />
+    )
+  }
+
+  if (field.type === "number") {
+    return (
+      <Input
+        id={id}
+        type="number"
+        min="0"
+        step="1"
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+      />
+    )
+  }
+
   return (
     <Input
       id={id}
@@ -83,6 +123,180 @@ function FieldInput({
       onChange={(event) => onChange(event.target.value)}
     />
   )
+}
+
+type KeyValueRow = { key: string; value: string }
+
+function KeyValueEditor({
+  id,
+  value,
+  numericValues,
+  onChange,
+}: {
+  id: string
+  value: string
+  numericValues: boolean
+  onChange: (value: string) => void
+}) {
+  const [rows, setRows] = useState<KeyValueRow[]>(() => parseRows(value))
+
+  const updateRows = (nextRows: KeyValueRow[]) => {
+    setRows(nextRows)
+    const object = Object.fromEntries(
+      nextRows
+        .filter((row) => row.key.trim())
+        .map((row) => [
+          row.key.trim(),
+          numericValues && row.value.trim() !== ""
+            ? Number(row.value)
+            : row.value,
+        ]),
+    )
+    onChange(JSON.stringify(object))
+  }
+
+  return (
+    <div id={id} className="space-y-2 rounded-lg border border-border/70 bg-muted/20 p-3">
+      {rows.length === 0 ? (
+        <p className="text-muted-foreground text-xs">No entries added yet.</p>
+      ) : null}
+      {rows.map((row, index) => (
+        <div key={index} className="flex items-center gap-2">
+          <Input
+            aria-label={`${numericValues ? "Statistic" : "Member"} label ${index + 1}`}
+            placeholder={numericValues ? "Statistic name" : "Role or member"}
+            value={row.key}
+            onChange={(event) => {
+              const nextRows = [...rows]
+              nextRows[index] = { ...row, key: event.target.value }
+              updateRows(nextRows)
+            }}
+          />
+          <Input
+            aria-label={`${numericValues ? "Statistic" : "Member"} value ${index + 1}`}
+            type={numericValues ? "number" : "text"}
+            placeholder={numericValues ? "0" : "Name"}
+            value={row.value}
+            onChange={(event) => {
+              const nextRows = [...rows]
+              nextRows[index] = { ...row, value: event.target.value }
+              updateRows(nextRows)
+            }}
+          />
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon-sm"
+            aria-label={`Remove entry ${index + 1}`}
+            onClick={() => updateRows(rows.filter((_, rowIndex) => rowIndex !== index))}
+          >
+            <Trash2 className="text-destructive size-4" />
+          </Button>
+        </div>
+      ))}
+      <Button
+        type="button"
+        variant="outline"
+        size="sm"
+        onClick={() => updateRows([...rows, { key: "", value: "" }])}
+      >
+        <Plus className="size-4" /> Add entry
+      </Button>
+    </div>
+  )
+}
+
+function parseRows(value: string): KeyValueRow[] {
+  if (!value.trim()) return []
+  try {
+    const parsed: unknown = JSON.parse(value)
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return []
+    return Object.entries(parsed).map(([key, entryValue]) => ({
+      key,
+      value: entryValue === null ? "" : String(entryValue),
+    }))
+  } catch {
+    return []
+  }
+}
+
+type MemberRow = { name: string; phone: string }
+
+function MemberListEditor({
+  id,
+  value,
+  onChange,
+}: {
+  id: string
+  value: string
+  onChange: (value: string) => void
+}) {
+  const [rows, setRows] = useState<MemberRow[]>(() => parseMemberRows(value))
+
+  const updateRows = (nextRows: MemberRow[]) => {
+    setRows(nextRows)
+    onChange(JSON.stringify(nextRows))
+  }
+
+  return (
+    <div id={id} className="space-y-2 rounded-lg border border-border/70 bg-muted/20 p-3">
+      {rows.map((row, index) => (
+        <div key={index} className="grid gap-2 sm:grid-cols-[1fr_1fr_auto]">
+          <Input
+            aria-label={`Member name ${index + 1}`}
+            placeholder="Member name"
+            value={row.name}
+            onChange={(event) => {
+              const nextRows = [...rows]
+              nextRows[index] = { ...row, name: event.target.value }
+              updateRows(nextRows)
+            }}
+          />
+          <Input
+            aria-label={`Member phone ${index + 1}`}
+            placeholder="Phone number"
+            value={row.phone}
+            onChange={(event) => {
+              const nextRows = [...rows]
+              nextRows[index] = { ...row, phone: event.target.value }
+              updateRows(nextRows)
+            }}
+          />
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon-sm"
+            aria-label={`Remove member ${index + 1}`}
+            onClick={() => updateRows(rows.filter((_, rowIndex) => rowIndex !== index))}
+          >
+            <Trash2 className="text-destructive size-4" />
+          </Button>
+        </div>
+      ))}
+      <Button
+        type="button"
+        variant="outline"
+        size="sm"
+        onClick={() => updateRows([...rows, { name: "", phone: "" }])}
+      >
+        <Plus className="size-4" /> Add member
+      </Button>
+    </div>
+  )
+}
+
+function parseMemberRows(value: string): MemberRow[] {
+  if (!value.trim()) return []
+  try {
+    const parsed: unknown = JSON.parse(value)
+    if (!Array.isArray(parsed)) return []
+    return parsed.map((member) => ({
+      name: String((member as Record<string, unknown>).name ?? ""),
+      phone: String((member as Record<string, unknown>).phone ?? ""),
+    }))
+  } catch {
+    return []
+  }
 }
 
 export function AdminRecordDialog({
@@ -102,7 +316,14 @@ export function AdminRecordDialog({
     const seed: Record<string, string> = {}
     for (const field of config.fields) {
       const raw = record?.[field.key]
-      seed[field.key] = raw === undefined || raw === null ? "" : String(raw)
+      const value =
+        raw === undefined || raw === null
+          ? ""
+          : typeof raw === "object"
+            ? JSON.stringify(raw, null, 2)
+            : String(raw)
+      seed[field.key] =
+        field.type === "time" ? value.match(/^\d{2}:\d{2}/)?.[0] ?? value : value
     }
     return seed
   }
@@ -135,8 +356,12 @@ export function AdminRecordDialog({
         notify.success(`${config.singular} created.`)
       }
       setOpen(false)
-    } catch {
-      notify.error(`Could not save ${config.singular.toLowerCase()}.`)
+    } catch (error) {
+      const message =
+        error && typeof error === "object" && "message" in error
+          ? String((error as { message: unknown }).message)
+          : `Could not save ${config.singular.toLowerCase()}.`
+      notify.error(message)
     }
   }
 
@@ -153,7 +378,7 @@ export function AdminRecordDialog({
 
         <div className="grid gap-4">
           {config.fields.map((field) => (
-            <div key={field.key} className="grid gap-2">
+            <div key={`${field.key}-${open ? "open" : "closed"}`} className="grid gap-2">
               <Label htmlFor={`admin-field-${field.key}`}>{field.label}</Label>
               <FieldInput
                 field={field}
@@ -165,7 +390,7 @@ export function AdminRecordDialog({
         </div>
 
         <DialogFooter>
-          <Button onClick={onSubmit} disabled={isPending}>
+          <Button type="button" onClick={onSubmit} disabled={isPending}>
             {isPending
               ? "Saving..."
               : isEdit

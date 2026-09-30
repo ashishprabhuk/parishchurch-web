@@ -17,8 +17,8 @@ export default function AnnouncementDetailPage() {
 
   useSeo({
     title: item
-      ? `${item.title} | St. Mary of Grace Parish`
-      : "Announcement | St. Mary of Grace Parish",
+      ? `${item.title} | Church of Our Lady of Fatima`
+      : "Announcement | Church of Our Lady of Fatima",
     description: item?.excerpt ?? "Parish announcement details.",
     canonicalPath: `/announcements/${slug}`,
     ogImage: item?.image,

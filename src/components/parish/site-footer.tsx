@@ -164,7 +164,7 @@ export function SiteFooter() {
           </h4>
           <ul className="text-footer-foreground/76 mt-5 space-y-4 text-sm leading-relaxed">
             <li className="flex gap-2.5">
-              <MapPin className="text-brass mt-0.5 size-4 shrink-0" /> St. Mary
+              <MapPin className="text-brass mt-0.5 size-4 shrink-0" /> Church of Our Lady of Fatima
               of Grace Parish
               <br />
               Hill Road, Bandra West

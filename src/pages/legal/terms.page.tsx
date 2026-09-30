@@ -4,7 +4,7 @@ import { useSeo } from "@/hooks/use-seo"
 
 export default function TermsPage() {
   useSeo({
-    title: "Terms | St. Mary of Grace Parish",
+    title: "Terms | Church of Our Lady of Fatima",
     description: "Terms of use for parish website and services.",
     canonicalPath: "/terms",
   })

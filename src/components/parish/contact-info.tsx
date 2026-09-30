@@ -5,7 +5,7 @@ export function ContactInfo() {
     <div className="space-y-5 text-sm">
       <div className="flex items-start gap-3">
         <MapPin className="text-accent mt-0.5 size-4" />
-        <p>St. Mary of Grace Parish, Hill Road, Bandra West, Mumbai 400050</p>
+        <p>Church of Our Lady of Fatima, Hill Road, Bandra West, Mumbai 400050</p>
       </div>
       <div className="flex items-start gap-3">
         <Clock3 className="text-accent mt-0.5 size-4" />

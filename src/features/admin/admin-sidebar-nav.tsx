@@ -41,7 +41,7 @@ const adminNav = [
   { label: "Communities", href: "/admin/communities", icon: "users" },
   {
     label: "Cells & Associations",
-    href: "/admin/associations",
+    href: "/admin/cell-associations",
     icon: "users-round",
   },
   { label: "History Timeline", href: "/admin/history", icon: "history" },

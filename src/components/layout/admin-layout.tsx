@@ -2,7 +2,6 @@ import { Church, LogOut, Menu } from "lucide-react"
 import { useState } from "react"
 import { Link, Outlet } from "react-router-dom"
 
-import { ThemeToggle } from "@/components/common/theme-toggle"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -12,6 +11,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { AdminSidebarNav } from "@/features/admin/admin-sidebar-nav"
+import { UserMenu } from "@/components/parish/user-menu"
 
 export function AdminLayout() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
@@ -93,7 +93,7 @@ export function AdminLayout() {
               >
                 <LogOut className="size-4" /> Site
               </Button>
-              <ThemeToggle />
+              <UserMenu />
             </div>
           </div>
         </header>

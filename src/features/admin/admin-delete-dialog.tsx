@@ -3,7 +3,7 @@ import type { ReactElement } from "react"
 import { ConfirmDialog } from "@/components/common/confirm-dialog"
 import { notify } from "@/lib/toast"
 
-import { useDeleteAdminRecord } from "./use-admin"
+import { useArchiveAdminRecord } from "./use-admin"
 import type { AdminEntityConfig, AdminRecord } from "./types"
 
 export function AdminDeleteDialog({
@@ -15,14 +15,14 @@ export function AdminDeleteDialog({
   record: AdminRecord
   trigger: ReactElement
 }) {
-  const deleteMutation = useDeleteAdminRecord(config.type)
+  const archiveMutation = useArchiveAdminRecord(config.type)
 
   const onConfirm = async () => {
     try {
-      await deleteMutation.mutateAsync(record.id)
-      notify.success(`${config.singular} deleted.`)
+      await archiveMutation.mutateAsync(record.id)
+      notify.success(`${config.singular} archived.`)
     } catch {
-      notify.error(`Could not delete ${config.singular.toLowerCase()}.`)
+      notify.error(`Could not archive ${config.singular.toLowerCase()}.`)
     }
   }
 
@@ -31,8 +31,8 @@ export function AdminDeleteDialog({
   return (
     <ConfirmDialog
       trigger={trigger}
-      title={`Delete ${config.singular.toLowerCase()}?`}
-      description={`This will permanently remove "${title}". This action cannot be undone.`}
+      title={`Archive ${config.singular.toLowerCase()}?`}
+      description={`This will archive "${title}" and remove it from active schedules.`}
       onConfirm={onConfirm}
     />
   )

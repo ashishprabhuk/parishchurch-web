@@ -11,6 +11,16 @@ export default defineConfig({
       "@": path.resolve(import.meta.dirname, "./src"),
     },
   },
+  server: {
+    proxy: {
+      "/api": {
+        target: "https://churchofourladyoffatima.com",
+        changeOrigin: true,
+        secure: true,
+        cookieDomainRewrite: "",
+      },
+    },
+  },
   test: {
     environment: "jsdom",
     setupFiles: "./tests/setup.ts",

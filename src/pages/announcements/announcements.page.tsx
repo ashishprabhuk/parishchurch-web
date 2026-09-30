@@ -6,7 +6,7 @@ import { useSeo } from "@/hooks/use-seo"
 
 export default function AnnouncementsPage() {
   useSeo({
-    title: "Announcements | St. Mary of Grace Parish",
+    title: "Announcements | Church of Our Lady of Fatima",
     description: "Latest notices, celebrations, and updates from the parish.",
     canonicalPath: "/announcements",
   })

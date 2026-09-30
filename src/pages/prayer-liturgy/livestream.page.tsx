@@ -4,7 +4,7 @@ import { useSeo } from "@/hooks/use-seo"
 
 export default function LivestreamPage() {
   useSeo({
-    title: "Livestream | St. Mary of Grace Parish",
+    title: "Livestream | Church of Our Lady of Fatima",
     description: "Join Holy Mass and prayer moments online.",
     canonicalPath: "/prayer-liturgy/livestream",
   })

@@ -2,6 +2,7 @@ import { useAuthStore } from "@/stores/auth.store"
 import { useNavigate } from "react-router-dom"
 
 import { Button } from "@/components/ui/button"
+import { logoutWithCredentials } from "@/features/auth/services/auth.service"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { PageContainer } from "@/components/layout/page-container"
 import { PageHeader } from "@/components/layout/page-header"
@@ -27,7 +28,15 @@ export default function SettingsPage() {
           </p>
           <Button
             variant="outline"
-            onClick={() => {
+            onClick={async () => {
+              const user = useAuthStore.getState().user
+              if (user) {
+                try {
+                  await logoutWithCredentials(user.email, "")
+                } catch {
+                  // Local logout still prevents the stale client session from being reused.
+                }
+              }
               logout()
               navigate("/login")
             }}

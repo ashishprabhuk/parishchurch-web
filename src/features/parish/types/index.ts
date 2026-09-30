@@ -21,9 +21,22 @@ export type ParishEvent = {
   description: string
 }
 
+export type ParishEventApiRecord = {
+  id: number | string
+  eventDate: string
+  eventTime: string
+  occasion: string
+  preacherOrPriest: string
+  coordinator: string
+  day?: string
+  month?: string
+  year?: number
+}
+
 export type MassTiming = {
   id: string
   label: string
+  dayOfWeek?: string
   dayGroup: "today" | "sunday" | "weekday"
   time: string
   intention?: "GENERAL" | "NOVEENA" | "GOOD FRIDAY" | "EASTER" | "CHURCH FEAST" | "CHRISTMAS" | string
@@ -33,15 +46,31 @@ export type MassTiming = {
   date?: string
 }
 
+export type MassTimingApiRecord = {
+  id: number | string
+  dayOfWeek: string
+  timeSlot: string
+  language: string
+  venue: string
+  intention: string
+  isActive?: boolean
+}
+
 export type ParishCommunity = {
   id: string
   name: string
-  zone?: string
+  zone?: number | string
+  patronSaint?: string
+  ppcPerson?: string
+  minister?: string
+  communityMembers?: Record<string, string>
+  zoneDetails?: Record<string, number | string>
+  description?: string
+  /** Legacy fields kept for locally seeded records. */
   patron?: string
   leader?: string
   contact?: string
   meetingTime?: string
-  description?: string
 }
 
 export type ParishAssociation = {
@@ -54,10 +83,31 @@ export type ParishAssociation = {
   description?: string
 }
 
+export type ParishAssociationApiRecord = {
+  id: number | string
+  name: string
+  description?: string | null
+  priestInCharge?: string | null
+  coordinatorTitle?: string | null
+  coordinatorName?: string | null
+  meetingSchedule?: string | null
+  cellMembers?: unknown
+}
+
+export type SacramentSection = {
+  title?: string
+  paragraphs: string[]
+  items?: string[]
+}
+
 export type Sacrament = {
   id: string
   name: string
   description: string
+  image: string
+  pdfUrl?: string
+  sections: SacramentSection[]
+  generalRules: string[]
 }
 
 export type ClergyMember = {
@@ -71,9 +121,16 @@ export type ClergyMember = {
 export type ChronicleIssue = {
   id: string
   title: string
-  issueDate: string
-  cover: string
-  fileUrl: string
+  issueDate?: string
+  publishDate?: string
+  expiryDate?: string
+  body?: string
+  coverImageId?: number
+  cover?: string
+  link?: string
+  fileUrl?: string
+  slug?: string
+  status?: string
 }
 
 export type OutreachItem = {

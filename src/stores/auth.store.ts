@@ -4,6 +4,8 @@ import { persist } from "zustand/middleware"
 export type AuthUser = {
   name: string
   email: string
+  roles?: string[]
+  isAdmin?: boolean
   image?: string
   role: "admin" | "member"
   phone?: string
@@ -30,7 +32,7 @@ export const MOCK_ADMIN_USER: AuthUser = {
     "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=200&q=80",
   role: "admin",
   phone: "+91 22 4000 1234",
-  address: "Parish Office, St. Mary of Grace Church, Mumbai",
+  address: "Parish Office, Church of Our Lady of Fatima, Mumbai",
   memberSince: "2015",
 }
 

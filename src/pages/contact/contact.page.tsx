@@ -11,7 +11,7 @@ import { useSeo } from "@/hooks/use-seo"
 
 export default function ContactPage() {
   useSeo({
-    title: "Contact | St. Mary of Grace Parish",
+    title: "Contact | Church of Our Lady of Fatima",
     description: "Parish office details, map, and contact form.",
     canonicalPath: "/contact",
   })

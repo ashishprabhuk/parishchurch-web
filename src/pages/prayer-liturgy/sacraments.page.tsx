@@ -6,7 +6,7 @@ import { useSeo } from "@/hooks/use-seo"
 
 export default function SacramentsPage() {
   useSeo({
-    title: "Sacraments | St. Mary of Grace Parish",
+    title: "Sacraments | Church of Our Lady of Fatima",
     description: "Explore the sacraments and prepare with pastoral support.",
     canonicalPath: "/prayer-liturgy/sacraments",
   })

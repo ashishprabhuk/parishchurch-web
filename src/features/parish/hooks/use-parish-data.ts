@@ -4,12 +4,16 @@ import {
   getAnnouncementBySlug,
   getAnnouncements,
   getCellsAssociations,
+  getCellsAssociationById,
   getChronicle,
+  getChronicleBySlug,
   getClergy,
   getCommunities,
   getEventsCalendar,
+  getUpcomingEvents,
   getHistoryTimeline,
   getMassTimings,
+  getMassTimingById,
   getOutreach,
   getSacraments,
   postFeedback,
@@ -23,7 +27,8 @@ import {
 const keys = {
   announcements: ["parish", "announcements"] as const,
   announcement: (slug: string) => ["parish", "announcements", slug] as const,
-  events: ["parish", "events"] as const,
+  events: (from?: string, to?: string) => ["parish", "events", from, to] as const,
+  upcomingEvents: ["parish", "events", "upcoming"] as const,
   mass: ["parish", "mass"] as const,
   sacraments: ["parish", "sacraments"] as const,
   clergy: ["parish", "clergy"] as const,
@@ -46,12 +51,30 @@ export function useAnnouncement(slug: string) {
   })
 }
 
-export function useEventsCalendar() {
-  return useQuery({ queryKey: keys.events, queryFn: getEventsCalendar })
+export function useEventsCalendar(from?: string, to?: string) {
+  return useQuery({
+    queryKey: keys.events(from, to),
+    queryFn: () => getEventsCalendar(from, to),
+  })
+}
+
+export function useUpcomingEvents() {
+  return useQuery({
+    queryKey: keys.upcomingEvents,
+    queryFn: getUpcomingEvents,
+  })
 }
 
 export function useMassTimings() {
   return useQuery({ queryKey: keys.mass, queryFn: getMassTimings })
+}
+
+export function useMassTiming(id: string) {
+  return useQuery({
+    queryKey: [...keys.mass, id],
+    queryFn: () => getMassTimingById(id),
+    enabled: Boolean(id),
+  })
 }
 
 export function useSacraments() {
@@ -73,12 +96,28 @@ export function useCellsAssociations() {
   })
 }
 
+export function useCellsAssociation(id: string) {
+  return useQuery({
+    queryKey: [...keys.associations, id],
+    queryFn: () => getCellsAssociationById(id),
+    enabled: Boolean(id),
+  })
+}
+
 export function useHistoryTimeline() {
   return useQuery({ queryKey: keys.history, queryFn: getHistoryTimeline })
 }
 
 export function useChronicle() {
   return useQuery({ queryKey: keys.chronicle, queryFn: getChronicle })
+}
+
+export function useChronicleIssue(slug: string) {
+  return useQuery({
+    queryKey: [...keys.chronicle, slug],
+    queryFn: () => getChronicleBySlug(slug),
+    enabled: Boolean(slug),
+  })
 }
 
 export function useOutreach() {

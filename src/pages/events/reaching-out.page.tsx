@@ -5,7 +5,7 @@ import { useSeo } from "@/hooks/use-seo"
 
 export default function ReachingOutPage() {
   useSeo({
-    title: "Reaching Out | St. Mary of Grace Parish",
+    title: "Reaching Out | Church of Our Lady of Fatima",
     description:
       "How our parish serves families and neighborhoods through outreach.",
     canonicalPath: "/events/reaching-out",

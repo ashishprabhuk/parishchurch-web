@@ -4,17 +4,17 @@ import { EventCard } from "@/components/parish/event-card"
 import { PageShell } from "@/components/parish/page-shell"
 import { ParishPageHeader } from "@/components/parish/page-header"
 import { Button } from "@/components/ui/button"
-import { useEventsCalendar } from "@/features/parish"
+import { useUpcomingEvents } from "@/features/parish"
 import { useSeo } from "@/hooks/use-seo"
 
 export default function EventsPage() {
   useSeo({
-    title: "Events | St. Mary of Grace Parish",
+    title: "Events | Church of Our Lady of Fatima",
     description: "Upcoming liturgical and community events.",
     canonicalPath: "/events",
   })
 
-  const { data = [] } = useEventsCalendar()
+  const { data = [] } = useUpcomingEvents()
 
   return (
     <>

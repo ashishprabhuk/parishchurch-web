@@ -11,7 +11,7 @@ import { useSeo } from "@/hooks/use-seo"
 
 export default function CellsAssociationsPage() {
   useSeo({
-    title: "Cells & Associations | St. Mary of Grace Parish",
+    title: "Cells & Associations | Church of Our Lady of Fatima",
     description: "Lay associations and active parish cells enriching our faith community.",
     canonicalPath: "/who-we-are/cells-associations",
   })

@@ -1,10 +1,3 @@
-import {
-  CalendarDays,
-  PlayCircle,
-} from "lucide-react"
-
-import { ButtonLink } from "@/components/ui/button"
-
 export function HeroSection() {
   return (
     <section className="bg-walnut text-parchment relative isolate min-h-[calc(100svh-7.25rem)] overflow-hidden">

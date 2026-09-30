@@ -1,7 +1,10 @@
 import { z } from "zod"
 
 const envSchema = z.object({
-  VITE_API_URL: z.string().optional().default("/api"),
+  VITE_API_URL: z
+    .string()
+    .optional()
+    .default(""),
   VITE_APP_NAME: z.string().optional().default("Church Web App"),
   VITE_APP_ENV: z
     .enum(["development", "staging", "production"])

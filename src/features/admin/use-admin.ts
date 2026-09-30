@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 
 import {
   createAdminRecord,
-  deleteAdminRecord,
+  archiveAdminRecord,
   getAdminCollection,
   updateAdminRecord,
 } from "./admin.service"
@@ -44,10 +44,10 @@ export function useUpdateAdminRecord(type: AdminEntityType) {
   })
 }
 
-export function useDeleteAdminRecord(type: AdminEntityType) {
+export function useArchiveAdminRecord(type: AdminEntityType) {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (id: string) => deleteAdminRecord(type, id),
+    mutationFn: (id: string) => archiveAdminRecord(type, id),
     onSuccess: () =>
       queryClient.invalidateQueries({ queryKey: keys.collection(type) }),
   })

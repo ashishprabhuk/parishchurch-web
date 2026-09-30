@@ -11,7 +11,7 @@ import { useSeo } from "@/hooks/use-seo"
 
 export default function PrayerLiturgyPage() {
   useSeo({
-    title: "Prayer & Liturgy | St. Mary of Grace Parish",
+    title: "Prayer & Liturgy | Church of Our Lady of Fatima",
     description:
       "Mass schedule, livestream, and liturgical life of our parish.",
     canonicalPath: "/prayer-liturgy",

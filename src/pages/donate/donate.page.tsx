@@ -6,7 +6,7 @@ import { useSeo } from "@/hooks/use-seo"
 
 export default function DonatePage() {
   useSeo({
-    title: "Donate | St. Mary of Grace Parish",
+    title: "Donate | Church of Our Lady of Fatima",
     description: "Support liturgy, social outreach, and pastoral initiatives.",
     canonicalPath: "/donate",
   })

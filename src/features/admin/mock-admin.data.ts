@@ -1,6 +1,5 @@
 import {
   announcements,
-  associationsData,
   chronicleIssues,
   clergy,
   communitiesData,
@@ -21,7 +20,7 @@ export const adminMockData: Record<AdminEntityType, AdminRecord[]> = {
   sacraments: sacraments as unknown as AdminRecord[],
   clergy: clergy as unknown as AdminRecord[],
   communities: communitiesData as unknown as AdminRecord[],
-  associations: associationsData as unknown as AdminRecord[],
+  "cell-associations": [],
   history: historyTimeline.map((h, i) => ({ id: `h${i + 1}`, ...h })),
   chronicle: chronicleIssues as unknown as AdminRecord[],
   outreach: outreach as unknown as AdminRecord[],

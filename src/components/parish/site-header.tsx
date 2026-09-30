@@ -5,7 +5,6 @@ import {
   Clock3,
   LogIn,
   Mail,
-  MapPin,
   Menu,
   Phone,
 } from "lucide-react"
@@ -111,17 +110,17 @@ export function SiteHeader() {
       </div>
 
       <div className="border-border/90 bg-background/96 border-b backdrop-blur-md">
-        <div className="mx-auto flex min-h-20 max-w-[90rem] items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+        <div className="mx-auto flex min-h-24 max-w-[90rem] items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
           <Link
             to="/"
             className="flex min-w-0 items-center gap-3"
-            aria-label="St. Mary of Grace Parish home"
+            aria-label="Church of Our Lady of Fatima home"
           >
-            <span className="grid size-11 shrink-0 place-items-center overflow-hidden">
+            <span className="grid size-14 shrink-0 place-items-center overflow-hidden">
               <img
                 src="/assets/fatima_church_logo.png"
                 alt=""
-                className="size-11 object-contain"
+                className="size-14 object-contain"
               />
             </span>
             <div className="min-w-0">
@@ -129,7 +128,7 @@ export function SiteHeader() {
                 {t("brand.name")}
               </p>
               <p className="text-muted-foreground mt-1 truncate text-[0.61rem] font-semibold tracking-[0.17em] uppercase xl:overflow-visible xl:text-clip xl:whitespace-nowrap">
-                A parish of faith and welcome
+                Chulne
               </p>
             </div>
           </Link>
@@ -304,12 +303,9 @@ export function SiteHeader() {
                 ) : (
                   <AuthDialog
                     trigger={
-                      <Button 
-                        className="bg-primary text-primary-foreground mt-2 w-full"
-                        onClick={closeMobileMenu}
-                      >
-                        <LogIn className="size-4" /> Login
-                      </Button>
+                        <Button className="bg-primary text-primary-foreground mt-2 w-full">
+                          <LogIn className="size-4" /> Login
+                        </Button>
                     }
                   />
                 )}

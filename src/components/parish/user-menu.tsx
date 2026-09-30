@@ -14,6 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { notify } from "@/lib/toast"
+import { logoutWithCredentials } from "@/features/auth/services/auth.service"
 import { useAuthStore } from "@/stores/auth.store"
 
 export function UserMenu() {
@@ -27,7 +28,12 @@ export function UserMenu() {
 
   const isAdmin = user.role === "admin"
 
-  const onLogout = () => {
+  const onLogout = async () => {
+    try {
+      await logoutWithCredentials(user.email, "")
+    } catch {
+      notify.error("The server could not end the session. You were signed out locally.")
+    }
     logout()
     notify.success("You have been signed out.")
     navigate("/")

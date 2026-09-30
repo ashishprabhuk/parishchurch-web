@@ -4,7 +4,7 @@ import { useSeo } from "@/hooks/use-seo"
 
 export default function RefundPolicyPage() {
   useSeo({
-    title: "Refund Policy | St. Mary of Grace Parish",
+    title: "Refund Policy | Church of Our Lady of Fatima",
     description: "Donation and refund guidance for parish support.",
     canonicalPath: "/refund-policy",
   })

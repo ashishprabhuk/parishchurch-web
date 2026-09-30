@@ -8,7 +8,7 @@ import { ADMIN_ENTITIES } from "./types"
 
 export default function AdminDashboardPage() {
   useSeo({
-    title: "Admin | St. Mary of Grace Parish",
+    title: "Admin | Church of Our Lady of Fatima",
     description: "Manage parish website content.",
     canonicalPath: "/admin",
   })

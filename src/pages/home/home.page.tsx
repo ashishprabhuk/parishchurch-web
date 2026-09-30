@@ -157,7 +157,7 @@ const socialChannels = [
   },
   {
     name: "YouTube",
-    handle: "St. Mary of Grace",
+    handle: "Church of Our Lady of Fatima",
     action: "Subscribe Channel",
     href: "https://youtube.com/",
     icon: YoutubeIcon,
@@ -170,7 +170,7 @@ const socialChannels = [
 
 export default function HomePage() {
   useSeo({
-    title: "St. Mary of Grace Parish | Faith, Heritage, Community",
+    title: "Church of Our Lady of Fatima | Faith, Heritage, Community",
     description:
       "A historic parish community for worship, spiritual formation, and faithful service in Mumbai.",
     canonicalPath: "/",
@@ -289,7 +289,7 @@ export default function HomePage() {
                 A church built on faith, love, and community.
               </h2>
               <p className="text-muted-foreground mt-6 max-w-xl text-base leading-relaxed">
-                St. Mary of Grace began with a handful of families gathering in
+                Church of Our Lady of Fatima began with a handful of families gathering in
                 a borrowed room. Today, our parish remains rooted in that same
                 simple conviction: every person deserves a place to encounter
                 Christ and be known by name.
@@ -340,7 +340,7 @@ export default function HomePage() {
         </PageShell>
       </section> */}
 
-      <section id="ministries" className="scroll-mt-32 py-20 md:py-28">
+      {/* <section id="ministries" className="scroll-mt-32 py-20 md:py-28">
         <PageShell>
           <div className="grid gap-8 md:grid-cols-[1fr_.7fr] md:items-end">
             <div>
@@ -388,7 +388,7 @@ export default function HomePage() {
             ))}
           </div>
         </PageShell>
-      </section>
+      </section> */}
 
       {/* <section
         id="sermons"

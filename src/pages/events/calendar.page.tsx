@@ -13,14 +13,17 @@ import { toDateOrNull } from "@/lib/format"
 
 export default function EventsCalendarPage() {
   useSeo({
-    title: "Events Calendar | St. Mary of Grace Parish",
+    title: "Events Calendar | Church of Our Lady of Fatima",
     description: "Monthly event calendar and upcoming agenda.",
     canonicalPath: "/events/calendar",
   })
 
-  const { data = [] } = useEventsCalendar()
   const [month, setMonth] = useState(startOfMonth(new Date()))
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date())
+  const { data = [] } = useEventsCalendar(
+    format(month, "yyyy-MM-dd"),
+    format(addMonths(month, 1), "yyyy-MM-dd"),
+  )
 
   const selectedEvents = useMemo(
     () =>

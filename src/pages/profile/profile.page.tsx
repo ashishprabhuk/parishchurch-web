@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { useSeo } from "@/hooks/use-seo"
+import { logoutWithCredentials } from "@/features/auth/services/auth.service"
 import { notify } from "@/lib/toast"
 import { useAuthStore } from "@/stores/auth.store"
 
@@ -19,7 +20,7 @@ export default function ProfilePage() {
   const navigate = useNavigate()
 
   useSeo({
-    title: "My Profile | St. Mary of Grace Parish",
+    title: "My Profile | Church of Our Lady of Fatima",
     description: "Your parish member profile.",
     canonicalPath: "/profile",
   })
@@ -30,7 +31,12 @@ export default function ProfilePage() {
 
   const isAdmin = user.role === "admin"
 
-  const onLogout = () => {
+  const onLogout = async () => {
+    try {
+      await logoutWithCredentials(user.email, "")
+    } catch {
+      notify.error("The server could not end the session. You were signed out locally.")
+    }
     logout()
     notify.success("You have been signed out.")
     navigate("/")

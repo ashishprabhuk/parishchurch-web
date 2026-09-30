@@ -213,36 +213,124 @@ export const associationsData: ParishAssociation[] = [
   },
 ]
 
+const sacramentGeneralRules = [
+  "Proper preparation shall be provided according to the nature and requirements of each sacrament.",
+  "The person receiving the sacrament must fulfil the requirements of the Catholic Church and the Diocese of Vasai.",
+  "All required documents and certificates must be submitted to the Parish Office before the celebration of the sacrament.",
+  "All sacraments shall be celebrated according to the approved liturgical books of the Catholic Church, the norms of the Diocese of Vasai and the pastoral guidelines of Our Lady of Fatima Church.",
+  "The Parish Priest shall ensure that the person receiving the sacrament is properly instructed and suitably disposed to receive it.",
+  "Parish registration and sacramental records shall be maintained accurately and carefully.",
+  "No sacrament should be administered merely as a social, cultural or customary function. Its spiritual and ecclesial meaning must always be respected.",
+  "Parents, godparents, sponsors and candidates shall participate in the prescribed catechetical and spiritual preparation programmes.",
+  "Every sacramental celebration shall be conducted with dignity, reverence, prayerfulness and simplicity.",
+  "Photography, video recording, decorations, music and other arrangements must not distract from or interfere with the sacredness of the liturgy.",
+  "Any fees or offerings shall be in accordance with diocesan guidelines. Financial difficulty should never become an obstacle to receiving a sacrament.",
+  "Any exceptional or special case shall be referred to the Parish Priest and, where necessary, to the Diocese, rather than being decided informally.",
+]
+
 export const sacraments: Sacrament[] = [
   {
     id: "s1",
     name: "Baptism",
-    description: "Welcoming new life into Christ and the Church.",
+    description: "Holy Baptism is the gateway to life in the Spirit and the foundation of the Christian life.",
+    image: "/assets/sacraments_images/baptism.jpg",
+    pdfUrl: "https://drive.google.com/file/d/14RatgAK3P-xhHV3U9Bupmx2n8zdydGGX/view?usp=sharing",
+    sections: [{ paragraphs: ["Holy Baptism is the basis of the whole Christian life, the gateway to life in the Spirit (vitae spiritualis ianua), and the door which gives access to the other sacraments. Through Baptism we are freed from sin and reborn as sons of God; we become members of Christ, are incorporated into the Church and made sharers in her mission. (CCC 1213)", "Baptism is birth into the new life in Christ. In accordance with the Lord's will, it is necessary for salvation, as is the Church herself, which we enter by Baptism. (CCC 1277)"], title: "About Baptism" }],
+    generalRules: sacramentGeneralRules,
   },
   {
     id: "s2",
     name: "Confirmation",
-    description: "Strengthened by the gifts of the Holy Spirit.",
+    description: "Confirmation strengthens the baptized with the Holy Spirit and equips them to witness to the faith.",
+    image: "/assets/sacraments_images/confirmation.jpg",
+    pdfUrl: "https://drive.google.com/file/d/1ZZV1VR03rwfGz-VDG8SeurM71c67RDxZ/view?usp=sharing",
+    generalRules: sacramentGeneralRules,
+    sections: [
+      { title: "About Confirmation", paragraphs: ["The Sacrament of Confirmation is a vital component of Christian initiation, closely linked with Baptism and the Eucharist. It strengthens the baptized, enriching them with the Holy Spirit and imprinting an indelible character that binds them more firmly to the Church. (Code of Canon Law 879)", "Confirmation gives a special grace that empowers individuals to witness to their faith boldly and engage actively in the mission of the Church. It deepens one's relationship with Christ and completes Christian initiation, equipping believers to spread and defend the faith with courage and commitment. The importance of Confirmation lies in its role in completing the process of initiation, equipping believers to spread and defend the faith in their daily lives."] },
+      {
+        title: "Confirmation preparation",
+        paragraphs: [
+          "Candidates who have completed 15 years of age or have appeared for the SSC examination may register at the Parish Office for Confirmation preparation.",
+          "Candidates must undergo one full year of catechetical preparation before receiving the Sacrament of Confirmation.",
+          "Attendance at the Confirmation classes is compulsory. Candidates are expected to attend all prescribed classes regularly.",
+          "Candidates will be required to appear for the prescribed examination or assessment as part of their preparation.",
+          "The Parish shall verify the candidate's Baptism record and other required documents.",
+          "Candidates should be properly instructed about the meaning, grace and responsibilities associated with the Sacrament of Confirmation.",
+          "Candidates must attend the regular Saturday classes after Mass throughout the preparation year.",
+          "Candidates should understand that Confirmation is not the completion of Christian life but a deeper commitment to living and witnessing to the faith.",
+          "After Confirmation, candidates are encouraged to continue their Christian formation and active participation in parish life.",
+        ],
+      },
+      {
+        title: "Regular participation",
+        paragraphs: [
+          "Candidates are expected to participate regularly in:",
+        ],
+        items: [
+          "Catechetical classes",
+          "Sunday Eucharist",
+          "Parish activities",
+          "Prayer and spiritual formation",
+        ],
+      },
+      {
+        title: "Confirmation programme",
+        paragraphs: [
+          "The Confirmation programme shall include not only catechetical instruction but also:",
+        ],
+        items: [
+          "Social visits and exposure programmes",
+          "Service-oriented activities",
+          "Presentations and talks on the lives of the saints",
+          "Opportunities for personal prayer and spiritual growth",
+        ],
+      },
+    ],
+    
   },
   {
     id: "s3",
     name: "Eucharist",
-    description: "Nourishment through the Body and Blood of Christ.",
+    description: "The Eucharist is the source and summit of Christian life, nourishing the faithful through Christ's Body and Blood.",
+    image: "/assets/sacraments_images/eucharist.jpg",
+    pdfUrl: "https://drive.google.com/file/d/1H-4cwAjBTn4wj1EoXtL5nvSQb7pBMGDg/view?usp=sharing",
+    sections: [{ title: "About the Eucharist", paragraphs: ["The Eucharist is central to the life of the Catholic Church, regarded as the source and summit of Christian life. (Lumen Gentium, no. 11) It represents the sacrificial offering of Christ's Body and Blood, instituted at the Last Supper, and is a profound encounter with Jesus that nourishes the faithful spiritually. (CCC 1407)", "Through the Eucharist, believers are united with Christ and with one another in charity and communion. This sacrament not only commemorates Christ's sacrifice but also anticipates the final coming of God's Kingdom, providing a foretaste of eternal life. The Eucharist is essential for the Church's mission, empowering the faithful to live out their commitment to love and service in the world."] }, { title: "First Holy Communion", paragraphs: ["First Holy Communion is administered to children of Std. IV. Parents of eligible candidates must fill in and submit the registration form in June and provide a copy of the child's Baptism Certificate for verification at the Parish Office."] }],
+    generalRules: sacramentGeneralRules,
   },
   {
     id: "s4",
     name: "Reconciliation",
-    description: "Healing and renewal through mercy.",
+    description: "Through confession and absolution, Reconciliation brings pardon, peace, and renewed communion with God.",
+    image: "/assets/sacraments_images/confession.jpg",
+    pdfUrl: "https://drive.google.com/file/d/1kO4YxvgukfKmQkNN5rWger36DUCQ-OIS/view?usp=sharing",
+    sections: [{ title: "About Reconciliation", paragraphs: ["It is called the sacrament of confession, since the disclosure or confession of sins to a priest is an essential element of this sacrament. In a profound sense it is also a confession - acknowledgment and praise - of the holiness of God and of his mercy toward sinful man.", "It is called the sacrament of forgiveness, since by the priest's sacramental absolution God grants the penitent pardon and peace.", "It is called the sacrament of Reconciliation because it imparts to the sinner the love of God who reconciles: 'Be reconciled to God.' He who lives by God's merciful love is ready to respond to the Lord's call: 'Go; first be reconciled to your brother.' (CCC 1424)"] }],
+    generalRules: sacramentGeneralRules,
   },
   {
     id: "s5",
-    name: "Marriage",
-    description: "A covenant of love blessed in faith.",
+    name: "Matrimony",
+    description: "Matrimony is a sacred, perpetual covenant of love reflecting Christ's relationship with the Church.",
+    image: "/assets/sacraments_images/marriage.jpg",
+    pdfUrl: "https://drive.google.com/file/d/19Dtu17KMGpOkokcajLULyuDU7cx3Y242/view?usp=sharing",
+    sections: [{ title: "About Matrimony", paragraphs: ["The Sacrament of Matrimony is a sacred union between a man and woman, signifying the profound relationship between Christ and the Church. It bestows grace upon the spouses, enabling them to love each other with the same self-giving love that Christ has for His Church, perfecting their human love and strengthening their bond. (CCC 1661)", "This sacrament establishes a perpetual and exclusive bond that cannot be dissolved. It calls the couple to a life of holiness, mutual support, and responsible parenthood. Matrimony is not merely a social contract but a divine vocation that reflects God's love and serves as a witness to salvation within the Church community. (Amoris Laetitia, 72)"] }],
+    generalRules: sacramentGeneralRules,
   },
   {
     id: "s6",
     name: "Anointing of the Sick",
-    description: "Prayerful comfort and strength in illness.",
+    description: "Anointing of the Sick brings spiritual and physical healing, comfort, strength, and peace to those who are seriously ill or elderly.",
+    image: "/assets/sacraments_images/anointing_of_the_sick.jpg",
+    pdfUrl: "https://drive.google.com/file/d/1gTwz4k_sH_yzy0tVm30ey9NtdxKzM-Gs/view?usp=sharing",
+    sections: [{ title: "About Anointing of the Sick", paragraphs: ["The Sacrament of Anointing of the Sick is a significant sacrament in the Catholic Church, instituted by Christ to provide spiritual and physical healing to those who are seriously ill or elderly. (CCC 1527) It involves the anointing of the sick person with blessed oil, accompanied by prayers from the priest, which invoke the grace of the Holy Spirit. ", "This sacrament serves multiple purposes: it unites the sick individual with the Passion of Christ, offers comfort and peace, provides strength to endure suffering, and can lead to the forgiveness of sins if the person is unable to confess. Additionally, it prepares the individual for the journey to eternal life, reinforcing the Church's commitment to care for the sick and suffering, reflecting Christ's compassion and healing ministry (CCC 1511, 1532)"] }],
+    generalRules: sacramentGeneralRules,
+  },
+  {
+    id: "s7",
+    name: "Holy Orders",
+    description: "Holy Orders consecrates bishops, priests, and deacons for service to the Church and her people.",
+    image: "/assets/sacraments_images/priestly_ordination.jpg",
+    sections: [{ title: "About Holy Orders", paragraphs: ["The Sacrament of Holy Orders is a vital sacrament in the Catholic Church through which men are ordained as bishops, priests, or deacons, enabling them to serve the Church and its faithful. This sacrament is conferred by the bishop through the imposition of hands and a solemn prayer of consecration, invoking the Holy Spirit to bestow the necessary graces for their ministry. (CCC 1597)", "Holy Orders continues Christ's mission by empowering ordained ministers to perform sacred duties, including administering the sacraments, particularly the Eucharist. The sacrament imprints an indelible spiritual character and signifies a commitment to serve in the name of Christ. (CCC 1536)"], items: ["For information on the Priesthood or Permanent Diaconate, please contact any of the parish fathers, who will be happy to guide you in discerning your vocation."] }],
+    generalRules: [],
   },
 ]
 
