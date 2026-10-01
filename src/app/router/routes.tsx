@@ -17,7 +17,6 @@ const PrayerLiturgyPage = lazy(
 const LivestreamPage = lazy(
   () => import("@/pages/prayer-liturgy/livestream.page"),
 )
-const LivePage = lazy(() => import("@/pages/live/live.page"))
 const MassSchedulePage = lazy(
   () => import("@/pages/prayer-liturgy/mass-schedule.page"),
 )
@@ -123,14 +122,6 @@ export const routes: RouteObject[] = [
         element: (
           <LazyRoute>
             <LivestreamPage />
-          </LazyRoute>
-        ),
-      },
-      {
-        path: "live",
-        element: (
-          <LazyRoute>
-            <LivePage />
           </LazyRoute>
         ),
       },

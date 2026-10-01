@@ -31,7 +31,7 @@ export function LiveMassPlayer({
           </p>
           {showPageLink ? (
             <ButtonLink
-              to="/live"
+              to="/prayer-liturgy/livestream"
               variant="outline"
               className="border-primary/60 text-primary hover:bg-primary hover:text-primary-foreground w-fit shrink-0"
             >

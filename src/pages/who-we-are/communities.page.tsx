@@ -149,7 +149,7 @@ export default function CommunitiesPage() {
                         <div>
                           <p className="text-foreground mb-1 font-semibold">Community members</p>
                           <p className="text-muted-foreground break-words">
-                            {Object.entries(item.communityMembers).map(([role, member]) => `${role}: ${member}`).join(" · ")}
+                            {Object.values(item.communityMembers).join(" · ")}
                           </p>
                         </div>
                       )}

@@ -37,7 +37,7 @@ export function SiteFooter() {
             </div>
           </Link>
           <p className="text-footer-foreground/72 mt-5 max-w-sm text-sm leading-relaxed">
-            Welcome to the official website of the Church of Our Lady of Fatima, Chulne. A Catholic parish community in Sandor, Vasai West rooted in Eucharistic celebration, prayer, and local service.
+            Welcome to the official website of the Church of Our Lady of Fatima, Chulne. A Catholic parish community in Chulne, Vasai West rooted in Eucharistic celebration, prayer, and local service.
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
             <a

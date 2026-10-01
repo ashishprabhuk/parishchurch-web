@@ -395,9 +395,9 @@ export default function HomePage() {
             <ButtonLink
               to="/announcements"
               variant="outline"
-              className="border-brass/70 bg-parchment/55 text-walnut hover:bg-brass hover:text-walnut group h-auto min-h-32 justify-between rounded-sm px-6 py-6 text-left sm:px-8"
+              className="border-brass/70 bg-parchment/55 text-walnut hover:bg-brass hover:text-walnut group min-w-0 w-full h-auto min-h-32 justify-between rounded-sm px-4 py-6 text-left sm:px-8"
             >
-              <span className="flex items-center gap-5">
+              <span className="flex min-w-0 items-center gap-3 sm:gap-5">
                 <span className="border-brass/60 bg-antique-cream text-brass grid size-14 shrink-0 place-items-center border transition-colors group-hover:border-walnut/40 group-hover:bg-antique-cream/70">
                   <Megaphone
                     className="text-primary size-7"
@@ -405,7 +405,7 @@ export default function HomePage() {
                     aria-hidden="true"
                   />
                 </span>
-                <span>
+                <span className="min-w-0 flex-1 whitespace-normal">
                   <span className="text-brass block text-xs font-semibold tracking-[0.15em] uppercase group-hover:text-walnut/75">
                     Stay informed
                   </span>
@@ -417,17 +417,17 @@ export default function HomePage() {
                   </span>
                 </span>
               </span>
-              <ChevronRight className="text-brass ml-4 size-5 shrink-0 transition-transform group-hover:translate-x-1 group-hover:text-walnut" />
+              <ChevronRight className="text-brass ml-2 size-5 shrink-0 transition-transform group-hover:translate-x-1 group-hover:text-walnut sm:ml-4" />
             </ButtonLink>
             <ButtonLink
               to="/prayer-liturgy/mass-schedule"
-              className="bg-primary text-primary-foreground hover:bg-church-red/85 group h-auto min-h-32 justify-between rounded-sm px-6 py-6 text-left sm:px-8"
+              className="bg-primary text-primary-foreground hover:bg-church-red/85 group min-w-0 w-full h-auto min-h-32 justify-between rounded-sm px-4 py-6 text-left sm:px-8"
             >
-              <span className="flex items-center gap-5">
+              <span className="flex min-w-0 items-center gap-3 sm:gap-5">
                 <span className="border-brass/70 bg-brass text-walnut grid size-14 shrink-0 place-items-center border">
                   <CalendarDays className="size-6" />
                 </span>
-                <span>
+                <span className="min-w-0 flex-1 whitespace-normal">
                   <span className="text-brass block text-xs font-semibold tracking-[0.15em] uppercase">
                     Worship with us
                   </span>
@@ -439,7 +439,7 @@ export default function HomePage() {
                   </span>
                 </span>
               </span>
-              <ChevronRight className="text-brass ml-4 size-5 shrink-0 transition-transform group-hover:translate-x-1" />
+              <ChevronRight className="text-brass ml-2 size-5 shrink-0 transition-transform group-hover:translate-x-1 sm:ml-4" />
             </ButtonLink>
           </div>
         </PageShell>

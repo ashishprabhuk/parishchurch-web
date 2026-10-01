@@ -71,7 +71,6 @@ const links: NavLinkItem[] = [
       { to: "/events/reaching-out", labelKey: "nav.reachingOut" },
     ],
   },
-  { to: "/live", labelKey: "nav.liveMass" },
   { to: "/announcements", labelKey: "nav.announcements" },
   { to: "/contact", labelKey: "nav.contact" },
 ]

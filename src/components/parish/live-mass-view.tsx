@@ -10,11 +10,7 @@ import { useLiveStream } from "@/features/parish"
 
 const youtubeChannelUrl = "https://youtube.com/"
 
-export function LiveMassView({
-  compact = false,
-}: {
-  compact?: boolean
-}) {
+export function LiveMassView({ compact = false }: { compact?: boolean }) {
   const { data: stream, isLoading, isError, refetch } = useLiveStream()
 
   return (
@@ -26,11 +22,9 @@ export function LiveMassView({
             Pray with us online.
           </h1>
           <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-base leading-relaxed">
-            Join the parish community for Holy Mass when a live broadcast is
-            active.
+            Join the parish community for Holy Mass when a live broadcast is active.
           </p>
         </div>
-
         {isLoading ? <LoadingState label="Checking live Mass status..." /> : null}
         {isError ? (
           <ErrorState
@@ -52,21 +46,11 @@ export function LiveMassView({
             />
           </div>
         ) : null}
-
         <div className="mt-7 flex flex-wrap justify-center gap-4">
-          <ButtonLink
-            to="/prayer-liturgy/mass-schedule"
-            variant="outline"
-            className="border-primary/60 text-primary hover:bg-primary hover:text-primary-foreground"
-          >
+          <ButtonLink to="/prayer-liturgy/mass-schedule" variant="outline">
             View Mass timings
           </ButtonLink>
-          <a
-            href={youtubeChannelUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="text-primary hover:text-brass inline-flex h-10 items-center gap-2 px-1 text-xs font-semibold tracking-[0.1em] uppercase"
-          >
+          <a href={youtubeChannelUrl} target="_blank" rel="noreferrer" className="text-primary inline-flex h-10 items-center gap-2 px-1 text-xs font-semibold uppercase">
             <PlayCircle className="size-4" /> YouTube channel
           </a>
         </div>
