@@ -337,16 +337,16 @@ export const sacraments: Sacrament[] = [
 export const clergy: ClergyMember[] = [
   {
     id: "c1",
-    name: "Fr. Robert",
+    name: "Fr. Baptist",
     role: "Parish Priest",
-    image: "/assets/Fr_Robert.jpeg",
+    image: "/assets/Fr_Baptist.jpeg",
     bio: "Guiding the parish in liturgy, pastoral care, and outreach ministries.",
   },
   {
     id: "c2",
-    name: "Fr. Baptist",
+    name: "Fr. Robert",
     role: "Associate Priest",
-    image: "/assets/Fr_Baptist.jpeg",
+    image: "/assets/Fr_Robert.jpeg",
     bio: "Serving youth and family ministries with a focus on catechesis.",
   },
 ]

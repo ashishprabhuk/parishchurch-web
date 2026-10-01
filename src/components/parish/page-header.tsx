@@ -8,15 +8,14 @@ export function ParishPageHeader({
   subtitle?: string
   image?: string
 }) {
-  const image =
-    "https://images.unsplash.com/photo-1438032005730-c779502df39b?auto=format&fit=crop&w=1700&q=80"
+  const image = "/assets/gallery images/banner-image.jpeg"
 
   return (
     <section className="relative overflow-hidden">
       <img
         src={image}
-        alt={title}
-        className="absolute inset-0 h-full w-full object-cover"
+        alt="Our Lady of Fatima statue at the parish"
+        className="absolute inset-0 h-full w-full object-cover object-top"
       />
       <div className="absolute inset-0 bg-gradient-to-r from-walnut/80 via-walnut/60 to-walnut/45" />
       <PageShell className="text-parchment relative py-20">

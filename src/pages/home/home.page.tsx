@@ -29,40 +29,24 @@ import { useSeo } from "@/hooks/use-seo"
 
 const galleryItems = [
   {
-    title: "The sanctuary in morning light",
-    image:
-      "https://images.unsplash.com/photo-1466442929976-97f336a657be?auto=format&fit=crop&w=1400&q=84",
+    title: "Our Lady of Fatima statue at the parish",
+    image: "/assets/gallery images/Fatima_mata_img_1.jpeg",
     className: "col-span-2 row-span-2 aspect-[4/3] md:aspect-auto",
   },
   {
-    title: "A quiet chapel detail",
-    image:
-      "https://images.unsplash.com/photo-1444723121867-7a241cacace9?auto=format&fit=crop&w=900&q=84",
+    title: "Our Lady of Fatima surrounded by flowers",
+    image: "/assets/gallery images/Fatima_mata_img_2.jpeg",
     className: "aspect-square",
   },
   {
-    title: "Gathered in worship",
-    image:
-      "https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?auto=format&fit=crop&w=900&q=84",
+    title: "Our Lady of Fatima parish artwork",
+    image: "/assets/gallery images/Old_painting.jpeg",
     className: "aspect-square",
   },
   {
-    title: "A word of welcome",
-    image:
-      "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=900&q=84",
+    title: "Our Lady of Fatima altar flowers",
+    image: "/assets/gallery images/Fatima_mata_img_3.jpeg",
     className: "aspect-square",
-  },
-  {
-    title: "Hands ready to serve",
-    image:
-      "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=900&q=84",
-    className: "aspect-square",
-  },
-  {
-    title: "The joy of parish life",
-    image:
-      "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1400&q=84",
-    className: "col-span-2 aspect-[4/3] md:aspect-auto",
   },
 ]
 

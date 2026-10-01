@@ -29,6 +29,7 @@
   "nav.reachingOut": "Reaching Out",
   "nav.liveMass": "Live Mass",
   "header.worshipTimes": "Sunday worship at 8:00 AM, 10:00 AM & 6:00 PM",
+  "header.worshipTimesPrefix": "Sunday worship at",
   "auth.login": "Login",
   "accessibility.home": "Church of Our Lady of Fatima home"
   ,"live.massTitle": "Holy Mass"

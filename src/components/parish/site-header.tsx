@@ -25,6 +25,7 @@ import { useI18n } from "@/hooks/use-i18n"
 import type { TranslationKey } from "@/lib/i18n"
 import { PARISH_ENTITY } from "@/lib/seo/meta"
 import { useAuthStore } from "@/stores/auth.store"
+import { useMassTimings } from "@/features/parish"
 
 type NavChildLink = {
   to: string
@@ -80,6 +81,13 @@ export function SiteHeader() {
   const [openMenu, setOpenMenu] = useState<string | null>(null)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
+  const { data: massTimings = [] } = useMassTimings()
+  const sundayTimes = massTimings
+    .filter((timing) => timing.dayGroup === "sunday")
+    .map((timing) => timing.time)
+  const worshipTimes = sundayTimes.length
+    ? `${t("header.worshipTimesPrefix")} ${sundayTimes.join(", ")}`
+    : t("header.worshipTimes")
 
   const closeMenu = (to: string) =>
     setOpenMenu((current) => (current === to ? null : current))
@@ -92,7 +100,7 @@ export function SiteHeader() {
         <div className="mx-auto flex min-h-9 max-w-[90rem] items-center justify-between gap-3 px-4 py-2 text-[0.66rem] tracking-[0.08em] sm:px-6 lg:px-8">
           <p className="flex items-center gap-2 font-medium uppercase">
             <Clock3 className="size-3.5" />
-            {t("header.worshipTimes")}
+            {worshipTimes}
           </p>
           <div className="text-primary-foreground/85 hidden items-center gap-4 md:flex">
             <a
