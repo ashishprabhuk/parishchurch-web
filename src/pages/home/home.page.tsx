@@ -125,10 +125,11 @@ const socialChannels = [
 
 export default function HomePage() {
   useSeo({
-    title: "Church of Our Lady of Fatima | Faith, Heritage, Community",
+    title: "Church of Our Lady of Fatima, Chulne | Catholic Church in Vasai",
     description:
-      "A historic parish community for worship, spiritual formation, and faithful service in Mumbai.",
+      "Official website of the Church of Our Lady of Fatima, Chulne. Find Mass timings, church information, events, ministries, contact details and updates from our Catholic community.",
     canonicalPath: "/",
+    breadcrumbs: [{ name: "Home", item: "/" }],
   })
 
   const [selectedGalleryItem, setSelectedGalleryItem] =
@@ -896,11 +897,11 @@ export default function HomePage() {
                     Find us
                   </p>
                   <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
-                    Hill Road, Bandra West
+                    Chulne Road, Sandor
                     <br />
-                    Mumbai 400050
+                    Vasai West, Maharashtra 401201
                     <br />
-                    Accessible parking available
+                    Parish office and visitor parking available
                   </p>
                 </div>
               </div>

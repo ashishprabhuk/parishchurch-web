@@ -4,8 +4,6 @@ import {
   Clock3,
   Cross,
   FileText,
-  HandHeart,
-  History,
   LayoutDashboard,
   Megaphone,
   Radio,
@@ -24,9 +22,7 @@ const iconMap = {
   church: Church,
   users: Users,
   "users-round": Users,
-  history: History,
   "file-text": FileText,
-  "hand-heart": HandHeart,
   radio: Radio,
 }
 
@@ -44,9 +40,7 @@ const adminNav = [
     href: "/admin/cell-associations",
     icon: "users-round",
   },
-  { label: "History Timeline", href: "/admin/history", icon: "history" },
   { label: "Chronicle Issues", href: "/admin/chronicle", icon: "file-text" },
-  { label: "Outreach", href: "/admin/outreach", icon: "hand-heart" },
 ] as const
 
 export function AdminSidebarNav({ onNavigate }: { onNavigate?: () => void }) {

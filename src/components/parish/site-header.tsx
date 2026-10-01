@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/sheet"
 import { useI18n } from "@/hooks/use-i18n"
 import type { TranslationKey } from "@/lib/i18n"
+import { PARISH_ENTITY } from "@/lib/seo/meta"
 import { useAuthStore } from "@/stores/auth.store"
 
 type NavChildLink = {
@@ -95,16 +96,16 @@ export function SiteHeader() {
           </p>
           <div className="text-primary-foreground/85 hidden items-center gap-4 md:flex">
             <a
-              href="tel:+912240001234"
+              href={`tel:${PARISH_ENTITY.phone}`}
               className="flex items-center gap-1.5 hover:text-white"
             >
-              <Phone className="size-3" /> +91 22 4000 1234
+              <Phone className="size-3" /> {PARISH_ENTITY.phone}
             </a>
             <a
-              href="mailto:office@churchoffatima.org"
+              href={`mailto:${PARISH_ENTITY.email}`}
               className="flex items-center gap-1.5 hover:text-white"
             >
-              <Mail className="size-3" /> office@churchoffatima.org
+              <Mail className="size-3" /> {PARISH_ENTITY.email}
             </a>
           </div>
         </div>
@@ -121,14 +122,14 @@ export function SiteHeader() {
               <img
                 src="/assets/fatima_church_logo.png"
                 alt=""
-                className="size-14 object-contain"
+                className="size-16 object-contain"
               />
             </span>
             <div className="min-w-0">
               <p className="font-heading text-walnut truncate text-xl leading-none sm:text-2xl xl:overflow-visible xl:text-clip xl:whitespace-nowrap">
                 {t("brand.name")}
               </p>
-              <p className="text-muted-foreground mt-1 truncate text-[0.61rem] font-semibold tracking-[0.17em] uppercase xl:overflow-visible xl:text-clip xl:whitespace-nowrap">
+              <p className="text-muted-foreground mt-1 truncate text-[0.61rem] font-semibold tracking-[0.17em] xl:overflow-visible xl:text-clip xl:whitespace-nowrap">
                 Chulne
               </p>
             </div>

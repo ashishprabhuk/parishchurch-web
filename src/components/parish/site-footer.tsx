@@ -8,13 +8,11 @@ import { Link } from "react-router-dom"
 import {
   FacebookIcon,
   InstagramIcon,
-  WhatsAppIcon,
   YoutubeIcon,
 } from "@/components/common/social-icons"
-import { useI18n } from "@/hooks/use-i18n"
+import { PARISH_ENTITY } from "@/lib/seo/meta"
 
 export function SiteFooter() {
-  const { t } = useI18n()
 
   return (
     <footer className="bg-footer text-footer-foreground relative mt-20 overflow-hidden">
@@ -25,46 +23,25 @@ export function SiteFooter() {
             <span className="border-brass/70 grid size-11 place-items-center overflow-hidden rounded-full border">
               <img
                 src="/assets/fatima_church_logo.png"
-                alt=""
+                alt="Church of Our Lady of Fatima Logo"
                 className="size-9 object-contain"
               />
             </span>
             <div>
               <p className="font-heading text-2xl leading-none">
-                {t("brand.name")}
+                {PARISH_ENTITY.name}
               </p>
               <p className="text-footer-foreground/60 mt-1 text-[0.61rem] font-semibold tracking-[0.16em] uppercase">
-                Est. in faith and service
+                {PARISH_ENTITY.locality}, {PARISH_ENTITY.city}
               </p>
             </div>
           </Link>
           <p className="text-footer-foreground/72 mt-5 max-w-sm text-sm leading-relaxed">
-            A home for worship, a table for fellowship, and a community that
-            carries Christ's hope into the world.
+            Welcome to the official website of the Church of Our Lady of Fatima, Chulne. A Catholic parish community in Sandor, Vasai West rooted in Eucharistic celebration, prayer, and local service.
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
             <a
-              href="https://chat.whatsapp.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="WhatsApp Community"
-              title="WhatsApp Community"
-              className="border-footer-foreground/25 hover:border-brass hover:text-brass text-footer-foreground/80 grid size-9 place-items-center border transition-colors"
-            >
-              <WhatsAppIcon className="size-4" />
-            </a>
-            <a
-              href="https://instagram.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram Page"
-              title="Instagram Page"
-              className="border-footer-foreground/25 hover:border-brass hover:text-brass text-footer-foreground/80 grid size-9 place-items-center border transition-colors"
-            >
-              <InstagramIcon className="size-4" />
-            </a>
-            <a
-              href="https://facebook.com/"
+              href={PARISH_ENTITY.socialProfiles[0]}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook Page"
@@ -74,7 +51,17 @@ export function SiteFooter() {
               <FacebookIcon className="size-4" />
             </a>
             <a
-              href="https://youtube.com/"
+              href={PARISH_ENTITY.socialProfiles[1]}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram Page"
+              title="Instagram Page"
+              className="border-footer-foreground/25 hover:border-brass hover:text-brass text-footer-foreground/80 grid size-9 place-items-center border transition-colors"
+            >
+              <InstagramIcon className="size-4" />
+            </a>
+            <a
+              href={PARISH_ENTITY.socialProfiles[2]}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="YouTube Channel"
@@ -97,23 +84,23 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
-              <Link className="hover:text-brass" to="/#sermons">
-                Sermons
+              <Link className="hover:text-brass" to="/chulne">
+                Chulne location & details
               </Link>
             </li>
             <li>
-              <Link className="hover:text-brass" to="/#ministries">
-                Ministries
+              <Link className="hover:text-brass" to="/who-we-are/history">
+                Parish history
               </Link>
             </li>
             <li>
               <Link className="hover:text-brass" to="/events">
-                Events
+                Church events
               </Link>
             </li>
             <li>
-              <Link className="hover:text-brass" to="/#stories">
-                Stories of faith
+              <Link className="hover:text-brass" to="/announcements">
+                Announcements
               </Link>
             </li>
           </ul>
@@ -121,7 +108,7 @@ export function SiteFooter() {
 
         <div>
           <h4 className="text-brass text-xs font-semibold tracking-[0.18em] uppercase">
-            Worship
+            Worship & Sacraments
           </h4>
           <ul className="text-footer-foreground/76 mt-5 space-y-3 text-sm">
             <li>
@@ -129,30 +116,27 @@ export function SiteFooter() {
                 className="hover:text-brass"
                 to="/prayer-liturgy/mass-schedule"
               >
-                Service times
+                Mass timings
               </Link>
             </li>
             <li>
-              <Link className="hover:text-brass" to="/contact#visit">
-                Plan a visit
-              </Link>
-            </li>
-            <li>
-              <Link className="hover:text-brass" to="/prayer-liturgy">
-                Prayer & liturgy
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="hover:text-brass"
-                to="/prayer-liturgy/sacraments"
-              >
+              <Link className="hover:text-brass" to="/prayer-liturgy/sacraments">
                 Sacraments
               </Link>
             </li>
             <li>
+              <Link className="hover:text-brass" to="/prayer-liturgy/livestream">
+                Mass livestream
+              </Link>
+            </li>
+            <li>
+              <Link className="hover:text-brass" to="/who-we-are/communities">
+                SCC Communities
+              </Link>
+            </li>
+            <li>
               <Link className="hover:text-brass" to="/donate">
-                Give today
+                Parish support & donate
               </Link>
             </li>
           </ul>
@@ -164,26 +148,28 @@ export function SiteFooter() {
           </h4>
           <ul className="text-footer-foreground/76 mt-5 space-y-4 text-sm leading-relaxed">
             <li className="flex gap-2.5">
-              <MapPin className="text-brass mt-0.5 size-4 shrink-0" /> Church of Our Lady of Fatima
-              of Grace Parish
-              <br />
-              Hill Road, Bandra West
-              <br />
-              Mumbai 400050
+              <MapPin className="text-brass mt-0.5 size-4 shrink-0" />
+              <span>
+                {PARISH_ENTITY.officialName}
+                <br />
+                {PARISH_ENTITY.addressStreet}
+                <br />
+                {PARISH_ENTITY.region} {PARISH_ENTITY.postalCode}, India
+              </span>
             </li>
             <li className="flex items-center gap-2.5">
               <Phone className="text-brass size-4 shrink-0" />
-              <a className="hover:text-brass" href="tel:+912240001234">
-                +91 22 4000 1234
+              <a className="hover:text-brass" href={`tel:${PARISH_ENTITY.phone}`}>
+                {PARISH_ENTITY.phone}
               </a>
             </li>
             <li className="flex items-center gap-2.5">
               <Mail className="text-brass size-4 shrink-0" />
               <a
                 className="hover:text-brass"
-                href="mailto:office@churchoffatima.org"
+                href={`mailto:${PARISH_ENTITY.email}`}
               >
-                office@churchoffatima.org
+                {PARISH_ENTITY.email}
               </a>
             </li>
           </ul>
@@ -192,9 +178,12 @@ export function SiteFooter() {
       <div className="border-footer-foreground/15 border-t">
         <div className="text-footer-foreground/58 mx-auto flex max-w-7xl flex-col gap-3 px-4 py-5 text-xs sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
           <p>
-            © 2026 {t("brand.name")}. {t("footer.rights")}
+            © 2026 {PARISH_ENTITY.officialName}. All rights reserved.
           </p>
           <p className="flex flex-wrap gap-x-4 gap-y-1">
+            <Link className="hover:text-brass" to="/chulne">
+              Chulne Page
+            </Link>
             <Link className="hover:text-brass" to="/privacy">
               Privacy Policy
             </Link>

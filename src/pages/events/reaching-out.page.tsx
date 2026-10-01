@@ -1,17 +1,14 @@
+import { EmptyState } from "@/components/feedback/empty-state"
 import { PageShell } from "@/components/parish/page-shell"
 import { ParishPageHeader } from "@/components/parish/page-header"
-import { useOutreach } from "@/features/parish"
 import { useSeo } from "@/hooks/use-seo"
 
 export default function ReachingOutPage() {
   useSeo({
-    title: "Reaching Out | Church of Our Lady of Fatima",
-    description:
-      "How our parish serves families and neighborhoods through outreach.",
+    title: "Reaching Out Coming Soon | Church of Our Lady of Fatima",
+    description: "Parish outreach information is coming soon.",
     canonicalPath: "/events/reaching-out",
   })
-
-  const { data = [] } = useOutreach()
 
   return (
     <>
@@ -21,24 +18,10 @@ export default function ReachingOutPage() {
         image="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1700&q=80"
       />
       <PageShell className="py-14">
-        {data.map((item) => (
-          <article
-            key={item.id}
-            className="grid gap-5 lg:grid-cols-[1.2fr_1fr]"
-          >
-            <img
-              src={item.image}
-              alt={item.title}
-              className="h-full min-h-80 w-full rounded-2xl object-cover"
-            />
-            <div>
-              <h2 className="font-heading text-4xl">{item.title}</h2>
-              <p className="text-muted-foreground mt-4 max-w-xl text-sm leading-relaxed md:text-base">
-                {item.description}
-              </p>
-            </div>
-          </article>
-        ))}
+        <EmptyState
+          title="Reaching out is coming soon"
+          description="Details about parish service, outreach, and community support will be available here soon."
+        />
       </PageShell>
     </>
   )

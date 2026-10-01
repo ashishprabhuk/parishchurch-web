@@ -2,8 +2,21 @@ import { ClergyCard } from "@/components/parish/clergy-card"
 import { PageShell } from "@/components/parish/page-shell"
 import { ParishPageHeader } from "@/components/parish/page-header"
 import { useClergy } from "@/features/parish"
+import { useSeo } from "@/hooks/use-seo"
 
 export default function ClergyPage() {
+  useSeo({
+    title: "Parish Clergy | Church of Our Lady of Fatima, Chulne",
+    description:
+      "Meet the parish priest and associate clergy serving the Catholic community at Our Lady of Fatima Church in Chulne, Vasai West.",
+    canonicalPath: "/who-we-are/clergy",
+    breadcrumbs: [
+      { name: "Home", item: "/" },
+      { name: "About Us", item: "/who-we-are" },
+      { name: "Clergy", item: "/who-we-are/clergy" },
+    ],
+  })
+
   const { data = [] } = useClergy()
   return (
     <>

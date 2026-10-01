@@ -209,21 +209,6 @@ export const ADMIN_ENTITIES: AdminEntityConfig[] = [
     ],
   },
   {
-    type: "history",
-    label: "History Timeline",
-    singular: "Timeline Entry",
-    description: "Milestones shown on the Parish History screen.",
-    titleKey: "year",
-    columns: [
-      { key: "year", label: "Year" },
-      { key: "text", label: "Text" },
-    ],
-    fields: [
-      { key: "year", label: "Year" },
-      { key: "text", label: "Text", type: "textarea" },
-    ],
-  },
-  {
     type: "chronicle",
     label: "Chronicle Issues",
     singular: "Chronicle Issue",
@@ -246,22 +231,6 @@ export const ADMIN_ENTITIES: AdminEntityConfig[] = [
       { key: "publishDate", label: "Publish date", type: "date" },
       { key: "expiryDate", label: "Expiry date", type: "date" },
       { key: "link", label: "Link" },
-    ],
-  },
-  {
-    type: "outreach",
-    label: "Outreach",
-    singular: "Outreach Item",
-    description: "Reaching Out and outreach highlights.",
-    titleKey: "title",
-    columns: [
-      { key: "title", label: "Title" },
-      { key: "description", label: "Description" },
-    ],
-    fields: [
-      { key: "title", label: "Title" },
-      { key: "image", label: "Image URL" },
-      { key: "description", label: "Description", type: "textarea" },
     ],
   },
 ]

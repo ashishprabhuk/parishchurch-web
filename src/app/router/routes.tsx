@@ -61,6 +61,9 @@ const LoginPage = lazy(() => import("@/pages/auth/login.page"))
 const TermsPage = lazy(() => import("@/pages/legal/terms.page"))
 const PrivacyPage = lazy(() => import("@/pages/legal/privacy.page"))
 const RefundPolicyPage = lazy(() => import("@/pages/legal/refund-policy.page"))
+const ChulneLocationPage = lazy(
+  () => import("@/pages/chulne/chulne-location.page"),
+)
 
 const NotFoundPage = lazy(() => import("@/pages/not-found/not-found.page"))
 const GlobalErrorPage = lazy(() => import("@/pages/error/global-error.page"))
@@ -256,6 +259,14 @@ export const routes: RouteObject[] = [
         element: (
           <LazyRoute>
             <ContactPage />
+          </LazyRoute>
+        ),
+      },
+      {
+        path: "chulne",
+        element: (
+          <LazyRoute>
+            <ChulneLocationPage />
           </LazyRoute>
         ),
       },

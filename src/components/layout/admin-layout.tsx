@@ -27,9 +27,6 @@ export function AdminLayout() {
             <p className="font-heading truncate text-sm font-semibold">
               Parish Admin
             </p>
-            <p className="text-muted-foreground truncate text-[0.65rem] tracking-[0.14em] uppercase">
-              Content management
-            </p>
           </div>
         </div>
         <div className="flex-1 p-3">

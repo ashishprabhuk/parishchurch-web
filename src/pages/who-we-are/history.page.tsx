@@ -1,8 +1,21 @@
 import { PageShell } from "@/components/parish/page-shell"
 import { ParishPageHeader } from "@/components/parish/page-header"
 import { useHistoryTimeline } from "@/features/parish"
+import { useSeo } from "@/hooks/use-seo"
 
 export default function HistoryPage() {
+  useSeo({
+    title: "History of Church of Our Lady of Fatima, Chulne | Vasai Heritage",
+    description:
+      "Explore the heritage and historical timeline of the Church of Our Lady of Fatima, Chulne (Chulna) in Sandor, Vasai West.",
+    canonicalPath: "/who-we-are/history",
+    breadcrumbs: [
+      { name: "Home", item: "/" },
+      { name: "About Us", item: "/who-we-are" },
+      { name: "History", item: "/who-we-are/history" },
+    ],
+  })
+
   const { data = [] } = useHistoryTimeline()
 
   return (

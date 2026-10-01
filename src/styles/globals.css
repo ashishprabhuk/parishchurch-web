@@ -1,15 +1,11 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "@fontsource-variable/geist";
-@import "@fontsource/playfair-display/700.css";
-@import "@fontsource/inter/400.css";
-@import "@fontsource/inter/500.css";
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --font-body: "Inter", "Avenir Next", "Segoe UI", sans-serif;
-  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "EB Garamond", Georgia, serif;
+  --font-display: "EB Garamond", Georgia, serif;
   --font-mono: "JetBrains Mono", "Cascadia Code", monospace;
   --parchment: #FAF8F2;
   --antique-cream: #A2BAC0;

@@ -11,9 +11,14 @@ import { useSeo } from "@/hooks/use-seo"
 
 export default function WhoWeArePage() {
   useSeo({
-    title: "Who We Are | Church of Our Lady of Fatima",
-    description: "Meet our clergy, communities, and parish journey.",
+    title: "About Church of Our Lady of Fatima, Chulne | Parish History & Mission",
+    description:
+      "Learn about the history, community, clergy, and spiritual life at the Church of Our Lady of Fatima in Chulne (Chulna), Sandor, Vasai West.",
     canonicalPath: "/who-we-are",
+    breadcrumbs: [
+      { name: "Home", item: "/" },
+      { name: "About Us", item: "/who-we-are" },
+    ],
   })
 
   const { data: clergy = [] } = useClergy()

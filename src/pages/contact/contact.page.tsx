@@ -11,9 +11,14 @@ import { useSeo } from "@/hooks/use-seo"
 
 export default function ContactPage() {
   useSeo({
-    title: "Contact | Church of Our Lady of Fatima",
-    description: "Parish office details, map, and contact form.",
+    title: "Contact & Location | Church of Our Lady of Fatima, Chulne",
+    description:
+      "Contact details, parish office hours, phone numbers, email, and Google map location for Church of Our Lady of Fatima in Chulne (Chulna), Sandor, Vasai West.",
     canonicalPath: "/contact",
+    breadcrumbs: [
+      { name: "Home", item: "/" },
+      { name: "Contact Us", item: "/contact" },
+    ],
   })
 
   return (

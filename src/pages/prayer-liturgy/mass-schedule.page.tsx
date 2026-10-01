@@ -11,9 +11,15 @@ import { useSeo } from "@/hooks/use-seo"
 
 export default function MassSchedulePage() {
   useSeo({
-    title: "Mass Schedule | Church of Our Lady of Fatima",
-    description: "Daily, weekday, Sunday, and special occasion Mass timings.",
+    title: "Mass Timings | Church of Our Lady of Fatima, Chulne",
+    description:
+      "Find weekday, Sunday, and special feast day Mass timings in Marathi, English, and Tamil at the Church of Our Lady of Fatima in Chulne, Sandor, Vasai West.",
     canonicalPath: "/prayer-liturgy/mass-schedule",
+    breadcrumbs: [
+      { name: "Home", item: "/" },
+      { name: "Prayer & Liturgy", item: "/prayer-liturgy" },
+      { name: "Mass Timings", item: "/prayer-liturgy/mass-schedule" },
+    ],
   })
 
   const { data = [], isLoading } = useMassTimings()
