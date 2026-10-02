@@ -19,8 +19,8 @@ export const PARISH_ENTITY = {
   country: "IN",
   addressStreet: "Chulne Road, Sandor, Vasai West",
   fullAddress: "Church of Our Lady of Fatima, Chulne Road, Sandor, Vasai West, Maharashtra 401201, India",
-  phone: "+91 250 238 0000",
-  email: "office@churchoffatima.org",
+  phone: "+91 9702090224",
+  email: "chulnechurch@gmail.com",
   googleMapsUrl: "https://maps.app.goo.gl/6hixfhgeMr2SKstq6",
   socialProfiles: [
     "https://facebook.com/",

@@ -573,7 +573,7 @@ export default function HomePage() {
               </p>
               <div className="mt-4 flex gap-2" aria-label="Contact our pastor">
                 <a
-                  href="mailto:office@churchoffatima.org"
+                  href="mailto:chulnechurch@gmail.com"
                   aria-label="Email the parish office"
                   title="Email the parish office"
                   className="border-brass/50 text-primary hover:bg-primary hover:text-primary-foreground grid size-9 place-items-center rounded-full border transition-colors"
@@ -581,7 +581,7 @@ export default function HomePage() {
                   <Mail className="size-4" />
                 </a>
                 <a
-                  href="tel:+912240001234"
+                  href="tel:+919702090224"
                   aria-label="Call the parish office"
                   title="Call the parish office"
                   className="border-brass/50 text-primary hover:bg-primary hover:text-primary-foreground grid size-9 place-items-center rounded-full border transition-colors"
