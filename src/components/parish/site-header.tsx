@@ -143,7 +143,7 @@ export function SiteHeader() {
           </Link>
 
           <nav
-            className="hidden items-center gap-6 xl:flex"
+            className="hidden items-center gap-6 lg:flex"
             aria-label="Main navigation"
           >
             {links.map((link) =>
@@ -198,7 +198,7 @@ export function SiteHeader() {
             )}
           </nav>
 
-          <div className="hidden items-center gap-2 xl:flex">
+          <div className="hidden items-center gap-2 lg:flex">
             <LanguageSwitcher />
             {/* <ButtonLink
               to="/contact#visit"
@@ -229,7 +229,7 @@ export function SiteHeader() {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="border-brass/60 text-primary xl:hidden"
+                  className="border-brass/60 text-primary lg:hidden"
                   aria-label="Open navigation"
                 />
               }

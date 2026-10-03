@@ -6,7 +6,7 @@ export default function HistoryPage() {
   useSeo({
     title: "History of Church of Our Lady of Fatima, Chulne | Vasai Heritage",
     description:
-      "Explore the heritage and historical timeline of the Church of Our Lady of Fatima, Chulne (Chulna) in Sandor, Vasai West.",
+      "Explore the heritage and historical timeline of the Church of Our Lady of Fatima, Chulne (Chulna) in Vasai West.",
     canonicalPath: "/who-we-are/history",
     breadcrumbs: [
       { name: "Home", item: "/" },

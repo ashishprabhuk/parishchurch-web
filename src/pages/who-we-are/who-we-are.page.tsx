@@ -6,14 +6,14 @@ import { ParishPageHeader } from "@/components/parish/page-header"
 import { SectionHeading } from "@/components/parish/section-heading"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { useClergy, useHistoryTimeline } from "@/features/parish"
+import { useClergy } from "@/features/parish"
 import { useSeo } from "@/hooks/use-seo"
 
 export default function WhoWeArePage() {
   useSeo({
     title: "About Church of Our Lady of Fatima, Chulne | Parish History & Mission",
     description:
-      "Learn about the history, community, clergy, and spiritual life at the Church of Our Lady of Fatima in Chulne (Chulna), Sandor, Vasai West.",
+      "Learn about the history, community, clergy, and spiritual life at the Church of Our Lady of Fatima in Chulne (Chulna), Vasai West.",
     canonicalPath: "/who-we-are",
     breadcrumbs: [
       { name: "Home", item: "/" },
@@ -22,7 +22,6 @@ export default function WhoWeArePage() {
   })
 
   const { data: clergy = [] } = useClergy()
-  const { data: timeline = [] } = useHistoryTimeline()
 
   return (
     <>
@@ -90,17 +89,23 @@ export default function WhoWeArePage() {
         </div>
       </PageShell>
       <PageShell className="py-14">
-        <SectionHeading eyebrow="Our Journey" title="A living timeline" />
-        <div className="space-y-3">
-          {timeline.map((item) => (
-            <div
-              key={item.year}
-              className="border-border/70 bg-card/85 grid gap-2 rounded-xl border p-4 sm:grid-cols-[90px_1fr]"
-            >
-              <p className="font-heading text-primary text-2xl">{item.year}</p>
-              <p className="text-muted-foreground text-sm">{item.text}</p>
-            </div>
-          ))}
+        <div className="mx-auto max-w-2xl">
+          <Card className="border-border/70 bg-card/85">
+            <CardContent className="p-6 sm:p-8">
+              <SectionHeading
+                eyebrow="Our Journey"
+                title="Parish History"
+                description="Discover the story of our parish, from the first village-hall Mass to the living faith community of today."
+              />
+              <Button
+                render={<Link to="/who-we-are/history" />}
+                variant="outline"
+                className="mt-5"
+              >
+                Read our history
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </PageShell>
     </>

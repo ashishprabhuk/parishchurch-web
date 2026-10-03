@@ -20,7 +20,7 @@ export function EventCard({ event }: { event: ParishEvent }) {
             {event.category}
           </p>
           <h3 className="font-heading mt-1 text-2xl">{event.title}</h3>
-          <p className="text-muted-foreground mt-1 text-sm">
+          <p className="text-muted-foreground mt-1 text-sm font-semibold">
             {event.time} · {event.location}
           </p>
           <p className="text-muted-foreground mt-2 text-sm">

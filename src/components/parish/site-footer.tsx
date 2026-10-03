@@ -180,6 +180,9 @@ export function SiteFooter() {
           <p>
             © 2026 {PARISH_ENTITY.officialName}. All rights reserved.
           </p>
+          <p>
+            Developed by <span className="text-footer-foreground">TrustLogic</span>
+          </p>
           <p className="flex flex-wrap gap-x-4 gap-y-1">
             <Link className="hover:text-brass" to="/chulne">
               Chulne Page

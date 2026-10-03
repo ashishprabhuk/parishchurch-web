@@ -55,7 +55,7 @@ export function HeroSection() {
           src={slide.image}
           alt={slide.alt}
           aria-hidden={index !== activeSlide}
-          className={`image-cinematic absolute inset-0 h-full w-full scale-105 object-cover transition-opacity duration-1000 motion-safe:animate-[hero-breathe_14s_ease-in-out_infinite_alternate] ${index === activeSlide ? "opacity-100" : "opacity-0"}`}
+          className={`image-cinematic absolute inset-0 h-full w-full scale-105 object-cover transition-opacity duration-1000 motion-safe:animate-[hero-breathe_14s_ease-in-out_infinite_alternate] ${index === 1 ? "object-top" : "object-center"} ${index === activeSlide ? "opacity-100" : "opacity-0"}`}
         />
       ))}
       {/* <div className="absolute inset-0 " />

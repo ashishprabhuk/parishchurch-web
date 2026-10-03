@@ -13,7 +13,7 @@ export default function MassSchedulePage() {
   useSeo({
     title: "Mass Timings | Church of Our Lady of Fatima, Chulne",
     description:
-      "Find weekday, Sunday, and special feast day Mass timings in Marathi, English, and Tamil at the Church of Our Lady of Fatima in Chulne, Sandor, Vasai West.",
+      "Find weekday, Sunday, and special feast day Mass timings in Marathi, English, and Tamil at the Church of Our Lady of Fatima in Chulne, Vasai West.",
     canonicalPath: "/prayer-liturgy/mass-schedule",
     breadcrumbs: [
       { name: "Home", item: "/" },

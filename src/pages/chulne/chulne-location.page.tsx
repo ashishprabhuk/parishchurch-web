@@ -19,7 +19,7 @@ export default function ChulneLocationPage() {
   useSeo({
     title: "Church of Our Lady of Fatima, Chulne | Location & Contact",
     description:
-      "Find location details, directions, contact information, office hours, and Mass timings for the Church of Our Lady of Fatima in Chulne (Chulna), Sandor, Vasai West.",
+      "Find location details, directions, contact information, office hours, and Mass timings for the Church of Our Lady of Fatima in Chulne (Chulna), Vasai West.",
     canonicalPath: "/chulne",
     breadcrumbs: [
       { name: "Home", item: "/" },
@@ -45,7 +45,7 @@ export default function ChulneLocationPage() {
     <>
       <ParishPageHeader
         title="Church of Our Lady of Fatima, Chulne"
-        subtitle="Serving the faithful community in Chulne, Sandor, and Vasai West"
+        subtitle="Serving the faithful community in Chulne and Vasai West"
         image="https://images.unsplash.com/photo-1466442929976-97f336a657be?auto=format&fit=crop&w=1700&q=80"
       />
       <PageShell className="py-14">
@@ -54,7 +54,7 @@ export default function ChulneLocationPage() {
             <div>
               <SectionHeading
                 eyebrow="Local Entity & Community"
-                title="Located in Chulne (Chulna), Sandor, Vasai West"
+                title="Located in Chulne (Chulna), Vasai West"
                 description="Our Lady of Fatima Church is an established Catholic parish serving families, youth, and elders across Chulne and neighboring localities in Vasai West."
               />
               <div className="prose text-muted-foreground space-y-4 text-sm leading-relaxed">
@@ -139,7 +139,7 @@ export default function ChulneLocationPage() {
                   <Compass className="text-primary size-5" /> Interactive Map & Directions
                 </h3>
                 <p className="text-muted-foreground text-xs leading-relaxed">
-                  Located along Chulne Road near Sandor, easily accessible from Vasai West railway station and nearby bus routes.
+                  Located along Chulne Road, easily accessible from Vasai West railway station and nearby bus routes.
                 </p>
                 <MapEmbed />
               </CardContent>
@@ -151,7 +151,7 @@ export default function ChulneLocationPage() {
                   Serving Local Neighborhoods
                 </h4>
                 <p>
-                  Our parish actively serves the surrounding communities of Chulne, Chulna, Sandor, and broader Vasai West in the State of Maharashtra, India.
+                  Our parish actively serves the surrounding communities of Chulne, Chulna, and broader Vasai West in the State of Maharashtra, India.
                 </p>
               </CardContent>
             </Card>

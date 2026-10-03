@@ -3,7 +3,6 @@ import { differenceInCalendarDays, format } from "date-fns"
 import {
   CalendarDays,
   ChevronRight,
-  Church,
   Clock3,
   ExternalLink,
   Megaphone,
@@ -133,7 +132,7 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <section className="border-soft-stone bg-antique-cream/55 border-b">
+      {/* <section className="border-soft-stone bg-antique-cream/55 border-b">
         <PageShell className="divide-soft-stone grid divide-y py-0 md:grid-cols-3 md:divide-x md:divide-y-0">
           <Link
             to="/contact#visit"
@@ -169,7 +168,7 @@ export default function HomePage() {
             <ChevronRight className="text-brass ml-auto size-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </PageShell>
-      </section>
+      </section> */}
 
       <LiveMassSection />
 
@@ -451,7 +450,7 @@ export default function HomePage() {
             <div>
               <p className="editorial-label">Gather together</p>
               <h2 className="font-heading text-walnut mt-4 text-4xl leading-tight sm:text-5xl">
-                The rhythm of parish life.
+                The Rhythm of parish life.
               </h2>
               <p className="text-muted-foreground mt-5 max-w-md text-base leading-relaxed">
                 There is always a place to enter the life of the church, whether
@@ -491,7 +490,7 @@ export default function HomePage() {
                   <h3 className="font-heading text-walnut mt-2 text-3xl leading-tight">
                     {nextEvent?.title ?? "A celebration of community"}
                   </h3>
-                  <p className="text-muted-foreground mt-2 flex flex-wrap gap-x-3 gap-y-1 text-sm">
+                  <p className="text-muted-foreground mt-2 flex flex-wrap gap-x-3 gap-y-1 text-sm font-semibold">
                     <span className="inline-flex items-center gap-1.5">
                       <Clock3 className="text-primary size-3.5" />
                       {nextEvent?.time ?? "6:30 PM"}
