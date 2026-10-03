@@ -62,7 +62,7 @@ export default function ChulneLocationPage() {
                   The <strong className="text-foreground">Church of Our Lady of Fatima, Chulne</strong> (also locally referred to as <em>Chulna Fatima Church</em>) stands as a focal point of prayer, liturgical life, and Christian service. Rooted in the Diocese of Vasai, the parish provides daily Mass, sacramental instruction, Small Christian Communities (SCCs), and charitable outreach.
                 </p>
                 <p>
-                  Whether you are seeking Sunday Mass timings, planning a sacramental celebration, or visiting the church in Sandor / Vasai West, our parish doors and pastoral team are open to welcome you.
+                  Whether you are seeking Sunday Mass timings, planning a sacramental celebration, or visiting the church in Chulne / Vasai West, our parish doors and pastoral team are open to welcome you.
                 </p>
               </div>
             </div>

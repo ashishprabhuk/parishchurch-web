@@ -880,7 +880,7 @@ export default function HomePage() {
                     Find us
                   </p>
                   <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
-                    Chulne Road, Sandor
+                    Chulne Road,
                     <br />
                     Vasai West, Maharashtra 401201
                     <br />

@@ -52,7 +52,7 @@ export default function HistoryPage() {
             </figure>
             <div className="text-muted-foreground space-y-4 text-sm leading-relaxed md:text-base">
               <p>
-                Until the mid-20th century, Chulne fell under the parish of St. Thomas, Sandor. For villagers, especially during heavy rains, the journey to Sandor was difficult and often hazardous. Moved by their hardship, the community approached His Eminence Cardinal Gracious with a simple request: allow Sunday Mass to be celebrated closer to home.
+                Until the mid-20th century, Chulne fell under the parish of St. Thomas. For villagers, especially during heavy rains, the journey to Sandor was difficult and often hazardous. Moved by their hardship, the community approached His Eminence Cardinal Gracious with a simple request: allow Sunday Mass to be celebrated closer to home.
               </p>
               <p>
                 Their plea was heard. On September 9, 1951, Mass was celebrated for the first time in Chulne&apos;s village hall by Fr. Philip Tavares (later Monsignor), then an assistant priest at Sandor Parish. That day marked more than a liturgical milestone; it ignited a collective dream: to build a church of their own.
