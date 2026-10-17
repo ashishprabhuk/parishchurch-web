@@ -2,11 +2,13 @@ import { useState } from "react"
 import { differenceInCalendarDays, format } from "date-fns"
 import {
   CalendarDays,
+  CalendarClock,
   ChevronRight,
   Clock3,
   ExternalLink,
   Megaphone,
   MapPin,
+  Radio,
 } from "lucide-react"
 import { Link } from "react-router-dom"
 
@@ -24,7 +26,11 @@ import { PageShell } from "@/components/parish/page-shell"
 import { ButtonLink } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import { PARISH_ENTITY } from "@/lib/seo/meta"
-import { useUpcomingEvents } from "@/features/parish"
+import {
+  useLiveStream,
+  useMassTimings,
+  useUpcomingEvents,
+} from "@/features/parish"
 import { useSeo } from "@/hooks/use-seo"
 
 const galleryItems = [
@@ -119,6 +125,15 @@ export default function HomePage() {
   const [selectedGalleryItem, setSelectedGalleryItem] =
     useState<GalleryItem | null>(null)
   const { data: eventList = [] } = useUpcomingEvents()
+  const { data: massTimings = [] } = useMassTimings()
+  const { activeMass, upcomingMass, countdown, isLoading: isLiveMassLoading } =
+    useLiveStream()
+
+  const sundayMassTimings = massTimings.filter(
+    (item) =>
+      item.dayGroup === "sunday" &&
+      (!item.intention || item.intention === "GENERAL"),
+  )
 
   const nextEvent = eventList[0]
   const nextEventDate = nextEvent ? new Date(nextEvent.date) : null
@@ -132,6 +147,57 @@ export default function HomePage() {
     : 3
   return (
     <>
+      {!isLiveMassLoading && (activeMass || upcomingMass) ? (
+        <Link
+          to="/prayer-liturgy/livestream"
+          className={`group fixed right-4 bottom-4 z-50 flex max-w-[calc(100vw-2rem)] items-center gap-3 rounded-2xl border px-4 py-3 shadow-lg backdrop-blur-md transition-transform hover:-translate-y-0.5 sm:right-6 sm:bottom-6 ${
+            activeMass
+              ? "border-rose-300/35 bg-rose-950/80 text-white"
+              : "border-brass/60 bg-parchment/80 text-walnut"
+          }`}
+          aria-label={
+            activeMass
+              ? "Watch the live Mass"
+              : "View the scheduled Mass broadcast"
+          }
+        >
+          <span
+            className={`grid size-9 shrink-0 place-items-center rounded-xl ${
+              activeMass ? "bg-rose-500/20 text-rose-300" : "bg-brass/20 text-brass"
+            }`}
+          >
+            {activeMass ? (
+              <Radio className="size-5" />
+            ) : (
+              <CalendarClock className="size-5" />
+            )}
+          </span>
+          <span className="min-w-0">
+            <span
+              className={`flex items-center gap-2 text-[0.65rem] font-bold tracking-[0.14em] uppercase ${
+                activeMass ? "text-rose-300" : "text-brass"
+              }`}
+            >
+              {activeMass ? (
+                <>
+                  <span className="size-2 animate-pulse rounded-full bg-rose-400" />
+                  Live now
+                </>
+              ) : (
+                "Scheduled"
+              )}
+            </span>
+            <span className="mt-0.5 block truncate text-sm font-semibold">
+              {activeMass?.title ?? upcomingMass?.title}
+            </span>
+            {!activeMass && countdown ? (
+              <span className="text-muted-foreground block text-xs">
+                Starts {countdown}
+              </span>
+            ) : null}
+          </span>
+        </Link>
+      ) : null}
       <HeroSection />
       {/* <section className="border-soft-stone bg-antique-cream/55 border-b">
         <PageShell className="divide-soft-stone grid divide-y py-0 md:grid-cols-3 md:divide-x md:divide-y-0">
@@ -869,11 +935,17 @@ export default function HomePage() {
                     Sunday services
                   </p>
                   <p className="font-heading text-walnut mt-2 text-2xl">
-                    8:00 AM
-                    <br />
-                    10:00 AM
-                    <br />
-                    6:00 PM
+                    {sundayMassTimings.length > 0 ? (
+                      sundayMassTimings.map((item) => (
+                        <span key={item.id} className="block">
+                          {item.time}
+                        </span>
+                      ))
+                    ) : (
+                      <span className="text-muted-foreground text-base">
+                        Schedule unavailable
+                      </span>
+                    )}
                   </p>
                 </div>
                 <div>

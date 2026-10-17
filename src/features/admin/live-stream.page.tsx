@@ -657,7 +657,7 @@ function StatusBadge({ status }: { status: LiveMassStatus }) {
     case "COMPLETED":
     default:
       return (
-        <Badge variant="secondary" className="text-muted-foreground font-medium">
+        <Badge className="border border-emerald-500/40 bg-emerald-100 text-emerald-800 font-medium dark:bg-emerald-950/60 dark:text-emerald-200">
           Completed
         </Badge>
       )
