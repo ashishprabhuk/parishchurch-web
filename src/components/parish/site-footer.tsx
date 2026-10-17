@@ -6,8 +6,6 @@ import {
 import { Link } from "react-router-dom"
 
 import {
-  FacebookIcon,
-  InstagramIcon,
   YoutubeIcon,
 } from "@/components/common/social-icons"
 import { PARISH_ENTITY } from "@/lib/seo/meta"
@@ -40,26 +38,6 @@ export function SiteFooter() {
             Welcome to the official website of the Church of Our Lady of Fatima, Chulne. A Catholic parish community in Chulne, Vasai West rooted in Eucharistic celebration, prayer, and local service.
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
-            <a
-              href={PARISH_ENTITY.socialProfiles[0]}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Facebook Page"
-              title="Facebook Page"
-              className="border-footer-foreground/25 hover:border-brass hover:text-brass text-footer-foreground/80 grid size-9 place-items-center border transition-colors"
-            >
-              <FacebookIcon className="size-4" />
-            </a>
-            <a
-              href={PARISH_ENTITY.socialProfiles[1]}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram Page"
-              title="Instagram Page"
-              className="border-footer-foreground/25 hover:border-brass hover:text-brass text-footer-foreground/80 grid size-9 place-items-center border transition-colors"
-            >
-              <InstagramIcon className="size-4" />
-            </a>
             <a
               href={PARISH_ENTITY.socialProfiles[2]}
               target="_blank"
@@ -96,11 +74,6 @@ export function SiteFooter() {
             <li>
               <Link className="hover:text-brass" to="/events">
                 Church events
-              </Link>
-            </li>
-            <li>
-              <Link className="hover:text-brass" to="/announcements">
-                Announcements
               </Link>
             </li>
           </ul>

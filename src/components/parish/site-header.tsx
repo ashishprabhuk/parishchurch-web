@@ -66,11 +66,8 @@ const links: NavLinkItem[] = [
     labelKey: "nav.events",
     children: [
       { to: "/events/calendar", labelKey: "nav.calendar" },
-      { to: "/events/chronicle", labelKey: "nav.chronicle" },
-      { to: "/events/reaching-out", labelKey: "nav.reachingOut" },
     ],
   },
-  { to: "/announcements", labelKey: "nav.announcements" },
   { to: "/contact", labelKey: "nav.contact" },
 ]
 

@@ -6,16 +6,12 @@ import {
   ChevronRight,
   Clock3,
   ExternalLink,
-  Megaphone,
   MapPin,
   Radio,
 } from "lucide-react"
 import { Link } from "react-router-dom"
 
 import {
-  FacebookIcon,
-  InstagramIcon,
-  WhatsAppIcon,
   YoutubeIcon,
 } from "@/components/common/social-icons"
 import { CountdownRing } from "@/components/parish/countdown-ring"
@@ -59,45 +55,6 @@ const galleryItems = [
 type GalleryItem = (typeof galleryItems)[number]
 
 const socialChannels = [
-  {
-    name: "WhatsApp",
-    handle: "Parish Broadcast Channel",
-    action: "Join Channel",
-    description: "Get parish updates and announcements directly on WhatsApp.",
-    accentClass: "bg-[#25D366]",
-    href: "https://chat.whatsapp.com/",
-    icon: WhatsAppIcon,
-    colorClass:
-      "text-[#25D366] bg-[#25D366]/10 border-[#25D366]/30 group-hover:border-[#25D366]",
-    buttonClass:
-      "border-[#25D366]/50 text-[#25D366] hover:bg-[#25D366] hover:text-white dark:border-[#25D366]/70",
-  },
-  {
-    name: "Instagram",
-    handle: "Church of Our Lady of Fatima",
-    action: "Follow Instagram",
-    description: "Follow us for parish moments, events, and daily inspiration.",
-    accentClass: "bg-[#E4405F]",
-    href: "https://instagram.com/",
-    icon: InstagramIcon,
-    colorClass:
-      "text-[#E4405F] bg-[#E4405F]/10 border-[#E4405F]/30 group-hover:border-[#E4405F]",
-    buttonClass:
-      "border-[#E4405F]/50 text-[#E4405F] hover:bg-[#E4405F] hover:text-white dark:border-[#E4405F]/70",
-  },
-  {
-    name: "Facebook",
-    handle: "Church of Our Lady of Fatima",
-    action: "Visit Facebook Page",
-    description: "Stay connected with parish news, events, and community updates.",
-    accentClass: "bg-[#1877F2]",
-    href: "https://facebook.com/",
-    icon: FacebookIcon,
-    colorClass:
-      "text-[#1877F2] bg-[#1877F2]/10 border-[#1877F2]/30 group-hover:border-[#1877F2]",
-    buttonClass:
-      "border-[#1877F2]/50 text-[#1877F2] hover:bg-[#1877F2] hover:text-white dark:border-[#1877F2]/70",
-  },
   {
     name: "YouTube",
     handle: "Church of Our Lady of Fatima",
@@ -192,7 +149,7 @@ export default function HomePage() {
             </span>
             {!activeMass && countdown ? (
               <span className="text-muted-foreground block text-xs">
-                Starts {countdown}
+                {countdown}
               </span>
             ) : null}
           </span>
@@ -458,7 +415,8 @@ export default function HomePage() {
       <section className="bg-antique-cream/55 border-soft-stone border-y py-10 md:py-12">
         <PageShell>
           <div className="grid gap-4 md:grid-cols-2 md:gap-6">
-            <ButtonLink
+            {/* Temporarily hidden: announcements */}
+            {/* <ButtonLink
               to="/announcements"
               variant="outline"
               className="border-brass/70 bg-parchment/55 text-walnut hover:bg-brass hover:text-walnut group min-w-0 w-full h-auto min-h-32 justify-between rounded-sm px-4 py-6 text-left sm:px-8"
@@ -484,10 +442,10 @@ export default function HomePage() {
                 </span>
               </span>
               <ChevronRight className="text-brass ml-2 size-5 shrink-0 transition-transform group-hover:translate-x-1 group-hover:text-walnut sm:ml-4" />
-            </ButtonLink>
+            </ButtonLink> */}
             <ButtonLink
               to="/prayer-liturgy/mass-schedule"
-              className="bg-primary text-primary-foreground hover:bg-church-red/85 group min-w-0 w-full h-auto min-h-32 justify-between rounded-sm px-4 py-6 text-left sm:px-8"
+              className="bg-primary text-primary-foreground hover:bg-church-red/85 group min-w-0 w-full h-auto min-h-32 justify-between rounded-sm px-4 py-6 text-left sm:px-8 md:col-span-2 md:mx-auto md:max-w-2xl"
             >
               <span className="flex min-w-0 items-center gap-3 sm:gap-5">
                 <span className="border-brass/70 bg-brass text-walnut grid size-14 shrink-0 place-items-center border">
@@ -877,7 +835,7 @@ export default function HomePage() {
             {socialChannels.map((channel) => (
               <div
                 key={channel.name}
-                className="heritage-card group relative flex h-full min-h-72 flex-col justify-between overflow-hidden border border-border/70 bg-parchment/90 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brass/60 hover:shadow-[0_12px_30px_rgb(11_21_84/0.1)]"
+                className="heritage-card group relative col-span-full mx-auto flex h-full w-full max-w-sm min-h-72 flex-col justify-between overflow-hidden border border-border/70 bg-parchment/90 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brass/60 hover:shadow-[0_12px_30px_rgb(11_21_84/0.1)]"
               >
                 <span
                   className={`absolute inset-x-0 top-0 h-1 opacity-70 ${channel.accentClass}`}
