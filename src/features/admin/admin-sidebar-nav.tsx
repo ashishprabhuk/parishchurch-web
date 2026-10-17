@@ -1,8 +1,6 @@
 import {
   CalendarDays,
-  Church,
   Clock3,
-  Cross,
   FileText,
   LayoutDashboard,
   Megaphone,
@@ -12,14 +10,14 @@ import {
 import { NavLink } from "react-router-dom"
 
 import { cn } from "@/lib/utils"
+import { isSuperAdmin } from "@/features/auth/authorization"
+import { useAuthStore } from "@/stores/auth.store"
 
 const iconMap = {
   "layout-dashboard": LayoutDashboard,
   megaphone: Megaphone,
   calendar: CalendarDays,
   clock: Clock3,
-  cross: Cross,
-  church: Church,
   users: Users,
   "users-round": Users,
   "file-text": FileText,
@@ -29,11 +27,10 @@ const iconMap = {
 const adminNav = [
   { label: "Dashboard", href: "/admin", icon: "layout-dashboard" },
   { label: "Live Mass", href: "/admin/live", icon: "radio" },
+  { label: "Admin Users", href: "/admin/users", icon: "users" },
   { label: "Announcements", href: "/admin/announcements", icon: "megaphone" },
   { label: "Events", href: "/admin/events", icon: "calendar" },
   { label: "Mass Timings", href: "/admin/mass-timings", icon: "clock" },
-  { label: "Sacraments", href: "/admin/sacraments", icon: "cross" },
-  { label: "Clergy", href: "/admin/clergy", icon: "church" },
   { label: "Communities", href: "/admin/communities", icon: "users" },
   {
     label: "Cells & Associations",
@@ -44,9 +41,14 @@ const adminNav = [
 ] as const
 
 export function AdminSidebarNav({ onNavigate }: { onNavigate?: () => void }) {
+  const user = useAuthStore((state) => state.user)
+  const visibleItems = adminNav.filter(
+    (item) => isSuperAdmin(user) ? item.href === "/admin/users" : item.href !== "/admin/users",
+  )
+
   return (
     <nav className="grid gap-0.5">
-      {adminNav.map((item) => {
+      {visibleItems.map((item) => {
         const Icon = iconMap[item.icon]
         return (
           <NavLink

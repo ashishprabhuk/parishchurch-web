@@ -25,7 +25,7 @@ export const PARISH_ENTITY = {
   socialProfiles: [
     "https://facebook.com/",
     "https://instagram.com/",
-    "https://youtube.com/",
+    "https://youtube.com/@ourladyoffatimachurch1544?si=Wk4vjX68G45wjNSu",
   ],
 }
 

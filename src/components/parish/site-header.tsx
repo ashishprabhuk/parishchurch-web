@@ -11,7 +11,6 @@ import {
 import { Link, NavLink } from "react-router-dom"
 
 import { AuthDialog } from "@/components/parish/auth-dialog"
-import { LanguageSwitcher } from "@/components/parish/language-switcher"
 import { UserMenu } from "@/components/parish/user-menu"
 import { Button, ButtonLink } from "@/components/ui/button"
 import {
@@ -25,7 +24,7 @@ import { useI18n } from "@/hooks/use-i18n"
 import type { TranslationKey } from "@/lib/i18n"
 import { PARISH_ENTITY } from "@/lib/seo/meta"
 import { useAuthStore } from "@/stores/auth.store"
-import { useMassTimings } from "@/features/parish"
+import { useLiveStream, useMassTimings } from "@/features/parish"
 
 type NavChildLink = {
   to: string
@@ -81,6 +80,7 @@ export function SiteHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
   const { data: massTimings = [] } = useMassTimings()
+  const { data: liveStream } = useLiveStream()
   const sundayTimes = massTimings
     .filter((timing) => timing.dayGroup === "sunday")
     .map((timing) => timing.time)
@@ -97,10 +97,21 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50">
       <div className="bg-primary text-primary-foreground">
         <div className="mx-auto flex min-h-9 max-w-[90rem] items-center justify-between gap-3 px-4 py-2 text-[0.66rem] tracking-[0.08em] sm:px-6 lg:px-8">
-          <p className="flex items-center gap-2 font-medium uppercase">
-            <Clock3 className="size-3.5" />
-            {worshipTimes}
-          </p>
+          <div className="flex min-w-0 items-center gap-4">
+            <p className="flex items-center gap-2 font-medium uppercase">
+              <Clock3 className="size-3.5" />
+              {worshipTimes}
+            </p>
+            {liveStream?.isLive ? (
+              <Link to="/prayer-liturgy/livestream" className="flex shrink-0 items-center gap-1.5 font-bold uppercase hover:text-white">
+                <span className="relative flex size-2">
+                  <span className="absolute inline-flex size-full animate-ping rounded-full bg-rose-300 opacity-80" />
+                  <span className="relative inline-flex size-2 rounded-full bg-rose-200" />
+                </span>
+                Live Mass
+              </Link>
+            ) : null}
+          </div>
           <div className="text-primary-foreground/85 hidden items-center gap-4 md:flex">
             <a
               href={`tel:${PARISH_ENTITY.phone}`}
@@ -198,27 +209,19 @@ export function SiteHeader() {
             )}
           </nav>
 
-          <div className="hidden items-center gap-2 lg:flex">
-            <LanguageSwitcher />
-            {/* <ButtonLink
-              to="/contact#visit"
-              variant="outline"
-              className="border-primary/60 text-primary hover:bg-primary hover:text-primary-foreground bg-transparent px-3 text-xs tracking-[0.08em] uppercase"
-            >
-              <MapPin className="size-3.5" /> Plan a Visit
-            </ButtonLink> */}
-            {isAuthenticated ? (
-              <UserMenu />
-            ) : (
-              <AuthDialog
-                trigger={
-                  <Button className="bg-primary text-primary-foreground hover:bg-church-red/90 px-3 text-xs tracking-[0.08em] uppercase">
-                    <LogIn className="size-3.5" /> {t("auth.login")}
-                  </Button>
-                }
-              />
-            )}
-          </div>
+            <div className="hidden items-center gap-2 lg:flex">
+              {isAuthenticated ? (
+                <UserMenu />
+              ) : (
+                <AuthDialog
+                  trigger={
+                    <Button className="bg-primary text-primary-foreground hover:bg-church-red/90 px-3 text-xs tracking-[0.08em] uppercase">
+                      <LogIn className="size-3.5" /> {t("auth.login")}
+                    </Button>
+                  }
+                />
+              )}
+            </div>
 
           <Sheet
             open={Boolean(mobileMenuOpen)}
@@ -291,7 +294,6 @@ export function SiteHeader() {
               </nav>
               <div className="px-6 pb-8">
                 <div className="mb-4 flex items-center justify-between">
-                  <LanguageSwitcher />
                   <span className="text-muted-foreground flex items-center gap-1.5 text-xs">
                     <CalendarDays className="size-3.5" /> Sunday worship
                   </span>

@@ -26,9 +26,20 @@ export function LiveMassPlayer({
           <YouTubeEmbed videoId={stream.youtubeVideoId} title={stream.title} />
         </div>
         <div className="flex flex-col gap-4 px-5 pb-5 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:pb-6">
-          <p className="text-muted-foreground text-sm leading-relaxed">
-            Watch the Holy Mass live with our parish community.
-          </p>
+          <div className="space-y-1">
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              Watch the Holy Mass live with our parish community.
+            </p>
+            <a
+              href={`https://www.youtube.com/watch?v=${stream.youtubeVideoId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline inline-flex items-center gap-1 text-xs font-medium"
+            >
+              Having playback issues? Open directly on YouTube{" "}
+              <ExternalLink className="size-3" />
+            </a>
+          </div>
           {showPageLink ? (
             <ButtonLink
               to="/prayer-liturgy/livestream"

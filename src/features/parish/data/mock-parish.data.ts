@@ -337,17 +337,30 @@ export const sacraments: Sacrament[] = [
 export const clergy: ClergyMember[] = [
   {
     id: "c1",
-    name: "Fr. Baptist",
+    name: "Fr. Baptist Lopes",
     role: "Parish Priest",
     image: "/assets/Fr_Baptist.jpeg",
-    bio: "Guiding the parish in liturgy, pastoral care, and outreach ministries.",
+    bio: "Serving the parish and the Diocese through pastoral leadership and ministry.",
+    responsibilities: [
+      "Our Lady of Fatima Mata Church",
+      "Director Umed (The Differently Abled)",
+      "Eccl. Advisor Society of St. Vincent De Paul",
+      "Member Priest Council",
+      "Ex officio Diocesan Pastoral Council",
+      "Head St. Luke Deanery (Sandor)",
+    ],
   },
   {
     id: "c2",
-    name: "Fr. Robert",
+    name: "Fr. Robert Gonsalves",
     role: "Associate Priest",
     image: "/assets/Fr_Robert.jpeg",
-    bio: "Serving youth and family ministries with a focus on catechesis.",
+    bio: "Serving the parish through liturgical, editorial, and pastoral ministry.",
+    responsibilities: [
+      "Editorial Team Suvarta",
+      "Director Liturgical Singing",
+      "Our Lady of Fatima Mata Church",
+    ],
   },
 ]
 

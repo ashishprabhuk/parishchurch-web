@@ -39,16 +39,22 @@ export default function LoginPage() {
     try {
       const response = await loginWithCredentials(email, password)
       login({
-        name: response.user.email,
+        name: response.user.name || response.user.email,
         email: response.user.email,
         roles: response.user.roles,
         isAdmin: response.user.isAdmin,
         role: response.user.isAdmin ? "admin" : "member",
+        mustChangePassword: response.user.mustChangePassword,
       })
       const from = (location.state as { from?: string } | null)?.from
-      navigate(from ?? (response.user.isAdmin ? "/admin" : "/"), {
+      navigate(
+        response.user.mustChangePassword
+          ? "/change-password"
+          : from ?? (response.user.isAdmin ? "/admin" : "/"),
+        {
         replace: true,
-      })
+        },
+      )
     } catch (loginError) {
       setError(getLoginErrorMessage(loginError))
     } finally {

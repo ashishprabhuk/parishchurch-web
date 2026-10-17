@@ -8,6 +8,11 @@ import { AppLayout } from "@/components/layout/app-layout"
 import { BlankLayout } from "@/components/layout/blank-layout"
 import { ProtectedRoute } from "@/app/router/protected-route"
 import { useAuthStore } from "@/stores/auth.store"
+import {
+  isAdminUser,
+  isContentAdmin,
+  isSuperAdmin,
+} from "@/features/auth/authorization"
 
 const HomePage = lazy(() => import("@/pages/home/home.page"))
 
@@ -56,6 +61,7 @@ const ContactPage = lazy(() => import("@/pages/contact/contact.page"))
 const DonatePage = lazy(() => import("@/pages/donate/donate.page"))
 const ProfilePage = lazy(() => import("@/pages/profile/profile.page"))
 const LoginPage = lazy(() => import("@/pages/auth/login.page"))
+const ChangePasswordPage = lazy(() => import("@/pages/auth/change-password.page"))
 
 const TermsPage = lazy(() => import("@/pages/legal/terms.page"))
 const PrivacyPage = lazy(() => import("@/pages/legal/privacy.page"))
@@ -73,6 +79,7 @@ const AdminDashboardPage = lazy(
 const LiveStreamAdminPage = lazy(
   () => import("@/features/admin/live-stream.page"),
 )
+const AdminUsersPage = lazy(() => import("@/features/admin/admin-users.page"))
 const AdminEntityPage = lazy(() => import("@/features/admin/admin-entity.page"))
 
 function LazyRoute({ children }: { children: ReactNode }) {
@@ -80,15 +87,46 @@ function LazyRoute({ children }: { children: ReactNode }) {
 }
 
 function AdminGate() {
-  const isAdmin = useAuthStore(
-    (state) => state.isAuthenticated && state.user?.role === "admin",
+  const user = useAuthStore((state) => state.user)
+  return (
+    <ProtectedRoute
+      isAllowed={isAdminUser(user)}
+      redirectTo="/login"
+      pendingPasswordChange={user?.mustChangePassword}
+    />
   )
-  return <ProtectedRoute isAllowed={isAdmin} redirectTo="/login" />
 }
 
 function AuthGate() {
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
-  return <ProtectedRoute isAllowed={isAuthenticated} />
+  const state = useAuthStore()
+  return (
+    <ProtectedRoute
+      isAllowed={state.isAuthenticated}
+      pendingPasswordChange={state.user?.mustChangePassword}
+    />
+  )
+}
+
+function SuperAdminGate() {
+  const user = useAuthStore((state) => state.user)
+  return (
+    <ProtectedRoute
+      isAllowed={isSuperAdmin(user)}
+      redirectTo="/admin"
+      pendingPasswordChange={user?.mustChangePassword}
+    />
+  )
+}
+
+function ContentAdminGate() {
+  const user = useAuthStore((state) => state.user)
+  return (
+    <ProtectedRoute
+      isAllowed={isContentAdmin(user)}
+      redirectTo="/admin/users"
+      pendingPasswordChange={user?.mustChangePassword}
+    />
+  )
 }
 
 export const routes: RouteObject[] = [
@@ -284,6 +322,14 @@ export const routes: RouteObject[] = [
         ],
       },
       {
+        path: "change-password",
+        element: (
+          <LazyRoute>
+            <ChangePasswordPage />
+          </LazyRoute>
+        ),
+      },
+      {
         path: "terms",
         element: (
           <LazyRoute>
@@ -322,28 +368,67 @@ export const routes: RouteObject[] = [
         element: <AdminLayout />,
         children: [
           {
-            index: true,
             element: (
-              <LazyRoute>
-                <AdminDashboardPage />
-              </LazyRoute>
+              <ContentAdminGate />
             ),
+            children: [
+              {
+                index: true,
+                element: (
+                  <LazyRoute>
+                    <AdminDashboardPage />
+                  </LazyRoute>
+                ),
+              },
+            ],
           },
           {
             path: "live",
             element: (
-              <LazyRoute>
-                <LiveStreamAdminPage />
-              </LazyRoute>
+              <ContentAdminGate />
             ),
+            children: [
+              {
+                index: true,
+                element: (
+                  <LazyRoute>
+                    <LiveStreamAdminPage />
+                  </LazyRoute>
+                ),
+              },
+            ],
+          },
+          {
+            path: "users",
+            element: (
+              <SuperAdminGate />
+            ),
+            children: [
+              {
+                index: true,
+                element: (
+                  <LazyRoute>
+                    <AdminUsersPage />
+                  </LazyRoute>
+                ),
+              },
+            ],
           },
           {
             path: ":entity",
             element: (
-              <LazyRoute>
-                <AdminEntityPage />
-              </LazyRoute>
+              <ContentAdminGate />
             ),
+            children: [
+              {
+                index: true,
+                element: (
+                  <LazyRoute>
+                    <AdminEntityPage />
+                  </LazyRoute>
+                ),
+              },
+            ],
           },
         ],
       },

@@ -18,9 +18,19 @@ export function ClergyCard({ item }: { item: ClergyMember }) {
         <p className="text-brass mt-1 text-xs font-semibold tracking-[0.1em] uppercase">
           {item.role}
         </p>
-        <p className="text-muted-foreground mt-3 line-clamp-3 text-sm leading-relaxed">
+        <p className="text-muted-foreground mt-3 text-sm leading-relaxed">
           {item.bio}
         </p>
+        {item.responsibilities && item.responsibilities.length > 0 ? (
+          <ul className="text-muted-foreground mt-4 space-y-1.5 border-t border-border/60 pt-4 text-sm leading-relaxed">
+            {item.responsibilities.map((responsibility) => (
+              <li key={responsibility} className="flex gap-2">
+                <span aria-hidden="true" className="text-brass mt-2 size-1.5 shrink-0 rounded-full bg-current" />
+                <span>{responsibility}</span>
+              </li>
+            ))}
+          </ul>
+        ) : null}
       </CardContent>
     </Card>
   )

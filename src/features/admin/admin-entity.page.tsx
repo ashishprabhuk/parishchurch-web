@@ -1,4 +1,4 @@
-import { Eye, Pencil, Plus, Search, Trash2 } from "lucide-react"
+import { Archive, Eye, Pencil, Plus, Search, Trash2 } from "lucide-react"
 import { useState } from "react"
 import { Navigate, useParams } from "react-router-dom"
 
@@ -36,6 +36,7 @@ function cellValue(
   value: unknown,
   type?:
     | "text"
+    | "file"
     | "textarea"
     | "date"
     | "time"
@@ -330,19 +331,58 @@ export default function AdminEntityPage() {
                             </Button>
                           }
                         />
-                        <AdminDeleteDialog
-                          config={config}
-                          record={record}
-                          trigger={
-                            <Button
-                              variant="ghost"
-                              size="icon-sm"
-                              aria-label={`Delete ${config.singular}`}
-                            >
-                              <Trash2 className="text-destructive size-4" />
-                            </Button>
-                          }
-                        />
+                        {config.type === "mass-timings" || config.type === "chronicle" ? (
+                          <>
+                            <AdminDeleteDialog
+                              config={config}
+                              record={record}
+                              trigger={
+                                <Button
+                                  variant="ghost"
+                                  size="icon-sm"
+                                  aria-label={`Archive ${config.singular}`}
+                                >
+                                  <Archive className="size-4" />
+                                </Button>
+                              }
+                            />
+                            <AdminDeleteDialog
+                              config={config}
+                              record={record}
+                              action="delete"
+                              trigger={
+                                <Button
+                                  variant="ghost"
+                                  size="icon-sm"
+                                  aria-label={`Delete ${config.singular}`}
+                                >
+                                  <Trash2 className="text-destructive size-4" />
+                                </Button>
+                              }
+                            />
+                          </>
+                        ) : (
+                          <AdminDeleteDialog
+                            config={config}
+                            record={record}
+                            action={
+                              config.type === "communities" ||
+                              config.type === "cell-associations" ||
+                              config.type === "events"
+                                ? "delete"
+                                : "archive"
+                            }
+                            trigger={
+                              <Button
+                                variant="ghost"
+                                size="icon-sm"
+                                aria-label={`${config.type === "communities" || config.type === "cell-associations" || config.type === "events" ? "Delete" : "Archive"} ${config.singular}`}
+                              >
+                                <Trash2 className="text-destructive size-4" />
+                              </Button>
+                            }
+                          />
+                        )}
                       </div>
                     </TableCell>
                   </TableRow>

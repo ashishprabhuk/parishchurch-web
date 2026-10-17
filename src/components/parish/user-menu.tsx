@@ -16,6 +16,7 @@ import {
 import { notify } from "@/lib/toast"
 import { logoutWithCredentials } from "@/features/auth/services/auth.service"
 import { useAuthStore } from "@/stores/auth.store"
+import { isSuperAdmin } from "@/features/auth/authorization"
 
 export function UserMenu() {
   const user = useAuthStore((state) => state.user)
@@ -27,6 +28,7 @@ export function UserMenu() {
   }
 
   const isAdmin = user.role === "admin"
+  const adminHome = isSuperAdmin(user) ? "/admin/users" : "/admin"
 
   const onLogout = async () => {
     try {
@@ -81,7 +83,7 @@ export function UserMenu() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         {isAdmin ? (
-          <DropdownMenuItem render={<Link to="/admin" />}>
+          <DropdownMenuItem render={<Link to={adminHome} />}>
             <LayoutDashboard className="mr-2 size-4" /> Admin dashboard
           </DropdownMenuItem>
         ) : null}

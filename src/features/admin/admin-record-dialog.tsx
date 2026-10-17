@@ -77,6 +77,33 @@ function FieldInput({
     )
   }
 
+  if (field.type === "file") {
+    return (
+      <div className="grid gap-3">
+        {value ? (
+          <img
+            src={value}
+            alt="Selected clergy photo"
+            className="h-32 w-24 rounded-md border border-border/70 object-cover object-top"
+          />
+        ) : null}
+        <Input
+          id={id}
+          type="file"
+          accept="image/*"
+          aria-invalid={invalid}
+          onChange={(event) => {
+            const file = event.target.files?.[0]
+            if (!file) return
+            const reader = new FileReader()
+            reader.onload = () => onChange(String(reader.result ?? ""))
+            reader.readAsDataURL(file)
+          }}
+        />
+      </div>
+    )
+  }
+
   if (field.type === "select" && field.options) {
     return (
       <Select value={value} onValueChange={(next) => onChange(String(next))}>

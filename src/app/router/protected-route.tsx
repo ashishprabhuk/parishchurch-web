@@ -8,11 +8,13 @@ import { useAuthStore } from "@/stores/auth.store"
 type ProtectedRouteProps = {
   isAllowed: boolean
   redirectTo?: string
+  pendingPasswordChange?: boolean
 }
 
 export function ProtectedRoute({
   isAllowed,
   redirectTo = "/login",
+  pendingPasswordChange = false,
 }: ProtectedRouteProps) {
   const location = useLocation()
   const logout = useAuthStore((state) => state.logout)
@@ -46,6 +48,10 @@ export function ProtectedRoute({
     return (
       <Navigate to={redirectTo} replace state={{ from: location.pathname }} />
     )
+  }
+
+  if (pendingPasswordChange && location.pathname !== "/change-password") {
+    return <Navigate to="/change-password" replace />
   }
 
   if (!sessionChecked) return <LoadingState />

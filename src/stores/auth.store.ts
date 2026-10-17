@@ -6,6 +6,7 @@ export type AuthUser = {
   email: string
   roles?: string[]
   isAdmin?: boolean
+  mustChangePassword?: boolean
   image?: string
   role: "admin" | "member"
   phone?: string
@@ -51,6 +52,7 @@ type AuthState = {
   user: AuthUser | null
   isAuthenticated: boolean
   login: (user: AuthUser) => void
+  updateUser: (user: Partial<AuthUser>) => void
   logout: () => void
 }
 
@@ -60,6 +62,8 @@ export const useAuthStore = create<AuthState>()(
       user: null,
       isAuthenticated: false,
       login: (user) => set({ user, isAuthenticated: true }),
+      updateUser: (user) =>
+        set((state) => ({ user: state.user ? { ...state.user, ...user } : null })),
       logout: () => set({ user: null, isAuthenticated: false }),
     }),
     {

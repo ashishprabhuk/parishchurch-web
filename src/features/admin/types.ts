@@ -2,8 +2,6 @@ export type AdminEntityType =
   | "announcements"
   | "events"
   | "mass-timings"
-  | "sacraments"
-  | "clergy"
   | "communities"
   | "cell-associations"
   | "history"
@@ -15,6 +13,7 @@ export type AdminField = {
   label: string
   type?:
     | "text"
+    | "file"
     | "textarea"
     | "date"
     | "time"
@@ -59,7 +58,6 @@ export const ADMIN_ENTITIES: AdminEntityConfig[] = [
       { key: "title", label: "Title" },
       { key: "category", label: "Category" },
       { key: "date", label: "Date", type: "date" },
-      { key: "image", label: "Image URL" },
       { key: "excerpt", label: "Excerpt", type: "textarea" },
     ],
   },
@@ -127,38 +125,6 @@ export const ADMIN_ENTITIES: AdminEntityConfig[] = [
     ],
   },
   {
-    type: "sacraments",
-    label: "Sacraments",
-    singular: "Sacrament",
-    description: "Sacraments listed on the Prayer & Liturgy screens.",
-    titleKey: "name",
-    columns: [
-      { key: "name", label: "Name" },
-      { key: "description", label: "Description" },
-    ],
-    fields: [
-      { key: "name", label: "Name" },
-      { key: "description", label: "Description", type: "textarea" },
-    ],
-  },
-  {
-    type: "clergy",
-    label: "Clergy",
-    singular: "Clergy Member",
-    description: "Priests and pastoral team shown on Who We Are.",
-    titleKey: "name",
-    columns: [
-      { key: "name", label: "Name" },
-      { key: "role", label: "Role" },
-    ],
-    fields: [
-      { key: "name", label: "Name" },
-      { key: "role", label: "Role" },
-      { key: "image", label: "Image URL" },
-      { key: "bio", label: "Bio", type: "textarea" },
-    ],
-  },
-  {
     type: "communities",
     label: "Communities",
     singular: "Community",
@@ -222,6 +188,7 @@ export const ADMIN_ENTITIES: AdminEntityConfig[] = [
       { key: "publishDate", label: "Publish date", type: "date" },
       { key: "expiryDate", label: "Expiry date", type: "date" },
       { key: "link", label: "Link" },
+      { key: "status", label: "Status" },
     ],
     fields: [
       { key: "title", label: "Title" },
@@ -231,6 +198,7 @@ export const ADMIN_ENTITIES: AdminEntityConfig[] = [
       { key: "publishDate", label: "Publish date", type: "date" },
       { key: "expiryDate", label: "Expiry date", type: "date" },
       { key: "link", label: "Link" },
+      { key: "status", label: "Status", type: "select", options: ["DRAFT", "PUBLISHED", "ARCHIVED"] },
     ],
   },
 ]

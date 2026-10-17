@@ -155,11 +155,10 @@ export async function getMassTimings(): Promise<MassTiming[]> {
 
 export async function getMassTimingById(id: string): Promise<MassTiming | null> {
   try {
-    const response = asArray<MassTimingApiRecord>(
-      await api.get<MassTimingApiRecord[]>(`/api/v1/mass-timings/${id}`),
-      [],
+    const response = await api.get<MassTimingApiRecord>(
+      `/api/v1/mass-timings/${id}`,
     )
-    const item = response[0]
+    const item = response
     return item && item.isActive !== false ? normalizeMassTiming(item) : null
   } catch {
     return massTimings.find((item) => item.id === id) ?? null
@@ -175,11 +174,11 @@ export async function getSacraments(): Promise<Sacrament[]> {
 }
 
 export async function getClergy(): Promise<ClergyMember[]> {
-  try {
-    return asArray(await api.get<ClergyMember[]>("/api/v1/clergy"), clergy)
-  } catch {
-    return clergy
-  }
+  return clergy
+}
+
+export async function getClergyById(id: string): Promise<ClergyMember | null> {
+  return clergy.find((item) => item.id === id) ?? null
 }
 
 export async function getCommunities(): Promise<ParishCommunity[]> {

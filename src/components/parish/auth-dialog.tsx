@@ -15,7 +15,10 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { notify } from "@/lib/toast"
-import { loginWithCredentials } from "@/features/auth/services/auth.service"
+import {
+  loginWithCredentials,
+  signupWithCredentials,
+} from "@/features/auth/services/auth.service"
 import {
   useAuthStore,
 } from "@/stores/auth.store"
@@ -53,17 +56,19 @@ export function AuthDialog({ trigger }: { trigger: ReactElement }) {
     if (!password) nextErrors.password = "Password is required."
     if (Object.keys(nextErrors).length > 0) {
       setFieldErrors(nextErrors)
+      setIsSubmitting(false)
       return
     }
 
     try {
       const response = await loginWithCredentials(email, password)
       login({
-        name: response.user.email,
+        name: response.user.name || response.user.email,
         email: response.user.email,
         roles: response.user.roles,
         isAdmin: response.user.isAdmin,
         role: response.user.isAdmin ? "admin" : "member",
+        mustChangePassword: response.user.mustChangePassword,
       })
       notify.success(response.message || `Welcome back, ${response.user.email}.`)
       setOpen(false)
@@ -74,8 +79,10 @@ export function AuthDialog({ trigger }: { trigger: ReactElement }) {
     }
   }
 
-  const onSignUp = (event: React.FormEvent<HTMLFormElement>) => {
+  const onSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    setError(null)
+    setIsSubmitting(true)
     const data = new FormData(event.currentTarget)
     const name = String(data.get("name") ?? "").trim()
     const email = String(data.get("email") ?? "").trim().toLowerCase()
@@ -86,18 +93,24 @@ export function AuthDialog({ trigger }: { trigger: ReactElement }) {
     else if (!/^\S+@\S+\.\S+$/.test(email)) {
       nextErrors.email = "Enter a valid email address."
     }
-    if (password.length < 8) {
-      nextErrors.password = "Password must be at least 8 characters."
+    if (password.length < 12 || password.length > 100) {
+      nextErrors.password = "Password must be between 12 and 100 characters."
     }
     if (Object.keys(nextErrors).length > 0) {
       setFieldErrors(nextErrors)
+      setIsSubmitting(false)
       return
     }
-    login({ name, email, role: "member" })
-    notify.success("Account created. Welcome!")
-    setOpen(false)
-    setError(null)
-    setFieldErrors({})
+    try {
+      await signupWithCredentials({ fullName: name, email, password })
+      notify.success("Account created. Please sign in.")
+      setMode("signin")
+      setFieldErrors({})
+    } catch (signupError) {
+      setError(getLoginErrorMessage(signupError))
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -266,6 +279,8 @@ export function AuthDialog({ trigger }: { trigger: ReactElement }) {
                     type={showPassword ? "text" : "password"}
                     placeholder="••••••••"
                     autoComplete="new-password"
+                    minLength={12}
+                    maxLength={100}
                     className="h-11 pr-10"
                     required
                   />

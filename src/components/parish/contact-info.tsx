@@ -11,7 +11,7 @@ export function ContactInfo() {
       </div>
       <div className="flex items-start gap-3">
         <Clock3 className="text-accent mt-0.5 size-4 shrink-0" />
-        <p>Parish Office Hours: Mon - Sat, 9:00 AM - 1:00 PM & 4:00 PM - 7:00 PM</p>
+        <p>Parish Office Hours: All Days - 8:30 AM - 10:30 AM</p>
       </div>
       <div className="flex items-start gap-3">
         <Phone className="text-accent mt-0.5 size-4 shrink-0" />

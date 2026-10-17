@@ -3,6 +3,17 @@ import { api } from "@/lib/api"
 import { adminMockData } from "./mock-admin.data"
 import type { AdminEntityType, AdminRecord } from "./types"
 
+export type AdminUser = {
+  id: string
+  fullName: string
+  email: string
+  roles?: string[]
+  role?: string
+  active: boolean
+  mustChangePassword: boolean
+  lastLoginAt?: string | null
+}
+
 function asArray(value: unknown, fallback: AdminRecord[]): AdminRecord[] {
   if (Array.isArray(value)) {
     return value as AdminRecord[]
@@ -27,21 +38,32 @@ export async function getAdminCollection(
       ? "/api/v1/mass-timings"
       : type === "events"
         ? "/api/v1/events/upcoming?page=0&size=50"
-      : type === "communities"
-        ? "/api/v1/communities"
-        : type === "cell-associations"
-          ? "/api/v1/cell-associations"
-        : type === "chronicle"
-          ? "/api/v1/chronicles"
-          : `/api/v1/admin/${type}`
+        : type === "communities"
+          ? "/api/v1/communities"
+          : type === "cell-associations"
+            ? "/api/v1/cell-associations"
+            : type === "chronicle"
+              ? "/api/v1/chronicles"
+              : `/api/v1/admin/${type}`
   try {
-    return asArray(await api.get<unknown>(collectionUrl), fallback)
+    const records = asArray(await api.get<unknown>(collectionUrl), fallback)
+    if (type !== "cell-associations") return records
+
+    return records.map((record) => ({
+      ...record,
+      cellMembers:
+        Array.isArray(record.cellMembers) || record.cellMembers === undefined
+          ? record.cellMembers
+          : parseMemberList(record.cellMembers),
+    }))
   } catch {
     return fallback
   }
 }
 
-export async function getCommunityById(id: string): Promise<AdminRecord | null> {
+export async function getCommunityById(
+  id: string,
+): Promise<AdminRecord | null> {
   const response = await api.get<unknown>(`/api/v1/communities/${id}`)
   const records = asArray(response, [])
   return records[0] ?? null
@@ -68,12 +90,66 @@ export async function updateAdminRecord(
   )
 }
 
+export async function patchAdminRecord(
+  type: AdminEntityType,
+  id: string,
+  payload: Record<string, unknown>,
+): Promise<AdminRecord> {
+  return api.patch<AdminRecord, typeof payload>(
+    `${adminCollectionUrl(type)}/${id}`,
+    toApiPayload(type, payload),
+  )
+}
+
 export async function archiveAdminRecord(
   type: AdminEntityType,
   id: string,
 ): Promise<{ id: string }> {
   await api.post(`${adminCollectionUrl(type)}/${id}/archive`)
   return { id }
+}
+
+export async function deleteAdminRecord(
+  type: AdminEntityType,
+  id: string,
+): Promise<{ id: string }> {
+  await api.delete(`${adminCollectionUrl(type)}/${id}`)
+  return { id }
+}
+
+export async function getAdminUsers(): Promise<AdminUser[]> {
+  const response = await api.get<unknown>("/api/v1/admin/users")
+  const records = asArray(response, [])
+  return records as AdminUser[]
+}
+
+export function createAdminUser(payload: {
+  fullName: string
+  email: string
+  password: string
+  confirmPassword: string
+}) {
+  const request = {
+    ...payload,
+    role: "ROLE_CONTENT_ADMIN",
+    roles: ["ROLE_CONTENT_ADMIN"],
+    mustChangePassword: true,
+  }
+  return api.post<AdminUser, typeof request>("/api/v1/admin/users", request)
+}
+
+export function resetAdminUserPassword(
+  id: string,
+  payload: { newPassword: string; confirmPassword: string },
+) {
+  return api.post<{ message: string }, typeof payload>(
+    `/api/v1/admin/users/${id}/reset-password`,
+    payload,
+  )
+}
+
+export function deleteAdminUser(id: string) {
+  return api.delete(`/api/v1/admin/users/${id}`)
 }
 
 function toApiPayload(type: AdminEntityType, payload: Record<string, unknown>) {
@@ -86,7 +162,9 @@ function toApiPayload(type: AdminEntityType, payload: Record<string, unknown>) {
       publishDate: String(payload.publishDate ?? "").trim(),
       expiryDate: String(payload.expiryDate ?? "").trim(),
       link: String(payload.link ?? "").trim(),
-      status: String(payload.status ?? "DRAFT").trim().toUpperCase(),
+      status: String(payload.status ?? "DRAFT")
+        .trim()
+        .toUpperCase(),
     }
   }
   if (type === "communities") {
@@ -120,8 +198,16 @@ function toApiPayload(type: AdminEntityType, payload: Record<string, unknown>) {
       occasion: String(payload.occasion ?? "").trim(),
       preacherOrPriest: String(payload.preacherOrPriest ?? "").trim(),
       coordinator: String(payload.coordinator ?? "").trim(),
-      day: eventDate ? new Date(`${eventDate}T00:00:00`).toLocaleDateString("en-US", { weekday: "long" }) : "",
-      month: eventDate ? new Date(`${eventDate}T00:00:00`).toLocaleDateString("en-US", { month: "long" }) : "",
+      day: eventDate
+        ? new Date(`${eventDate}T00:00:00`).toLocaleDateString("en-US", {
+            weekday: "long",
+          })
+        : "",
+      month: eventDate
+        ? new Date(`${eventDate}T00:00:00`).toLocaleDateString("en-US", {
+            month: "long",
+          })
+        : "",
       year: eventDate ? Number(eventDate.slice(0, 4)) : 0,
     }
   }
@@ -148,7 +234,8 @@ function adminCollectionUrl(type: AdminEntityType) {
 }
 
 function parseJsonObject(value: unknown): Record<string, unknown> {
-  if (value && typeof value === "object") return value as Record<string, unknown>
+  if (value && typeof value === "object")
+    return value as Record<string, unknown>
   if (typeof value !== "string" || !value.trim()) return {}
 
   const parsed: unknown = JSON.parse(value)
@@ -158,8 +245,11 @@ function parseJsonObject(value: unknown): Record<string, unknown> {
   return parsed as Record<string, unknown>
 }
 
-function parseMemberList(value: unknown): Array<{ name: string; phone: string }> {
-  if (Array.isArray(value)) return value as Array<{ name: string; phone: string }>
+function parseMemberList(
+  value: unknown,
+): Array<{ name: string; phone: string }> {
+  if (Array.isArray(value))
+    return value as Array<{ name: string; phone: string }>
   if (typeof value !== "string" || !value.trim()) return []
   const parsed: unknown = JSON.parse(value)
   if (!Array.isArray(parsed)) throw new Error("Expected a member list")
@@ -168,4 +258,3 @@ function parseMemberList(value: unknown): Array<{ name: string; phone: string }>
     phone: String((member as Record<string, unknown>).phone ?? "").trim(),
   }))
 }
-

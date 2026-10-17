@@ -116,6 +116,16 @@ export type ClergyMember = {
   role: string
   image: string
   bio: string
+  responsibilities?: string[]
+}
+
+export type ClergyApiRecord = {
+  id: number | string
+  fullName: string
+  designation: string
+  bio: string
+  photoId?: string | null
+  displayOrder?: number
 }
 
 export type ChronicleIssue = {
@@ -152,3 +162,19 @@ export type LiveStream = {
 }
 
 export type LiveStreamStatus = LiveStream | { isLive: false }
+
+export type LiveMassStatus = "UPCOMING" | "LIVE" | "COMPLETED" | "CANCELLED"
+
+export type LiveMassRecord = {
+  id: string
+  title: string
+  youtubeUrl: string
+  youtubeVideoId: string
+  startsAt: string
+  endsAt: string
+  durationMinutes: number
+  status: string
+  computedStatus: LiveMassStatus
+  live: boolean
+  isCancelled: boolean
+}

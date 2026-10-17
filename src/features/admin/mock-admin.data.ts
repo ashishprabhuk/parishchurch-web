@@ -1,13 +1,11 @@
 import {
   announcements,
   chronicleIssues,
-  clergy,
   communitiesData,
   events,
   historyTimeline,
   massTimings,
   outreach,
-  sacraments,
 } from "@/features/parish/data/mock-parish.data"
 
 import type { AdminEntityType, AdminRecord } from "./types"
@@ -17,8 +15,6 @@ export const adminMockData: Record<AdminEntityType, AdminRecord[]> = {
   announcements: announcements as unknown as AdminRecord[],
   events: events as unknown as AdminRecord[],
   "mass-timings": massTimings as unknown as AdminRecord[],
-  sacraments: sacraments as unknown as AdminRecord[],
-  clergy: clergy as unknown as AdminRecord[],
   communities: communitiesData as unknown as AdminRecord[],
   "cell-associations": [],
   history: historyTimeline.map((h, i) => ({ id: `h${i + 1}`, ...h })),

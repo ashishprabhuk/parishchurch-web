@@ -23,6 +23,7 @@ import { MapEmbed } from "@/components/parish/map-embed"
 import { PageShell } from "@/components/parish/page-shell"
 import { ButtonLink } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
+import { PARISH_ENTITY } from "@/lib/seo/meta"
 import { useUpcomingEvents } from "@/features/parish"
 import { useSeo } from "@/hooks/use-seo"
 
@@ -97,7 +98,7 @@ const socialChannels = [
     action: "Subscribe Channel",
     description: "Watch Masses, reflections, and parish moments online.",
     accentClass: "bg-[#FF0000]",
-    href: "https://youtube.com/",
+    href: PARISH_ENTITY.socialProfiles[2],
     icon: YoutubeIcon,
     colorClass:
       "text-[#FF0000] bg-[#FF0000]/10 border-[#FF0000]/30 group-hover:border-[#FF0000]",
