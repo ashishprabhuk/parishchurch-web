@@ -116,7 +116,7 @@ export async function getLiveMasses(): Promise<LiveMassRecord[]> {
     )
     const records = toLiveMassRecords(response)
     if (records.length > 0) return records
-    return getAdminLiveMasses()
+    return []
   } catch {
     try {
       return await getAdminLiveMasses()
